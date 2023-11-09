@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace DTOs
-{   // para mantener la concordancia con el singleton
+{
     public class BaseDTO
     {
         public int Id { get; set; }

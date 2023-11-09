@@ -1,6 +1,4 @@
-﻿using DataAccess.DAOs;
-using DTOs;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,13 +6,23 @@ using System.Threading.Tasks;
 
 namespace DataAccess.CRUD
 {
-    public abstract class CrudFactory
+    public abstract class CrudFactory<T>
     {
         protected SqlDao _dao;
-        public abstract void Create(BaseDTO baseDTO);
-        public abstract T RetrieveById<T>(int id); 
-        public abstract List<T> RetrieveAll<T>();
-        public abstract void Update(BaseDTO baseDTO);
-        public abstract void Delete(BaseDTO baseDTO);
+
+        public CrudFactory()
+        {
+            _dao = SqlDao.GetInstance();
+        }
+
+        public abstract void Create(T dto);
+
+        public abstract void Update(T dto);
+
+        public abstract void Delete(int id);
+
+        public abstract T? RetrieveById(int id);
+
+        public abstract List<T>? RetrieveAll();
     }
 }

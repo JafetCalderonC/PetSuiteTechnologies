@@ -9,3 +9,9 @@ C:\Users\mosco\OneDrive\Documentos\UCenfotec\Proyecto de Ingeniería del Softwar
 C:\Users\mosco\OneDrive\Documentos\UCenfotec\Proyecto de Ingeniería del Software 2\Proyecto Final\PetSuiteTechnologies\CoreApp\obj\Debug\net6.0\refint\CoreApp.dll
 C:\Users\mosco\OneDrive\Documentos\UCenfotec\Proyecto de Ingeniería del Software 2\Proyecto Final\PetSuiteTechnologies\CoreApp\obj\Debug\net6.0\CoreApp.pdb
 C:\Users\mosco\OneDrive\Documentos\UCenfotec\Proyecto de Ingeniería del Software 2\Proyecto Final\PetSuiteTechnologies\CoreApp\obj\Debug\net6.0\ref\CoreApp.dll
+C:\Users\mosco\OneDrive\Documentos\UCenfotec\Proyecto de Ingeniería del Software 2\Proyecto Final\PetSuiteTechnologies\CoreApp\obj\Debug\net6.0\CoreApp.csproj.AssemblyReference.cache
+C:\Users\mosco\OneDrive\Documentos\UCenfotec\Proyecto de Ingeniería del Software 2\Proyecto Final\PetSuiteTechnologies\CoreApp\bin\Debug\net6.0\DataAccess.dll
+C:\Users\mosco\OneDrive\Documentos\UCenfotec\Proyecto de Ingeniería del Software 2\Proyecto Final\PetSuiteTechnologies\CoreApp\bin\Debug\net6.0\DTOs.dll
+C:\Users\mosco\OneDrive\Documentos\UCenfotec\Proyecto de Ingeniería del Software 2\Proyecto Final\PetSuiteTechnologies\CoreApp\bin\Debug\net6.0\DataAccess.pdb
+C:\Users\mosco\OneDrive\Documentos\UCenfotec\Proyecto de Ingeniería del Software 2\Proyecto Final\PetSuiteTechnologies\CoreApp\bin\Debug\net6.0\DTOs.pdb
+C:\Users\mosco\OneDrive\Documentos\UCenfotec\Proyecto de Ingeniería del Software 2\Proyecto Final\PetSuiteTechnologies\CoreApp\obj\Debug\net6.0\CoreApp.csproj.CopyComplete

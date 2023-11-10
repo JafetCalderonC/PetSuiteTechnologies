@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataAccess.DAOs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,13 +9,6 @@ namespace DataAccess.CRUD
 {
     public abstract class CrudFactory<T>
     {
-        protected SqlDao _dao;
-
-        public CrudFactory()
-        {
-            _dao = SqlDao.GetInstance();
-        }
-
         public abstract void Create(T dto);
 
         public abstract void Update(T dto);

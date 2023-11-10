@@ -1,8 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "7GFRQB3LgceFeFJ5CwnKXgqjD+5n2zU28AkTTOD4HBqorfck9ewe688MaGoyIqsYraKTouoNInUPf7lWmVFaOQ==",
+  "dgSpecHash": "PED4yIFPznhcHsWlTflzXjoeGjMe1arOKKR7jmHDRT+scrzz0b9NCvjSnGxwrWqB7BJcI62QsxAXMM/dhW6hEA==",
   "success": true,
   "projectFilePath": "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final\\PetSuiteTechnologies\\DTOs\\DTOs.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\mosco\\.nuget\\packages\\microsoft.aspnetcore.http.features\\5.0.17\\microsoft.aspnetcore.http.features.5.0.17.nupkg.sha512",
+    "C:\\Users\\mosco\\.nuget\\packages\\microsoft.extensions.primitives\\5.0.1\\microsoft.extensions.primitives.5.0.1.nupkg.sha512",
+    "C:\\Users\\mosco\\.nuget\\packages\\system.io.pipelines\\5.0.2\\system.io.pipelines.5.0.2.nupkg.sha512"
+  ],
   "logs": []
 }

@@ -2,159 +2,236 @@
 	This script is used to create the stored procedures for the project.
 */
 
-
 /*
     User stored procedures 
 */
 
 -- Create user
--- LISTO
 CREATE PROCEDURE CREATE_USER_PR
-	@IsOtpVerified BIT,
-	@PasswordHash NVARCHAR(MAX),
-    @Role NVARCHAR(20),
-    @Status TINYINT,
-    @FirstName NVARCHAR(50),
-    @LastName NVARCHAR(50),
-    @IdentificationType NVARCHAR(30),
-    @IdentifierValue NVARCHAR(60),
-    @Email NVARCHAR(50),
-    @ProfilePhotoUrl NVARCHAR(MAX),
-    @ThemePreference NVARCHAR(20),
-    @CreatedDate DATETIME,
-    @ModifiedDate DATETIME,
-    @AddressLatitude FLOAT,
-    @AddressLongitude FLOAT,
-
-    @Id INT OUTPUT
-AS BEGIN
+    @P_IS_OTP_VERIFIED BIT,
+    @P_PASSWORD_HASH NVARCHAR(MAX),
+    @P_ROLE NVARCHAR(20),
+    @P_STATUS TINYINT,
+    @P_FIRST_NAME NVARCHAR(50),
+    @P_LAST_NAME NVARCHAR(50),
+    @P_IDENTIFICATION_TYPE NVARCHAR(30),
+    @P_IDENTIFIER_VALUE NVARCHAR(60),
+    @P_EMAIL NVARCHAR(50),
+    @P_PROFILE_PHOTO_URL NVARCHAR(MAX),
+    @P_THEME_PREFERENCE NVARCHAR(20),
+    @P_CREATED_DATE DATETIME,
+    @P_MODIFIED_DATE DATETIME,
+    @P_ADDRESS_LATITUDE FLOAT,
+    @P_ADDRESS_LONGITUDE FLOAT,
+    @P_ID INT OUTPUT
+AS
+BEGIN
     DECLARE @ID TABLE (ID INT)
 
-	INSERT INTO users(is_otp_verified, password_hash, role, status, first_name, last_name, identification_type, identifier_value, email, profile_photo_url, theme_preference, created_date, modified_date, address_latitude, address_longitude)
+    INSERT INTO users(
+        is_otp_verified, 
+        password_hash, 
+        role, 
+        status, 
+        first_name, 
+        last_name, 
+        identification_type, 
+        identifier_value, 
+        email, 
+        profile_photo_url, 
+        theme_preference, 
+        created_date, 
+        modified_date, 
+        address_latitude, 
+        address_longitude)
     OUTPUT INSERTED.user_id INTO @ID
-	VALUES (@IsOtpVerified, @PasswordHash, @Role, @Status, @FirstName, @LastName, @IdentificationType, @IdentifierValue, @Email, @ProfilePhotoUrl, @ThemePreference, @CreatedDate, @ModifiedDate, @AddressLatitude, @AddressLongitude)
+    VALUES (
+        @P_IS_OTP_VERIFIED, 
+        @P_PASSWORD_HASH, 
+        @P_ROLE, 
+        @P_STATUS, 
+        @P_FIRST_NAME, 
+        @P_LAST_NAME, 
+        @P_IDENTIFICATION_TYPE, 
+        @P_IDENTIFIER_VALUE, 
+        @P_EMAIL, 
+        @P_PROFILE_PHOTO_URL, 
+        @P_THEME_PREFERENCE, 
+        @P_CREATED_DATE, 
+        @P_MODIFIED_DATE, 
+        @P_ADDRESS_LATITUDE, 
+        @P_ADDRESS_LONGITUDE)
 
-    SELECT @Id = ID FROM @ID
+    SELECT @P_ID = ID FROM @ID
 END
 GO
 
 -- Add phone
--- LISTO
-CREATE PROCEDURE ADD_PHONE_NUMBERS_TO_USER_PR
-	@UserId INT,
-	@PhoneNumber NVARCHAR(20),
+CREATE PROCEDURE ADD_PHONE_NUMBER_TO_USER_PR
+    @P_USER_ID INT,
+    @P_PHONE_NUMBER NVARCHAR(20),
 
-	@Id INT OUTPUT
-AS BEGIN
-	DECLARE @ID TABLE (ID INT)
+    @P_ID INT OUTPUT
+AS
+BEGIN
+    DECLARE @ID TABLE (ID INT)
 
-	INSERT INTO phones(user_id, phone_number)
-	OUTPUT INSERTED.phone_id INTO @ID
-	VALUES (@UserId, @PhoneNumber)
+    INSERT INTO phones(user_id, phone_number)
+    OUTPUT INSERTED.phone_id INTO @ID
+    VALUES (@P_USER_ID, @P_PHONE_NUMBER)
 
-	SELECT @Id = ID FROM @ID
+    SELECT @P_ID = ID FROM @ID
 END
 GO
 
 -- Remove phone
--- LISTO
-CREATE PROCEDURE REMOVE_PHONE_NUMBERS_TO_USER_PR
-	@UserId INT,
-	@PhoneId INT
-AS BEGIN
-	DELETE FROM phones
-	WHERE user_id = @UserId AND phone_id = @PhoneId
+CREATE PROCEDURE REMOVE_PHONE_NUMBER_TO_USER_PR
+    @P_USER_ID INT,
+    @P_PHONE_ID INT
+AS
+BEGIN
+    DELETE FROM phones
+    WHERE user_id = @P_USER_ID AND phone_id = @P_PHONE_ID
 END
 GO
 
 -- Retrieve phones by user id
--- LISTO
 CREATE PROCEDURE RETRIEVE_PHONE_NUMBERS_BY_USER_ID_PR
-	@UserId INT
-AS BEGIN
-	SELECT phone_number
-	FROM phones
-	WHERE user_id = @UserId
+    @P_USER_ID INT
+AS
+BEGIN
+    SELECT phone_number
+    FROM phones
+    WHERE user_id = @P_USER_ID
 END
 GO
 
 -- Update user
--- LISTO
 CREATE PROCEDURE UPDATE_USER_PR
-	@UserId INT,	
-	@Role NVARCHAR(20),
-    @Status TINYINT,
-	@FirstName NVARCHAR(50),
-	@LastName NVARCHAR(50),
-	@IdentificationType NVARCHAR(30),
-	@IdentifierValue NVARCHAR(60),
-	@Email NVARCHAR(50),
-	@ProfilePhotoUrl NVARCHAR(MAX),
-	@ThemePreference NVARCHAR(20),	
-	@ModifiedDate DATETIME,
-	@AddressLatitude FLOAT,
-	@AddressLongitude FLOAT
-AS BEGIN
-	UPDATE users
-	SET role = @Role,
-        status = @Status,
-		first_name = @FirstName,
-		last_name = @LastName,
-		identification_type = @IdentificationType,
-		identifier_value = @IdentifierValue,
-		email = @Email,
-		profile_photo_url = @ProfilePhotoUrl,
-		theme_preference = @ThemePreference,
-		modified_date = @ModifiedDate,
-		address_latitude = @AddressLatitude,
-		address_longitude = @AddressLongitude
-	WHERE user_id = @UserId AND status != 0
+    @P_USER_ID INT,   
+    @P_ROLE NVARCHAR(20),
+    @P_STATUS TINYINT,
+    @P_FIRST_NAME NVARCHAR(50),
+    @P_LAST_NAME NVARCHAR(50),
+    @P_IDENTIFICATION_TYPE NVARCHAR(30),
+    @P_IDENTIFIER_VALUE NVARCHAR(60),
+    @P_EMAIL NVARCHAR(50),
+    @P_PROFILE_PHOTO_URL NVARCHAR(MAX),
+    @P_THEME_PREFERENCE NVARCHAR(20),  
+    @P_MODIFIED_DATE DATETIME,
+    @P_ADDRESS_LATITUDE FLOAT,
+    @P_ADDRESS_LONGITUDE FLOAT
+AS
+BEGIN
+    UPDATE users
+    SET role = @P_ROLE,
+        status = @P_STATUS,
+        first_name = @P_FIRST_NAME,
+        last_name = @P_LAST_NAME,
+        identification_type = @P_IDENTIFICATION_TYPE,
+        identifier_value = @P_IDENTIFIER_VALUE,
+        email = @P_EMAIL,
+        profile_photo_url = @P_PROFILE_PHOTO_URL,
+        theme_preference = @P_THEME_PREFERENCE,
+        modified_date = @P_MODIFIED_DATE,
+        address_latitude = @P_ADDRESS_LATITUDE,
+        address_longitude = @P_ADDRESS_LONGITUDE
+    WHERE user_id = @P_USER_ID AND status != 0
 END
 GO
 
 -- Delete user
--- Listo
 CREATE PROCEDURE DELETE_USER_PR
-	@UserId INT,
-	@ModifiedDate DATETIME
-AS BEGIN
-	UPDATE users
+    @P_USER_ID INT,
+    @P_MODIFIED_DATE DATETIME
+AS
+BEGIN
+    UPDATE users
     SET status = 0,
-	modified_date = @ModifiedDate
-    WHERE user_id = @UserId
+        modified_date = @P_MODIFIED_DATE
+    WHERE user_id = @P_USER_ID
 END
 GO
 
 -- Retrieve user by id
--- LISTO
 CREATE PROCEDURE RETRIEVE_USER_BY_ID_PR
-	@UserId INT
-AS BEGIN
-	SELECT TOP 1 user_id, is_otp_verified, password_hash, role, status, first_name, last_name, identification_type, identifier_value, email, profile_photo_url, theme_preference, created_date, modified_date, address_latitude, address_longitude
+    @P_USER_ID INT
+AS
+BEGIN
+    SELECT TOP 1 
+		user_id, 
+		is_otp_verified, 
+		password_hash, 
+		role, 
+		status, 
+		first_name, 
+		last_name, 
+		identification_type, 
+		identifier_value, 
+		email, 
+		profile_photo_url, 
+		theme_preference, 
+		created_date, 
+		modified_date, 
+		address_latitude, 
+		address_longitude
     FROM users
-	WHERE user_id = @UserId AND status != 0
+    WHERE user_id = @P_USER_ID AND status != 0
 END
 GO
 
 -- Retrieve user by email
--- LISTO
 CREATE PROCEDURE RETRIEVE_USER_BY_EMAIL_PR
-	@Email NVARCHAR(50)
-AS BEGIN
-	SELECT TOP 1 user_id, is_otp_verified, password_hash, role, status, first_name, last_name, identification_type, identifier_value, email, profile_photo_url, theme_preference, created_date, modified_date, address_latitude, address_longitude
+    @P_EMAIL NVARCHAR(50)
+AS
+BEGIN
+    SELECT TOP 1 
+		user_id, 
+		is_otp_verified, 
+		password_hash, 
+		role, 
+		status, 
+		first_name, 
+		last_name, 
+		identification_type, 
+		identifier_value, 
+		email, 
+		profile_photo_url, 
+		theme_preference, 
+		created_date, 
+		modified_date, 
+		address_latitude, 
+		address_longitude
     FROM users
-	WHERE email = @Email AND status != 0
+    WHERE email = @P_EMAIL AND status != 0
 END
 GO
 
 -- Retrieve all users
--- LISTO
-CREATE PROCEDURE RETRIEVE_ALL_USERS_PR AS BEGIN
-	SELECT user_id, is_otp_verified, password_hash, role, status, first_name, last_name, identification_type, identifier_value, email, profile_photo_url, theme_preference, created_date, modified_date, address_latitude, address_longitude
+CREATE PROCEDURE RETRIEVE_ALL_USERS_PR AS
+BEGIN
+    SELECT 
+		user_id, 
+		is_otp_verified, 
+		password_hash, 
+		role, 
+		status, 
+		first_name, 
+		last_name, 
+		identification_type, 
+		identifier_value, 
+		email, 
+		profile_photo_url, 
+		theme_preference, 
+		created_date, 
+		modified_date, 
+		address_latitude, 
+		address_longitude
     FROM users
     WHERE status != 0
 END
 GO
+
 
 /* 
     Pet stored procedures
@@ -162,114 +239,142 @@ GO
 
 -- Create pet
 CREATE PROCEDURE CREATE_PET_PR
-	@PetName NVARCHAR(50),
-    @Status TINYINT,
-	@Description NVARCHAR(MAX),
-	@Age TINYINT,
-	@Breed NVARCHAR(50),
-	@Aggressiveness TINYINT,
-	@CreatedDate DATETIME,
-	@ModifiedDate DATETIME,
-	@UserId INT,
-
-	@Id INT OUTPUT
+    @P_PET_NAME NVARCHAR(50),
+    @P_STATUS TINYINT,
+    @P_DESCRIPTION NVARCHAR(MAX),
+    @P_AGE TINYINT,
+    @P_BREED NVARCHAR(50),
+    @P_AGGRESSIVENESS TINYINT,
+    @P_CREATED_DATE DATETIME,
+    @P_MODIFIED_DATE DATETIME,
+    @P_USER_ID INT,
+    @P_ID INT OUTPUT
 AS BEGIN
     DECLARE @ID TABLE (ID INT)
 
-	INSERT INTO pets(pet_name, status, description, age, breed, aggressiveness, created_date, modified_date, user_id)
-	OUTPUT INSERTED.pet_id INTO @ID
-	VALUES (@PetName, @Status, @Description, @Age, @Breed, @Aggressiveness, @CreatedDate, @ModifiedDate, @UserId)
+    INSERT INTO pets(
+		pet_name, 
+		status, 
+		description, 
+		age, 
+		breed, 
+		aggressiveness, 
+		created_date, 
+		modified_date)
+    OUTPUT INSERTED.pet_id INTO @ID
+    VALUES (
+		@P_PET_NAME, 
+		@P_STATUS, 
+		@P_DESCRIPTION, 
+		@P_AGE, 
+		@P_BREED, 
+		@P_AGGRESSIVENESS, 
+		@P_CREATED_DATE, 
+		@P_MODIFIED_DATE)
 
-	RETURN (SELECT ID FROM @ID)
+    SELECT @P_ID = ID FROM @ID
 END
 GO
 
 -- Add pet pic
--- LISTO
 CREATE PROCEDURE ADD_PHOTOS_TO_PET_PR
-	@PetId INT,
-	@PhotoUrl NVARCHAR(MAX),
-
-    @Id INT OUTPUT
+    @P_PET_ID INT,
+    @P_PHOTO_URL NVARCHAR(MAX),
+    @P_ID INT OUTPUT
 AS BEGIN
-	DECLARE @ID TABLE (ID INT)
+    DECLARE @ID TABLE (ID INT)
 
-	INSERT INTO pet_pics(pet_id, photo_url)
+    INSERT INTO pet_pics(pet_id, photo_url)
     OUTPUT INSERTED.pet_photo_id INTO @ID
-	VALUES (@PetId, @PhotoUrl)
+    VALUES (@P_PET_ID, @P_PHOTO_URL)
 
-    RETURN (SELECT ID FROM @ID)
+    SELECT @P_ID = ID FROM @ID
 END
 GO
 
 -- Remove pet pic
 CREATE PROCEDURE REMOVE_PET_PHOTO_PR
-	@PetId INT,
-	@PicId INT
+    @P_PET_ID INT,
+    @P_PIC_ID INT
 AS BEGIN
-	DELETE FROM pet_pics
-	WHERE pet_id = @PetId AND pic_id = @PicId
+    DELETE FROM pet_pics
+    WHERE pet_id = @P_PET_ID AND pic_id = @P_PIC_ID
 END
 GO
 
 -- Retrieve pet photos by pet id
 CREATE PROCEDURE RETRIEVE_PHOTOS_BY_PET_ID_PR
-	@PetId INT
+    @P_PET_ID INT
 AS BEGIN
-	SELECT pic_id, pet_id, pic_url
-	FROM pet_pics
-	WHERE pet_id = @PetId
+    SELECT pic_id, pet_id, pic_url
+    FROM pet_pics
+    WHERE pet_id = @P_PET_ID
 END
 GO
 
 -- Update pet
 CREATE PROCEDURE UPDATE_PET_PR
-	@PetId INT,
-	@PetName NVARCHAR(50),    
-	@Description NVARCHAR(MAX),
-    @Status TINYINT,
-	@Age TINYINT,
-	@Breed NVARCHAR(50),
-	@Aggressiveness TINYINT,
-	@ModifiedDate DATETIME
+    @P_PET_ID INT,
+    @P_PET_NAME NVARCHAR(50),
+    @P_DESCRIPTION NVARCHAR(MAX),
+    @P_STATUS TINYINT,
+    @P_AGE TINYINT,
+    @P_BREED NVARCHAR(50),
+    @P_AGGRESSIVENESS TINYINT,
+    @P_MODIFIED_DATE DATETIME
 AS BEGIN
-	UPDATE pets
-	SET pet_name = @PetName,
-		description = @Description,
-		age = @Age,
-		breed = @Breed,
-		aggressiveness = @Aggressiveness,
-		modified_date = @ModifiedDate
-	WHERE pet_id = @PetId AND status != 0
+    UPDATE pets
+    SET pet_name = @P_PET_NAME,
+        description = @P_DESCRIPTION,
+        age = @P_AGE,
+        breed = @P_BREED,
+        aggressiveness = @P_AGGRESSIVENESS,
+        modified_date = @P_MODIFIED_DATE
+    WHERE pet_id = @P_PET_ID AND status != 0
 END
 GO
 
 -- Delete pet
--- LISTO
 CREATE PROCEDURE DELETE_PET_PR
-	@PetId INT
+    @P_PET_ID INT
 AS BEGIN
-	UPDATE pets
-	SET status = 0
-	WHERE pet_id = @PetId
+    UPDATE pets
+    SET status = 0
+    WHERE pet_id = @P_PET_ID
 END
 GO
 
 -- Retrieve pet by id
--- LISTO
 CREATE PROCEDURE RETRIEVE_PET_BY_ID_PR
-	@PetId INT
+    @P_PET_ID INT
 AS BEGIN
-	SELECT TOP 1 pet_id, pet_name, status, description, age, breed, aggressiveness, created_date, modified_date, user_id
+    SELECT TOP 1 
+		pet_id, 
+		pet_name, 
+		status, 
+		description, 
+		age, 
+		breed, 
+		aggressiveness, 
+		created_date, 
+		modified_date
     FROM pets
-	WHERE pet_id = @PetId AND status != 0
+    WHERE pet_id = @P_PET_ID AND status != 0
 END
 GO
 
 -- Retrieve all pets
--- LISTO
 CREATE PROCEDURE RETRIEVE_ALL_PETS_PR AS BEGIN
-	SELECT pet_id, pet_name, status, description, age, breed, aggressiveness, created_date, modified_date, user_id
+    SELECT 
+		pet_id, 
+		pet_name, 
+		status, 
+		description, 
+		age, 
+		breed, 
+		aggressiveness,		
+		created_date, 
+		modified_date
     FROM pets 
     WHERE status != 0
 END
@@ -277,11 +382,21 @@ GO
 
 -- Retrieve pets by user id
 CREATE PROCEDURE RETRIEVE_PETS_BY_USER_ID_PR
-	@UserId INT
+    @P_USER_ID INT
 AS BEGIN
-	SELECT TOP 1 pet_id, pet_name, status, description, age, breed, aggressiveness, created_date, modified_date, user_id
-    FROM pets
-	WHERE user_id = @UserId AND status != 0
+    SELECT 
+        p.pet_id, 
+        p.pet_name, 
+        p.status, 
+        p.description, 
+        p.age, 
+        p.breed,
+        p.aggressiveness, 
+        p.created_date, 
+        p.modified_date
+    FROM pets p
+    INNER JOIN users_pets up ON p.pet_id = up.pet_id
+    WHERE up.user_id = @P_USER_ID AND p.status != 0
 END
 GO
 
@@ -291,79 +406,100 @@ GO
 
 -- Create service
 CREATE PROCEDURE CREATE_SERVICE_PR
-	@ServiceName NVARCHAR(50),
-	@Status TINYINT,
-	@Description NVARCHAR(MAX),
-	@Cost DECIMAL(10, 2),
-	@CreatedDate DATETIME,
-	@ModifiedDate DATETIME,
-
-	@Id INT OUTPUT
+    @P_SERVICE_NAME NVARCHAR(50),
+    @P_STATUS TINYINT,
+    @P_DESCRIPTION NVARCHAR(MAX),
+    @P_COST DECIMAL(10, 2),
+    @P_CREATED_DATE DATETIME,
+    @P_MODIFIED_DATE DATETIME,
+    @P_ID INT OUTPUT
 AS BEGIN
-	DECLARE @ID TABLE (ID INT)
+    DECLARE @ID TABLE (ID INT)
 
     INSERT INTO services(service_name, status, description, cost, created_date, modified_date)
     OUTPUT INSERTED.service_id INTO @ID
-    VALUES (@ServiceName, @Status, @Description, @Cost, @CreatedDate, @ModifiedDate)
+    VALUES (@P_SERVICE_NAME, @P_STATUS, @P_DESCRIPTION, @P_COST, @P_CREATED_DATE, @P_MODIFIED_DATE)
 
-    RETURN (SELECT ID FROM @ID)
+    SELECT @P_ID = ID FROM @ID
 END
 GO
 
 -- Update service
 CREATE PROCEDURE UPDATE_SERVICE_PR
-	@ServiceId INT,
-	@ServiceName NVARCHAR(50),
-	@Status TINYINT,
-	@Description NVARCHAR(MAX),
-	@Cost DECIMAL(10, 2),
-	@ModifiedDate DATETIME
+    @P_SERVICE_ID INT,
+    @P_SERVICE_NAME NVARCHAR(50),
+    @P_STATUS TINYINT,
+    @P_DESCRIPTION NVARCHAR(MAX),
+    @P_COST DECIMAL(10, 2),
+    @P_MODIFIED_DATE DATETIME
 AS BEGIN
-	UPDATE services
-	SET service_name = @ServiceName,
-		status = @Status,
-		description = @Description,
-		cost = @Cost,
-		modified_date = @ModifiedDate
-	WHERE service_id = @ServiceId  AND status != 0
+    UPDATE services
+    SET service_name = @P_SERVICE_NAME,
+        status = @P_STATUS,
+        description = @P_DESCRIPTION,
+        cost = @P_COST,
+        modified_date = @P_MODIFIED_DATE
+    WHERE service_id = @P_SERVICE_ID AND status != 0
 END
 GO
 
 -- Delete service
 CREATE PROCEDURE DELETE_SERVICE_PR
-	@ServiceId INT
+    @P_SERVICE_ID INT
 AS BEGIN
     UPDATE services
-	SET status = 0
-	WHERE service_id = @ServiceId
+    SET status = 0
+    WHERE service_id = @P_SERVICE_ID
 END
 GO
 
 -- Retrieve service by id
 CREATE PROCEDURE RETRIEVE_SERVICE_BY_ID_PR
-	@ServiceId INT
+    @P_SERVICE_ID INT
 AS BEGIN
-	SELECT service_id, service_name, status, description, cost, created_date, modified_date
-	FROM services
-	WHERE service_id = @ServiceId AND status != 0
+    SELECT 
+        service_id, 
+        service_name, 
+        status, 
+        description, 
+        cost, 
+        created_date, 
+        modified_date
+    FROM services
+    WHERE service_id = @P_SERVICE_ID AND status != 0
 END
 GO
 
 -- Retrieve all services
 CREATE PROCEDURE RETRIEVE_ALL_SERVICES_PR AS BEGIN
-	SELECT service_id, service_name, status, description, cost, created_date, modified_date
-	FROM services
-	WHERE status != 0
+    SELECT 
+        service_id, 
+        service_name, 
+        status, 
+        description, 
+        cost, 
+        created_date, 
+        modified_date
+    FROM services
+    WHERE status != 0
 END
 GO
 
 -- Retrieve available services
 CREATE PROCEDURE RETRIEVE_AVAILABLE_SERVICES_PR AS BEGIN
-	SELECT service_id, service_name, status, description, cost, created_date, modified_date
-	FROM services
-	WHERE status = 1
+    SELECT 
+        service_id, 
+        service_name, 
+        status, 
+        description, 
+        cost, 
+        created_date, 
+        modified_date
+    FROM services
+    WHERE status = 1
 END
 GO
+
 
 /*
 	Package stored procedures
@@ -371,126 +507,156 @@ GO
 
 -- Create package
 CREATE PROCEDURE CREATE_PACKAGE_PR
-	@PackageName NVARCHAR(50),
-	@Status TINYINT,
-	@Description NVARCHAR(200),
-	@RoomId INT,
-	@PetBreedType NVARCHAR(50),
-	@PetSize NVARCHAR(20),
-	@PetAggressiveness TINYINT,
-	@CreatedDate DATETIME,
-	@ModifiedDate DATETIME,
-
-	@Id INT OUTPUT
+    @P_PACKAGE_NAME NVARCHAR(50),
+    @P_STATUS TINYINT,
+    @P_DESCRIPTION NVARCHAR(200),
+    @P_ROOM_ID INT,
+    @P_PET_BREED_TYPE NVARCHAR(50),
+    @P_PET_SIZE NVARCHAR(20),
+    @P_PET_AGGRESSIVENESS TINYINT,
+    @P_CREATED_DATE DATETIME,
+    @P_MODIFIED_DATE DATETIME,
+    @P_ID INT OUTPUT
 AS BEGIN
-	DECLARE @ID TABLE (ID INT)
+    DECLARE @ID TABLE (ID INT)
 
-	INSERT INTO packages(package_name, status, description, room_id, pet_breed_type, pet_size, pet_aggressiveness, created_date, modified_date)
-	OUTPUT INSERTED.package_id INTO @ID
-	VALUES (@PackageName, @Status, @Description, @RoomId, @PetBreedType, @PetSize, @PetAggressiveness, @CreatedDate, @ModifiedDate)
+    INSERT INTO packages(package_name, status, description, room_id, pet_breed_type, pet_size, pet_aggressiveness, created_date, modified_date)
+    OUTPUT INSERTED.package_id INTO @ID
+    VALUES (@P_PACKAGE_NAME, @P_STATUS, @P_DESCRIPTION, @P_ROOM_ID, @P_PET_BREED_TYPE, @P_PET_SIZE, @P_PET_AGGRESSIVENESS, @P_CREATED_DATE, @P_MODIFIED_DATE)
 
-	RETURN (SELECT ID FROM @ID)
+    SELECT @P_ID = ID FROM @ID
 END
 GO
 
 -- Add service to package
 CREATE PROCEDURE ADD_SERVICE_TO_PACKAGE_PR
-	@PackageId INT,
-	@ServiceId INT,
-
-	@Id INT OUTPUT
+    @P_PACKAGE_ID INT,
+    @P_SERVICE_ID INT
 AS BEGIN
-	DECLARE @ID TABLE (ID INT)
-
-	INSERT INTO package_services(package_id, service_id)
-	OUTPUT INSERTED.package_id INTO @ID
-	VALUES (@PackageId, @ServiceId)
-
-	RETURN (SELECT ID FROM @ID)
+    INSERT INTO package_services(package_id, service_id)
+    VALUES (@P_PACKAGE_ID, @P_SERVICE_ID)
 END
 GO
 
 -- Remove service from package
 CREATE PROCEDURE REMOVE_SERVICE_FROM_PACKAGE_PR
-	@PackageId INT,
-	@ServiceId INT
+    @P_PACKAGE_ID INT,
+    @P_SERVICE_ID INT
 AS BEGIN
-	DELETE FROM package_services
-	WHERE package_id = @PackageId AND service_id = @ServiceId
+    DELETE FROM package_services
+    WHERE package_id = @P_PACKAGE_ID AND service_id = @P_SERVICE_ID
 END
 GO
 
 -- Retrieve package services by package id
 CREATE PROCEDURE RETRIEVE_PACKAGE_SERVICES_BY_PACKAGE_ID_PR
-	@PackageId INT
+    @P_PACKAGE_ID INT
 AS BEGIN
-	SELECT sr.service_id, sr.service_name, sr.status, sr.description, sr.cost, sr.created_date, sr.modified_date
-	FROM package_services
-	INNER JOIN services sr ON sr.service_id = package_services.service_id
-	WHERE package_id = @PackageId
+    SELECT 
+        sr.service_id, 
+        sr.service_name, 
+        sr.status, 
+        sr.description, 
+        sr.cost, 
+        sr.created_date, 
+        sr.modified_date
+    FROM package_services
+    INNER JOIN services sr ON sr.service_id = package_services.service_id
+    WHERE package_services.package_id = @P_PACKAGE_ID
 END
 GO
 
 -- Update package
 CREATE PROCEDURE UPDATE_PACKAGE_PR
-	@PackageId INT,
-	@PackageName NVARCHAR(50),
-	@Status TINYINT,
-	@Description NVARCHAR(200),
-	@RoomId INT,
-	@PetBreedType NVARCHAR(50),
-	@PetSize NVARCHAR(20),
-	@PetAggressiveness TINYINT,
-	@ModifiedDate DATETIME
+    @P_PACKAGE_ID INT,
+    @P_PACKAGE_NAME NVARCHAR(50),
+    @P_STATUS TINYINT,
+    @P_DESCRIPTION NVARCHAR(200),
+    @P_ROOM_ID INT,
+    @P_PET_BREED_TYPE NVARCHAR(50),
+    @P_PET_SIZE NVARCHAR(20),
+    @P_PET_AGGRESSIVENESS TINYINT,
+    @P_MODIFIED_DATE DATETIME
 AS BEGIN
-	UPDATE packages
-	SET package_name = @PackageName,
-		status = @Status,
-		description = @Description,
-		room_id = @RoomId,
-		pet_breed_type = @PetBreedType,
-		pet_size = @PetSize,
-		pet_aggressiveness = @PetAggressiveness,
-		modified_date = @ModifiedDate
-	WHERE package_id = @PackageId AND status != 0
+    UPDATE packages
+    SET package_name = @P_PACKAGE_NAME,
+        status = @P_STATUS,
+        description = @P_DESCRIPTION,
+        room_id = @P_ROOM_ID,
+        pet_breed_type = @P_PET_BREED_TYPE,
+        pet_size = @P_PET_SIZE,
+        pet_aggressiveness = @P_PET_AGGRESSIVENESS,
+        modified_date = @P_MODIFIED_DATE
+    WHERE package_id = @P_PACKAGE_ID AND status != 0
 END
 GO
 
 -- Delete package
 CREATE PROCEDURE DELETE_PACKAGE_PR
-	@PackageId INT
+    @P_PACKAGE_ID INT
 AS BEGIN
-	UPDATE packages
-	SET status = 0
-	WHERE package_id = @PackageId
+    UPDATE packages
+    SET status = 0
+    WHERE package_id = @P_PACKAGE_ID
 END
 GO
 
 -- Retrieve package by id
 CREATE PROCEDURE RETRIEVE_PACKAGE_BY_ID_PR
-	@PackageId INT
+    @P_PACKAGE_ID INT
 AS BEGIN
-	SELECT TOP 1 package_id, package_name, status, description, room_id, pet_breed_type, pet_size, pet_aggressiveness, created_date, modified_date
-	FROM packages
-	WHERE package_id = @PackageId AND status != 0
+    SELECT TOP 1 
+        package_id, 
+        package_name, 
+        status, 
+        description, 
+        room_id, 
+        pet_breed_type, 
+        pet_size, 
+        pet_aggressiveness, 
+        created_date, 
+        modified_date
+    FROM packages
+    WHERE package_id = @P_PACKAGE_ID AND status != 0
 END
 GO
 
 -- Retrieve all packages
 CREATE PROCEDURE RETRIEVE_ALL_PACKAGES_PR AS BEGIN
-	SELECT package_id, package_name, status, description, room_id, pet_breed_type, pet_size, pet_aggressiveness, created_date, modified_date
-	FROM packages
-	WHERE status != 0
+    SELECT 
+        package_id, 
+        package_name, 
+        status, 
+        description, 
+        room_id, 
+        pet_breed_type, 
+        pet_size, 
+        pet_aggressiveness, 
+        created_date, 
+        modified_date
+    FROM packages
+    WHERE status != 0
 END
 GO
 
 -- Retrieve available packages
 CREATE PROCEDURE RETRIEVE_AVAILABLE_PACKAGES_PR AS BEGIN
-	SELECT package_id, package_name, status, description, room_id, pet_breed_type, pet_size, pet_aggressiveness, created_date, modified_date
-	FROM packages
-	WHERE status = 1
+    SELECT 
+        package_id, 
+        package_name, 
+        status, 
+        description, 
+        room_id, 
+        pet_breed_type, 
+        pet_size, 
+        pet_aggressiveness, 
+        created_date, 
+        modified_date
+    FROM packages
+    WHERE status = 1
 END
 GO
+
 
 /*
 	Reservation stored procedures
@@ -498,121 +664,146 @@ GO
 
 -- Create reservation
 CREATE PROCEDURE CREATE_RESERVATION_PR
-	@StartDate DATE,
-	@EndDate DATE,
-	@UserId INT,
-	@PetId INT,
-	@PackageId INT,
-	@CreatedDate DATETIME,
-	@ModifiedDate DATETIME,
-
-	@Id INT OUTPUT
+    @P_START_DATE DATE,
+    @P_END_DATE DATE,
+    @P_USER_ID INT,
+    @P_PET_ID INT,
+    @P_PACKAGE_ID INT,
+    @P_CREATED_DATE DATETIME,
+    @P_MODIFIED_DATE DATETIME,
+    @P_ID INT OUTPUT
 AS BEGIN
-	DECLARE @ID TABLE (ID INT)
+    DECLARE @ID TABLE (ID INT)
 
-	INSERT INTO reservations(start_date, end_date, user_id, pet_id, package_id, created_date, modified_date)
-	OUTPUT INSERTED.reservation_id INTO @ID
-	VALUES (@StartDate, @EndDate, @UserId, @PetId, @PackageId, @CreatedDate, @ModifiedDate)
+    INSERT INTO reservations(start_date, end_date, user_id, pet_id, package_id, created_date, modified_date)
+    OUTPUT INSERTED.reservation_id INTO @ID
+    VALUES (@P_START_DATE, @P_END_DATE, @P_USER_ID, @P_PET_ID, @P_PACKAGE_ID, @P_CREATED_DATE, @P_MODIFIED_DATE)
 
-	RETURN (SELECT ID FROM @ID)
+    SELECT @P_ID = ID FROM @ID
 END
 GO
 
 -- Add unwanted service
 CREATE PROCEDURE ADD_UNWANTED_SERVICE_PR
-	@ReservationId INT,
-	@ServiceId INT,
-
-	@Id INT OUTPUT
+    @P_RESERVATION_ID INT,
+    @P_SERVICE_ID INT
 AS BEGIN
-	DECLARE @ID TABLE (ID INT)
+    DECLARE @ID TABLE (ID INT)
 
-	INSERT INTO unwanted_services(reservation_id, service_id)
-	OUTPUT INSERTED.reservation_id INTO @ID
-	VALUES (@ReservationId, @ServiceId)
-
-	RETURN (SELECT ID FROM @ID)
+    INSERT INTO unwanted_services(reservation_id, service_id)
+    VALUES (@P_RESERVATION_ID, @P_SERVICE_ID)
 END
 GO
 
 -- Update reservation
 CREATE PROCEDURE UPDATE_RESERVATION_PR
-	@ReservationId INT,
-	@StartDate DATE,
-	@EndDate DATE,
-	@UserId INT,
-	@PetId INT,
-	@PackageId INT,
-	@ModifiedDate DATETIME
+    @P_RESERVATION_ID INT,
+    @P_START_DATE DATE,
+    @P_END_DATE DATE,
+    @P_USER_ID INT,
+    @P_PET_ID INT,
+    @P_PACKAGE_ID INT,
+    @P_MODIFIED_DATE DATETIME
 AS BEGIN
-	UPDATE reservations
-	SET start_date = @StartDate,
-		end_date = @EndDate,
-		user_id = @UserId,
-		pet_id = @PetId,
-		package_id = @PackageId,
-		modified_date = @ModifiedDate
-	WHERE reservation_id = @ReservationId
+    UPDATE reservations
+    SET start_date = @P_START_DATE,
+        end_date = @P_END_DATE,
+        user_id = @P_USER_ID,
+        pet_id = @P_PET_ID,
+        package_id = @P_PACKAGE_ID,
+        modified_date = @P_MODIFIED_DATE
+    WHERE reservation_id = @P_RESERVATION_ID
 END
 GO
 
 -- Remove unwanted service
 CREATE PROCEDURE REMOVE_UNWANTED_SERVICE_PR
-	@ReservationId INT,
-	@ServiceId INT
+    @P_RESERVATION_ID INT,
+    @P_SERVICE_ID INT
 AS BEGIN
-	DELETE FROM unwanted_services
-	WHERE reservation_id = @ReservationId AND service_id = @ServiceId
+    DELETE FROM unwanted_services
+    WHERE reservation_id = @P_RESERVATION_ID AND service_id = @P_SERVICE_ID
 END
 GO
 
 -- Delete reservation
 CREATE PROCEDURE DELETE_RESERVATION_PR
-	@ReservationId INT
+    @P_RESERVATION_ID INT
 AS BEGIN
-	UPDATE reservations
-	SET status = 0
-	WHERE reservation_id = @ReservationId
+	DELETE FROM reservations
+    WHERE reservation_id = @P_RESERVATION_ID
 END
 GO
 
 -- Retrieve unwanted services by reservation id
 CREATE PROCEDURE RETRIEVE_UNWANTED_SERVICES_BY_RESERVATION_ID_PR
-	@ReservationId INT
+    @P_RESERVATION_ID INT
 AS BEGIN
-	SELECT sr.service_id, sr.service_name, sr.status, sr.description, sr.cost, sr.created_date, sr.modified_date
-	FROM unwanted_services
-	INNER JOIN services sr ON sr.service_id = unwanted_services.service_id
-	WHERE reservation_id = @ReservationId
+    SELECT 
+        sr.service_id, 
+        sr.service_name, 
+        sr.status, 
+        sr.description, 
+        sr.cost, 
+        sr.created_date, 
+        sr.modified_date
+    FROM unwanted_services
+    INNER JOIN services sr ON sr.service_id = unwanted_services.service_id
+    WHERE unwanted_services.reservation_id = @P_RESERVATION_ID
 END
 GO
 
 -- Retrieve reservation by id
 CREATE PROCEDURE RETRIEVE_RESERVATION_BY_ID_PR
-	@ReservationId INT
+    @P_RESERVATION_ID INT
 AS BEGIN
-	SELECT TOP 1 reservation_id, start_date, end_date, user_id, pet_id, package_id, created_date, modified_date
-	FROM reservations
-	WHERE reservation_id = @ReservationId
+    SELECT TOP 1 
+        reservation_id, 
+        start_date, 
+        end_date, 
+        user_id, 
+        pet_id, 
+        package_id, 
+        created_date, 
+        modified_date
+    FROM reservations
+    WHERE reservation_id = @P_RESERVATION_ID
 END
 GO
 
 -- Retrieve all reservations
 CREATE PROCEDURE RETRIEVE_ALL_RESERVATIONS_PR AS BEGIN
-	SELECT reservation_id, start_date, end_date, user_id, pet_id, package_id, created_date, modified_date
-	FROM reservations
+    SELECT 
+        reservation_id, 
+        start_date, 
+        end_date, 
+        user_id, 
+        pet_id, 
+        package_id, 
+        created_date, 
+        modified_date
+    FROM reservations
 END
 GO
 
 -- Retrieve reservations by user id
 CREATE PROCEDURE RETRIEVE_RESERVATIONS_BY_USER_ID_PR
-	@UserId INT
+    @P_USER_ID INT
 AS BEGIN
-	SELECT reservation_id, start_date, end_date, user_id, pet_id, package_id, created_date, modified_date
-	FROM reservations
-	WHERE user_id = @UserId
+    SELECT 
+        reservation_id, 
+        start_date, 
+        end_date, 
+        user_id, 
+        pet_id, 
+        package_id, 
+        created_date, 
+        modified_date
+    FROM reservations
+    WHERE user_id = @P_USER_ID
 END
 GO
+
 
 /*
 	Invoice stored procedures
@@ -620,127 +811,163 @@ GO
 
 -- Create invoice
 CREATE PROCEDURE CREATE_INVOICE_PR
-	@InvoiceNumber NVARCHAR(30),
-	@IssueDate DATE,
-	@DueDate DATE,
-	@UserId INT,
-	@TotalAmount DECIMAL(10, 2),
-	@Status TINYINT,
-	@TaxAmount DECIMAL(10, 2),
-	@DiscountCode NVARCHAR(30),
-	@DiscountAmount DECIMAL(10, 2),
-
-	@Id INT OUTPUT
+    @P_INVOICE_NUMBER NVARCHAR(30),
+    @P_ISSUE_DATE DATE,
+    @P_DUE_DATE DATE,
+    @P_USER_ID INT,
+    @P_TOTAL_AMOUNT DECIMAL(10, 2),
+    @P_STATUS TINYINT,
+    @P_TAX_AMOUNT DECIMAL(10, 2),
+    @P_DISCOUNT_CODE NVARCHAR(30),
+    @P_DISCOUNT_AMOUNT DECIMAL(10, 2),
+    @P_ID INT OUTPUT
 AS BEGIN
-	DECLARE @ID TABLE (ID INT)
+    DECLARE @ID TABLE (ID INT)
 
-	INSERT INTO invoices(invoice_number, issue_date, due_date, user_id, total_amount, status, tax_amount, discount_code, discount_amount)
-	OUTPUT INSERTED.invoice_id INTO @ID
-	VALUES (@InvoiceNumber, @IssueDate, @DueDate, @UserId, @TotalAmount, @Status, @TaxAmount, @DiscountCode, @DiscountAmount)
+    INSERT INTO invoices(invoice_number, issue_date, due_date, user_id, total_amount, status, tax_amount, discount_code, discount_amount)
+    OUTPUT INSERTED.invoice_id INTO @ID
+    VALUES (@P_INVOICE_NUMBER, @P_ISSUE_DATE, @P_DUE_DATE, @P_USER_ID, @P_TOTAL_AMOUNT, @P_STATUS, @P_TAX_AMOUNT, @P_DISCOUNT_CODE, @P_DISCOUNT_AMOUNT)
 
-	RETURN (SELECT ID FROM @ID)
+    SELECT @P_ID = ID FROM @ID
 END
 GO
 
 -- Add invoice detail
 CREATE PROCEDURE ADD_INVOICE_DETAIL_PR
-	@InvoiceId INT,
-	@ServiceId INT,
-	@PackageId INT,
-	@RoomId INT,
-	@ReservationId INT,
-	@Price DECIMAL(10, 2),
-
-	@Id INT OUTPUT
+    @P_INVOICE_ID INT,
+    @P_SERVICE_ID INT,
+    @P_PACKAGE_ID INT,
+    @P_ROOM_ID INT,
+    @P_RESERVATION_ID INT,
+    @P_PRICE DECIMAL(10, 2),
+    @P_ID INT OUTPUT
 AS BEGIN
-	DECLARE @ID TABLE (ID INT)
+    DECLARE @ID TABLE (ID INT)
 
-	INSERT INTO invoice_details(invoice_id, service_id, package_id, room_id, reservation_id, price)
-	OUTPUT INSERTED.invoice_detail_id INTO @ID
-	VALUES (@InvoiceId, @ServiceId, @PackageId, @RoomId, @ReservationId, @Price)
+    INSERT INTO invoice_details(invoice_id, service_id, package_id, room_id, reservation_id, price)
+    OUTPUT INSERTED.invoice_detail_id INTO @ID
+    VALUES (@P_INVOICE_ID, @P_SERVICE_ID, @P_PACKAGE_ID, @P_ROOM_ID, @P_RESERVATION_ID, @P_PRICE)
 
-	RETURN (SELECT ID FROM @ID)
+    SELECT @P_ID = ID FROM @ID
 END
 GO
 
 -- Remove invoice detail
 CREATE PROCEDURE REMOVE_INVOICE_DETAIL_PR
-	@InvoiceId INT,
-	@InvoiceDetailId INT
+    @P_INVOICE_ID INT,
+    @P_INVOICE_DETAIL_ID INT
 AS BEGIN
-	DELETE FROM invoice_details
-	WHERE invoice_id = @InvoiceId AND invoice_detail_id = @InvoiceDetailId
+    DELETE FROM invoice_details
+    WHERE invoice_id = @P_INVOICE_ID AND invoice_detail_id = @P_INVOICE_DETAIL_ID
 END
 GO
 
 -- Retrieve invoice details by invoice id
 CREATE PROCEDURE RETRIEVE_INVOICE_DETAILS_BY_INVOICE_ID_PR
-	@InvoiceId INT
+    @P_INVOICE_ID INT
 AS BEGIN
-	SELECT invoice_detail_id, invoice_id, service_id, package_id, room_id, reservation_id, price
-	FROM invoice_details
-	WHERE invoice_id = @InvoiceId
+    SELECT 
+        invoice_detail_id, 
+        invoice_id, 
+        service_id, 
+        package_id, 
+        room_id, 
+        reservation_id, 
+        price
+    FROM invoice_details
+    WHERE invoice_id = @P_INVOICE_ID
 END
 GO
 
 -- Update invoice
 CREATE PROCEDURE UPDATE_INVOICE_PR
-	@InvoiceId INT,
-	@DueDate DATE,
-	@UserId INT,
-	@TotalAmount DECIMAL(10, 2),
-	@Status TINYINT,
-	@TaxAmount DECIMAL(10, 2),
-	@DiscountCode NVARCHAR(30),
-	@DiscountAmount DECIMAL(10, 2)
+    @P_INVOICE_ID INT,
+    @P_DUE_DATE DATE,
+    @P_USER_ID INT,
+    @P_TOTAL_AMOUNT DECIMAL(10, 2),
+    @P_STATUS TINYINT,
+    @P_TAX_AMOUNT DECIMAL(10, 2),
+    @P_DISCOUNT_CODE NVARCHAR(30),
+    @P_DISCOUNT_AMOUNT DECIMAL(10, 2)
 AS BEGIN
-	UPDATE invoices
-	SET due_date = @DueDate,
-		user_id = @UserId,
-		total_amount = @TotalAmount,
-		status = @Status,
-		tax_amount = @TaxAmount,
-		discount_code = @DiscountCode,
-		discount_amount = @DiscountAmount
-	WHERE invoice_id = @InvoiceId
+    UPDATE invoices
+    SET due_date = @P_DUE_DATE,
+        user_id = @P_USER_ID,
+        total_amount = @P_TOTAL_AMOUNT,
+        status = @P_STATUS,
+        tax_amount = @P_TAX_AMOUNT,
+        discount_code = @P_DISCOUNT_CODE,
+        discount_amount = @P_DISCOUNT_AMOUNT
+    WHERE invoice_id = @P_INVOICE_ID
 END
 GO
 
 -- Delete invoice
 CREATE PROCEDURE DELETE_INVOICE_PR
-	@InvoiceId INT
+    @P_INVOICE_ID INT
 AS BEGIN
-	DELETE FROM invoice_details	WHERE invoice_id = @InvoiceId
-	DELETE FROM invoices WHERE invoice_id = @InvoiceId
+    DELETE FROM invoice_details WHERE invoice_id = @P_INVOICE_ID
+    DELETE FROM invoices WHERE invoice_id = @P_INVOICE_ID
 END
 GO
 
 -- Retrieve invoice by id
 CREATE PROCEDURE RETRIEVE_INVOICE_BY_ID_PR
-	@InvoiceId INT
+    @P_INVOICE_ID INT
 AS BEGIN
-	SELECT TOP 1 invoice_id, invoice_number, issue_date, due_date, user_id, total_amount, status, tax_amount, discount_code, discount_amount
-	FROM invoices
-	WHERE invoice_id = @InvoiceId
+    SELECT TOP 1
+        invoice_id, 
+        invoice_number, 
+        issue_date, 
+        due_date, 
+        user_id, 
+        total_amount, 
+        status, 
+        tax_amount, 
+        discount_code, 
+        discount_amount
+    FROM invoices
+    WHERE invoice_id = @P_INVOICE_ID
 END
 GO
 
 -- Retrieve all invoices
 CREATE PROCEDURE RETRIEVE_ALL_INVOICES_PR AS BEGIN
-	SELECT invoice_id, invoice_number, issue_date, due_date, user_id, total_amount, status, tax_amount, discount_code, discount_amount
-	FROM invoices
+    SELECT
+        invoice_id, 
+        invoice_number, 
+        issue_date, 
+        due_date, 
+        user_id, 
+        total_amount, 
+        status, 
+        tax_amount, 
+        discount_code, 
+        discount_amount
+    FROM invoices
 END
 GO
 
 -- Retrieve invoices by user id
 CREATE PROCEDURE RETRIEVE_INVOICES_BY_USER_ID_PR
-	@UserId INT
+    @P_USER_ID INT
 AS BEGIN
-	SELECT invoice_id, invoice_number, issue_date, due_date, user_id, total_amount, status, tax_amount, discount_code, discount_amount
-	FROM invoices
-	WHERE user_id = @UserId
+    SELECT 
+        invoice_id, 
+        invoice_number, 
+        issue_date, 
+        due_date, 
+        user_id, 
+        total_amount, 
+        status, 
+        tax_amount, 
+        discount_code, 
+        discount_amount
+    FROM invoices
+    WHERE user_id = @P_USER_ID
 END
 GO
+
 
 /*
 	Room stored procedures
@@ -748,79 +975,100 @@ GO
 
 -- Create room
 CREATE PROCEDURE CREATE_ROOM_PR
-	@RoomName NVARCHAR(50),
-	@Status TINYINT,
-	@Description NVARCHAR(MAX),
-	@Cost DECIMAL(10, 2),
-	@CreatedDate DATETIME,
-	@ModifiedDate DATETIME,
-
-	@Id INT OUTPUT
+    @P_ROOM_NAME NVARCHAR(50),
+    @P_STATUS TINYINT,
+    @P_DESCRIPTION NVARCHAR(MAX),
+    @P_COST DECIMAL(10, 2),
+    @P_CREATED_DATE DATETIME,
+    @P_MODIFIED_DATE DATETIME,
+    @P_ID INT OUTPUT
 AS BEGIN
-	DECLARE @ID TABLE (ID INT)
+    DECLARE @ID TABLE (ID INT)
 
-	INSERT INTO rooms(room_name, status, description, cost, created_date, modified_date)
-	OUTPUT INSERTED.room_id INTO @ID
-	VALUES (@RoomName, @Status, @Description, @Cost, @CreatedDate, @ModifiedDate)
+    INSERT INTO rooms(room_name, status, description, cost, created_date, modified_date)
+    OUTPUT INSERTED.room_id INTO @ID
+    VALUES (@P_ROOM_NAME, @P_STATUS, @P_DESCRIPTION, @P_COST, @P_CREATED_DATE, @P_MODIFIED_DATE)
 
-	RETURN (SELECT ID FROM @ID)
+    SELECT @P_ID = ID FROM @ID
 END
 GO
 
 -- Update room
 CREATE PROCEDURE UPDATE_ROOM_PR
-	@RoomId INT,
-	@RoomName NVARCHAR(50),
-	@Status TINYINT,
-	@Description NVARCHAR(MAX),
-	@Cost DECIMAL(10, 2),
-	@ModifiedDate DATETIME
+    @P_ROOM_ID INT,
+    @P_ROOM_NAME NVARCHAR(50),
+    @P_STATUS TINYINT,
+    @P_DESCRIPTION NVARCHAR(MAX),
+    @P_COST DECIMAL(10, 2),
+    @P_MODIFIED_DATE DATETIME
 AS BEGIN
-	UPDATE rooms
-	SET room_name = @RoomName,
-		status = @Status,
-		description = @Description,
-		cost = @Cost,
-		modified_date = @ModifiedDate
-	WHERE room_id = @RoomId AND status != 0
+    UPDATE rooms
+    SET room_name = @P_ROOM_NAME,
+        status = @P_STATUS,
+        description = @P_DESCRIPTION,
+        cost = @P_COST,
+        modified_date = @P_MODIFIED_DATE
+    WHERE room_id = @P_ROOM_ID AND status != 0
 END
 GO
 
 -- Delete room
 CREATE PROCEDURE DELETE_ROOM_PR
-	@RoomId INT
+    @P_ROOM_ID INT
 AS BEGIN
-	UPDATE rooms
-	SET status = 0
-	WHERE room_id = @RoomId
+    UPDATE rooms
+    SET status = 0
+    WHERE room_id = @P_ROOM_ID
 END
 GO
 
 -- Retrieve room by id
 CREATE PROCEDURE RETRIEVE_ROOM_BY_ID_PR
-	@RoomId INT
+    @P_ROOM_ID INT
 AS BEGIN
-	SELECT TOP 1 room_id, room_name, status, description, cost, created_date, modified_date
-	FROM rooms
-	WHERE room_id = @RoomId AND status != 0
+    SELECT TOP 1
+        room_id, 
+        room_name, 
+        status, 
+        description, 
+        cost, 
+        created_date, 
+        modified_date
+    FROM rooms
+    WHERE room_id = @P_ROOM_ID AND status != 0
 END
 GO
 
 -- Retrieve all rooms
 CREATE PROCEDURE RETRIEVE_ALL_ROOMS_PR AS BEGIN
-	SELECT room_id, room_name, status, description, cost, created_date, modified_date
-	FROM rooms
-	WHERE status != 0
+    SELECT
+        room_id, 
+        room_name, 
+        status, 
+        description, 
+        cost, 
+        created_date, 
+        modified_date
+    FROM rooms
+    WHERE status != 0
 END
 GO
 
 -- Retrieve available rooms
 CREATE PROCEDURE RETRIEVE_AVAILABLE_ROOMS_PR AS BEGIN
-	SELECT room_id, room_name, status, description, cost, created_date, modified_date
-	FROM rooms
-	WHERE status = 1
+    SELECT 
+        room_id, 
+        room_name, 
+        status, 
+        description, 
+        cost, 
+        created_date, 
+        modified_date
+    FROM rooms
+    WHERE status = 1
 END
 GO
+
 
 /*
 	Discount code stored procedures
@@ -828,77 +1076,95 @@ GO
 
 -- Create discount code
 CREATE PROCEDURE CREATE_DISCOUNT_CODE_PR
-	@Code NVARCHAR(30),
-	@Description NVARCHAR(MAX),
-	@Status TINYINT,
-	@TotalIssued INT,
-	@AppliedCount INT,
-	@Discount DECIMAL(10, 2),
-	@CreatedDate DATETIME,
-	@ModifiedDate DATETIME,
-
-	@Id INT OUTPUT
+    @P_CODE NVARCHAR(30),
+    @P_DESCRIPTION NVARCHAR(MAX),
+    @P_STATUS TINYINT,
+    @P_TOTAL_ISSUED INT,
+    @P_APPLIED_COUNT INT,
+    @P_DISCOUNT DECIMAL(10, 2),
+    @P_CREATED_DATE DATETIME,
+    @P_MODIFIED_DATE DATETIME,
+    @P_ID INT OUTPUT
 AS BEGIN
-	DECLARE @ID TABLE (ID INT)
+    DECLARE @ID TABLE (ID INT)
 
-	INSERT INTO discount_codes(code, description, status, total_issued, applied_count, discount, created_date, modified_date)
-	OUTPUT INSERTED.discount_code_id INTO @ID
-	VALUES (@Code, @Description, @Status, @TotalIssued, @AppliedCount, @Discount, @CreatedDate, @ModifiedDate)
+    INSERT INTO discount_codes(code, description, status, total_issued, applied_count, discount, created_date, modified_date)
+    OUTPUT INSERTED.discount_code_id INTO @ID
+    VALUES (@P_CODE, @P_DESCRIPTION, @P_STATUS, @P_TOTAL_ISSUED, @P_APPLIED_COUNT, @P_DISCOUNT, @P_CREATED_DATE, @P_MODIFIED_DATE)
 
-	RETURN (SELECT ID FROM @ID)
+    SELECT @P_ID = ID FROM @ID
 END
 GO
 
 -- Update discount code
 CREATE PROCEDURE UPDATE_DISCOUNT_CODE_PR
-	@DiscountCodeId INT,
-	@Code NVARCHAR(30),
-	@Description NVARCHAR(MAX),
-	@Status TINYINT,
-	@TotalIssued INT,
-	@AppliedCount INT,
-	@Discount DECIMAL(10, 2),
-	@ModifiedDate DATETIME
+    @P_DISCOUNT_CODE_ID INT,
+    @P_CODE NVARCHAR(30),
+    @P_DESCRIPTION NVARCHAR(MAX),
+    @P_STATUS TINYINT,
+    @P_TOTAL_ISSUED INT,
+    @P_APPLIED_COUNT INT,
+    @P_DISCOUNT DECIMAL(10, 2),
+    @P_MODIFIED_DATE DATETIME
 AS BEGIN
-	UPDATE discount_codes
-	SET code = @Code,
-		description = @Description,
-		status = @Status,
-		total_issued = @TotalIssued,
-		applied_count = @AppliedCount,
-		discount = @Discount,
-		modified_date = @ModifiedDate
-	WHERE discount_code_id = @DiscountCodeId AND status != 0
+    UPDATE discount_codes
+    SET code = @P_CODE,
+        description = @P_DESCRIPTION,
+        status = @P_STATUS,
+        total_issued = @P_TOTAL_ISSUED,
+        applied_count = @P_APPLIED_COUNT,
+        discount = @P_DISCOUNT,
+        modified_date = @P_MODIFIED_DATE
+    WHERE discount_code_id = @P_DISCOUNT_CODE_ID AND status != 0
 END
 GO
 
 -- Delete discount code
 CREATE PROCEDURE DELETE_DISCOUNT_CODE_PR
-	@DiscountCodeId INT
+    @P_DISCOUNT_CODE_ID INT
 AS BEGIN
-	UPDATE discount_codes
-	SET status = 0
-	WHERE discount_code_id = @DiscountCodeId
+    UPDATE discount_codes
+    SET status = 0
+    WHERE discount_code_id = @P_DISCOUNT_CODE_ID
 END
 GO
 
 -- Retrieve discount code by id
 CREATE PROCEDURE RETRIEVE_DISCOUNT_CODE_BY_ID_PR
-	@DiscountCodeId INT
+    @P_DISCOUNT_CODE_ID INT
 AS BEGIN
-	SELECT TOP 1 discount_code_id, code, description, status, total_issued, applied_count, discount, created_date, modified_date
-	FROM discount_codes
-	WHERE discount_code_id = @DiscountCodeId AND status != 0
+    SELECT TOP 1 
+        discount_code_id, 
+        code, 
+        description, 
+        status, 
+        total_issued, 
+        applied_count, 
+        discount, 
+        created_date, 
+        modified_date
+    FROM discount_codes
+    WHERE discount_code_id = @P_DISCOUNT_CODE_ID AND status != 0
 END
 GO
 
 -- Retrieve all discount codes
 CREATE PROCEDURE RETRIEVE_ALL_DISCOUNT_CODES_PR AS BEGIN
-	SELECT discount_code_id, code, description, status, total_issued, applied_count, discount, created_date, modified_date
-	FROM discount_codes
-	WHERE status != 0
+    SELECT 
+        discount_code_id, 
+        code, 
+        description, 
+        status, 
+        total_issued, 
+        applied_count, 
+        discount, 
+        created_date, 
+        modified_date
+    FROM discount_codes
+    WHERE status != 0
 END
 GO
+
 
 /*
 	IoT stored procedures
@@ -906,121 +1172,61 @@ GO
 
 -- Create IoT
 CREATE PROCEDURE CREATE_IOT_PR
-	@IotId INT,
-	@IotType NVARCHAR(50),
-	@Status TINYINT,
-	@ReservationId INT,
-	@CreatedDate DATETIME,
+    @P_IOT_ID INT,
+    @P_IOT_TYPE NVARCHAR(50),
+    @P_STATUS TINYINT,
+    @P_RESERVATION_ID INT,
+    @P_CREATED_DATE DATETIME,
 
-	@Id INT OUTPUT
+    @P_ID INT OUTPUT
 AS BEGIN
-	DECLARE @ID TABLE (ID INT)
+    DECLARE @ID TABLE (ID INT)
 
-	INSERT INTO iot(iot_id, iot_type, status, reservation_id, created_date)
-	OUTPUT INSERTED.iot_id INTO @ID
-	VALUES (@IotId, @IotType, @Status, @ReservationId, @CreatedDate)
+    INSERT INTO iot(iot_id, iot_type, status, reservation_id, created_date)
+    OUTPUT INSERTED.iot_id INTO @ID
+    VALUES (@P_IOT_ID, @P_IOT_TYPE, @P_STATUS, @P_RESERVATION_ID, @P_CREATED_DATE)
 
-	RETURN (SELECT ID FROM @ID)
+    SELECT ID FROM @ID
 END
 GO
 
 -- Set Iot to reservation
 CREATE PROCEDURE SET_IOT_TO_RESERVATION_PR
-	@IotId INT,
-	@ReservationId INT
+    @P_IOT_ID INT,
+    @P_RESERVATION_ID INT
 AS BEGIN
-	UPDATE iot
-	SET reservation_id = @ReservationId
-	WHERE iot_id = @IotId
+    UPDATE iot
+    SET reservation_id = @P_RESERVATION_ID
+    WHERE iot_id = @P_IOT_ID
 END
-Go	
+GO    
 
 -- Remove Iot from reservation
 CREATE PROCEDURE REMOVE_IOT_FROM_RESERVATION_PR
-	@IotId INT
+    @P_IOT_ID INT
 AS BEGIN
-	UPDATE iot
-	SET reservation_id = NULL
-	WHERE iot_id = @IotId
+    UPDATE iot
+    SET reservation_id = NULL
+    WHERE iot_id = @P_IOT_ID
 END
 GO
 
 -- Update IoT
 CREATE PROCEDURE UPDATE_IOT_PR
-	@IotId INT,
-	@IotType NVARCHAR(50),
-	@Status TINYINT,
-	@ReservationId INT,
-	@ModifiedDate DATETIME
+    @P_IOT_ID INT,
+    @P_IOT_TYPE NVARCHAR(50),
+    @P_STATUS TINYINT,
+    @P_RESERVATION_ID INT,
+    @P_MODIFIED_DATE DATETIME,
+	@P_CREATED_DATE DATETIME
 AS BEGIN
-	UPDATE iot
-	SET iot_type = @IotType,
-		status = @Status,
-		reservation_id = @ReservationId,
-		modified_date = @ModifiedDate
-	WHERE iot_id = @IotId AND status != 0
-END
-GO
-
-
-/* 
-	IoT pet record stored procedures
-*/
-
--- Create IoT room record
-CREATE PROCEDURE CREATE_IOT_ROOM_RECORD_PR
-	@IotId INT,
-	@RoomId INT,
-	@Tempurate DECIMAL(10, 2),
-	@Humidity DECIMAL(10, 2),
-	@Light DECIMAL(10, 2),
-	@CreatedDate DATETIME,
-
-	@Id INT OUTPUT
-AS BEGIN
-	DECLARE @ID TABLE (ID INT)
-
-	INSERT INTO iot_room_records(iot_id, room_id, tempurate, humidity, light, created_date)
-	OUTPUT INSERTED.iot_room_record_id INTO @ID
-	VALUES (@IotId, @RoomId, @Tempurate, @Humidity, @Light, @CreatedDate)
-
-	RETURN (SELECT ID FROM @ID)
-END
-GO
-
--- Delete IoT by id
-CREATE PROCEDURE DELETE_IOT_BY_ID_PR
-	@IotId INT
-AS BEGIN
-	UPDATE iot
-	SET status = 0
-	WHERE iot_id = @IotId
-END
-GO
-
--- Retrieve IoT by id
-CREATE PROCEDURE RETRIEVE_IOT_BY_ID_PR
-	@IotId INT
-AS BEGIN
-	SELECT TOP 1 iot_id, iot_type, status, reservation_id, created_date, modified_date
-	FROM iot
-	WHERE iot_id = @IotId AND status != 0
-END
-GO
-
--- Retrieve all IoTs
-CREATE PROCEDURE RETRIEVE_ALL_IOTS_PR AS BEGIN
-	SELECT iot_id, iot_type, status, reservation_id, created_date, modified_date
-	FROM iot
-	WHERE status != 0
-END
-GO
-
--- Retrieve available IoTs
-CREATE PROCEDURE RETRIEVE_AVAILABLE_IOTS_PR AS BEGIN
-	SELECT iot_id, iot_type, status, reservation_id, created_date, modified_date
-	FROM iot
-	WHERE status = 1 AND reservation_id IS NULL
+    UPDATE iot
+    SET iot_type = @P_IOT_TYPE,
+        status = @P_STATUS,
+        reservation_id = @P_RESERVATION_ID,
+		created_date = @P_CREATED_DATE,
+        modified_date = @P_MODIFIED_DATE
+    WHERE iot_id = @P_IOT_ID AND status != 0
 END
 GO
 
@@ -1030,80 +1236,84 @@ GO
 
 -- Create IoT pet record
 CREATE PROCEDURE CREATE_IOT_PET_RECORD_PR
-	@IotId INT,
-	@PetId INT,
-	@PulseRate INT,
-	@CreatedDate DATETIME,
+    @P_IOT_ID INT,
+    @P_PET_ID INT,
+    @P_PULSE_RATE INT,
+    @P_CREATED_DATE DATETIME,
 
-	@Id INT OUTPUT
+    @P_ID INT OUTPUT
 AS BEGIN
-	DECLARE @ID TABLE (ID INT)
+    DECLARE @ID TABLE (ID INT)
 
-	INSERT INTO iot_pet_records(iot_id, pet_id, pulse_rate, created_date)
-	OUTPUT INSERTED.iot_pet_record_id INTO @ID
-	VALUES (@IotId, @PetId, @PulseRate, @CreatedDate)
+    INSERT INTO iot_pet_records(iot_id, pet_id, pulse_rate, created_date)
+    OUTPUT INSERTED.iot_pet_record_id INTO @ID
+    VALUES (@P_IOT_ID, @P_PET_ID, @P_PULSE_RATE, @P_CREATED_DATE)
 
-	RETURN (SELECT ID FROM @ID)
+    SELECT ID FROM @ID
 END
 GO
 
 -- Delete IoT pet record by iot id
 CREATE PROCEDURE DELETE_IOT_PET_RECORD_BY_IOT_ID_PR
-	@IotId INT
+    @P_IOT_ID INT
 AS BEGIN
-	DELETE FROM iot_pet_records
-	WHERE iot_id = @IotId
+    DELETE FROM iot_pet_records
+    WHERE iot_id = @P_IOT_ID
 END
 GO
 
 -- Delete IoT pet record by reservation id
 CREATE PROCEDURE DELETE_IOT_PET_RECORD_BY_RESERVATION_ID_PR
-	@ReservationId INT
+    @P_RESERVATION_ID INT
 AS BEGIN
-	DELETE iopr
+    DELETE iopr
     FROM iot_pet_records iopr
     INNER JOIN iot ON iot.iot_id = iopr.iot_id
-    WHERE iot.reservation_id = @ReservationId
+    WHERE iot.reservation_id = @P_RESERVATION_ID
 END
 GO
 
+/*
+	IoT room record stored procedures
+*/
+
 -- Create IoT room record
 CREATE PROCEDURE CREATE_IOT_ROOM_RECORD_PR
-	@IotId INT,
-	@RoomId INT,
-	@Tempurate DECIMAL(10, 2),
-	@Humidity DECIMAL(10, 2),
-	@Light DECIMAL(10, 2),
-	@CreatedDate DATETIME,
+    @P_IOT_ID INT,
+    @P_ROOM_ID INT,
+    @P_TEMPERATURE DECIMAL(10, 2),
+    @P_HUMIDITY DECIMAL(10, 2),
+    @P_LIGHT DECIMAL(10, 2),
+    @P_CREATED_DATE DATETIME,
 
-	@Id INT OUTPUT
+    @P_ID INT OUTPUT
 AS BEGIN
-	DECLARE @ID TABLE (ID INT)
+    DECLARE @ID TABLE (ID INT)
 
-	INSERT INTO iot_room_records(iot_id, room_id, tempurate, humidity, light, created_date)
-	OUTPUT INSERTED.iot_room_record_id INTO @ID
-	VALUES (@IotId, @RoomId, @Tempurate, @Humidity, @Light, @CreatedDate)
+    INSERT INTO iot_room_records(iot_id, room_id, temperature, humidity, light, created_date)
+    OUTPUT INSERTED.iot_room_record_id INTO @ID
+    VALUES (@P_IOT_ID, @P_ROOM_ID, @P_TEMPERATURE, @P_HUMIDITY, @P_LIGHT, @P_CREATED_DATE)
 
-	RETURN (SELECT ID FROM @ID)
+    SELECT ID FROM @ID
 END
 GO
 
 -- Delete IoT room record by iot id
 CREATE PROCEDURE DELETE_IOT_ROOM_RECORD_BY_IOT_ID_PR
-	@IotId INT
+    @P_IOT_ID INT
 AS BEGIN
-	DELETE FROM iot_room_records
-	WHERE iot_id = @IotId
+    DELETE FROM iot_room_records
+    WHERE iot_id = @P_IOT_ID
 END
 GO
 
 -- Delete IoT room record by reservation id
 CREATE PROCEDURE DELETE_IOT_ROOM_RECORD_BY_RESERVATION_ID_PR
-	@ReservationId INT
+    @P_RESERVATION_ID INT
 AS BEGIN
-	DELETE iorr
-	FROM iot_room_records iorr
-	INNER JOIN iot ON iot.iot_id = iorr.iot_id
-	WHERE iot.reservation_id = @ReservationId
+    DELETE iorr
+    FROM iot_room_records iorr
+    INNER JOIN iot ON iot.iot_id = iorr.iot_id
+    WHERE iot.reservation_id = @P_RESERVATION_ID
 END
 GO

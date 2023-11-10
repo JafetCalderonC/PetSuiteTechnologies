@@ -183,7 +183,7 @@ CREATE TABLE iot_room_records (
     iot_room_record_id INT PRIMARY KEY IDENTITY(1,1),
     iot_id INT,
     room_id INT,
-    tempurate DECIMAL(10, 2),
+    temperature DECIMAL(10, 2),
     humidity DECIMAL(10, 2),
     light DECIMAL(10, 2),
     created_date DATETIME,
@@ -217,4 +217,5 @@ CREATE TABLE iot (
 	status TINYINT,
 	reservation_id INT NULL,
 	created_date DATETIME,
+    modified_date DATETIME,
 );

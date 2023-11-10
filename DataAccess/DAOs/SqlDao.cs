@@ -61,7 +61,7 @@ namespace DataAccess.DAOs
                 }
 
                 // Add an output parameter for the identity value
-                SqlParameter outputIdParam = new SqlParameter("@Id", SqlDbType.Int)
+                SqlParameter outputIdParam = new SqlParameter("@P_ID", SqlDbType.Int)
                 {
                     Direction = ParameterDirection.Output
                 };

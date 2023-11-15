@@ -54,6 +54,7 @@ D:\VisualStudio\Universidad\Proyecto 2\PetSuiteTechnologies\WebAPI\obj\Debug\net
 D:\VisualStudio\Universidad\Proyecto 2\PetSuiteTechnologies\WebAPI\obj\Debug\net6.0\WebAPI.AssemblyInfoInputs.cache
 D:\VisualStudio\Universidad\Proyecto 2\PetSuiteTechnologies\WebAPI\obj\Debug\net6.0\WebAPI.AssemblyInfo.cs
 D:\VisualStudio\Universidad\Proyecto 2\PetSuiteTechnologies\WebAPI\obj\Debug\net6.0\WebAPI.csproj.CoreCompileInputs.cache
+D:\VisualStudio\Universidad\Proyecto 2\PetSuiteTechnologies\WebAPI\obj\Debug\net6.0\WebAPI.MvcApplicationPartsAssemblyInfo.cs
 D:\VisualStudio\Universidad\Proyecto 2\PetSuiteTechnologies\WebAPI\obj\Debug\net6.0\WebAPI.MvcApplicationPartsAssemblyInfo.cache
 D:\VisualStudio\Universidad\Proyecto 2\PetSuiteTechnologies\WebAPI\obj\Debug\net6.0\staticwebassets\msbuild.WebAPI.Microsoft.AspNetCore.StaticWebAssets.props
 D:\VisualStudio\Universidad\Proyecto 2\PetSuiteTechnologies\WebAPI\obj\Debug\net6.0\staticwebassets\msbuild.build.WebAPI.props

@@ -4,6 +4,7 @@ using DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -22,35 +23,30 @@ namespace DataAccess.CRUD
 
         public override void Create(Package dto)
         {
-            //var sqlOperation = new SqlOperation("CREATE_USER_PR");
-            //sqlOperation.AddParameter("@P_IS_OTP_VERIFIED", dto.IsOtpVerified);
-            //sqlOperation.AddParameter("@PasswordHash", dto.PasswordHash);
-            //sqlOperation.AddParameter("@P_ROLE", dto.Role);
-            //sqlOperation.AddParameter("@P_STATUS", dto.Status);
-            //sqlOperation.AddParameter("@P_FIRST_NAME", dto.FirstName);
-            //sqlOperation.AddParameter("@P_LAST_NAME", dto.LastName);
-            //sqlOperation.AddParameter("@P_IDENTIFICATION_TYPE", dto.IdentificationType);
-            //sqlOperation.AddParameter("@P_IDENTIFIER_VALUE", dto.IdentifierValue);
-            //sqlOperation.AddParameter("@P_EMAIL", dto.Email);
-            //sqlOperation.AddParameter("@P_PROFILE_PIC_URL", dto.ProfilePicUrl);
-            //sqlOperation.AddParameter("@P_THEME_PREFERENCE", dto.ThemePreference);
-            //sqlOperation.AddParameter("@P_CREATED_DATE", dto.CreatedDate);
-            //sqlOperation.AddParameter("@P_MODIFIED_DATE", dto.ModifiedDate);
-            //sqlOperation.AddParameter("@P_ADDRESS_LATITUDE", dto.AddressLatitude);
-            //sqlOperation.AddParameter("@P_ADDRESS_LONGITUDE", dto.AddressLongitude);
 
-            //// Create the user y get the id
-            //_dao.ExecuteProcedure(sqlOperation, out int id);
-            //dto.Id = id;
+            var sqlOperation = new SqlOperation("CREATE_PACKAGE_PR");
+            sqlOperation.AddParameter("@P_PACKAGE_NAME", dto.PackageName);
+            sqlOperation.AddParameter("@P_DESCRIPTION", dto.Description);
+            sqlOperation.AddParameter("@P_STATUS", dto.Status);
+            sqlOperation.AddParameter("@P_ROOM_ID", dto.RoomId);
+            sqlOperation.AddParameter("@P_PET_BREED_TYPE", dto.PetBreedType);
+            sqlOperation.AddParameter("@P_PET_SIZE", dto.PetSize);
+            sqlOperation.AddParameter("@P_PET_AGGRESSIVENESS", dto.PetAggressiveness);
+            sqlOperation.AddParameter("@P_CREATED_DATE", dto.CreatedDate);
+            sqlOperation.AddParameter("@P_MODIFIED_DATE", dto.ModifiedDate);
 
-            //// Add phone numbers to user
-            //foreach (var phoneNumber in dto.PhoneNumbers)
-            //{
-            //    sqlOperation = new SqlOperation("ADD_PHONE_NUMBERS_TO_USER_PR");
-            //    sqlOperation.AddParameter("@P_USER_ID", dto.Id);
-            //    sqlOperation.AddParameter("@P_PHONE_NUMBER", phoneNumber);
-            //    _dao.ExecuteProcedure(sqlOperation);
-            //}
+            // Create the package and get the id
+            _dao.ExecuteProcedure(sqlOperation, out int id);
+            dto.Id = id;
+
+            // Add services to package
+            foreach (var servivces in dto.Services)
+            {
+                sqlOperation = new SqlOperation("ADD_SERVICE_TO_PACKAGE_PR");
+                sqlOperation.AddParameter("@P_PACKAGE_ID", dto.Id);
+                sqlOperation.AddParameter("@P_SERVICE_ID", servivces);
+                _dao.ExecuteProcedure(sqlOperation);
+            }
         }
 
         public override void Delete(int id)

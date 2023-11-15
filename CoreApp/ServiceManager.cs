@@ -11,12 +11,13 @@ namespace CoreApp
     public class ServiceManager
     {
         List<Service> list = new List<DTOs.Service>();
-        public ServiceManager()
-        {
 
-            var serviceCrud = new ServiceCrudFactory();
-            this.list = serviceCrud.RetrieveAll();
-        }
+        //public ServiceManager()
+        //{
+
+        //    //var serviceCrud = new ServiceCrudFactory();
+        //    //this.list = serviceCrud.RetrieveAll();
+        //}
 
         public bool IsUnique(string serviceName)
         {

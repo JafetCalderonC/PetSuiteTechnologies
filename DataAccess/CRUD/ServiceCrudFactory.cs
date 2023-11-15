@@ -27,8 +27,8 @@ namespace DataAccess.CRUD
             sqlOperation.AddParameter("@P_COST", dto.ServiceCost);
             sqlOperation.AddParameter("@P_CREATED_DATE", dto.ServiceCreatedDate);
             sqlOperation.AddParameter("@P_MODIFIED_DATE", dto.ServiceModifiedDate);
-            sqlOperation.AddParameter("@P_ID", dto.Id); // Preguntar porque estamos enviando el id y no se esta autogenerando en la base de datos.
-            _dao.ExecuteProcedure(sqlOperation);
+            _dao.ExecuteProcedure(sqlOperation, out int id);
+            dto.Id = id;
 
         }
         public override void Update(Service dto)

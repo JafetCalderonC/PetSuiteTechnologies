@@ -29,7 +29,7 @@ function ServiceController() {
             vc.Update();
         });
 
-        //this.LoadTable();
+        this.LoadTable();
     };
 
     this.ValidateInputs = function () {

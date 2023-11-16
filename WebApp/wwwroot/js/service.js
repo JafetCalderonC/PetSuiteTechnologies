@@ -9,14 +9,14 @@ function ServiceController() {
         $("#btnDelete").hide();
 
 
-        $("#tblService").show();
+        $("#divtblService").show();
 
 
         $("#btnToggleForm").click(function () {
             $(".bs-component form").toggle();
             $("#btnUpdate").toggle();
             $("#btnDelete").toggle();
-            $("#tblService").toggle(); 
+            $("#divtblService").toggle(); 
         });
 
         $("#btnCreate").click(function () {

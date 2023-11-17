@@ -46,10 +46,10 @@ namespace CoreApp
             var serviceCrud = new ServiceCrudFactory();
             serviceCrud.Update(service);
         }
-        public void Delete(int id)
+        public void Delete(BaseDTO dto)
         {
             var serviceCrud = new ServiceCrudFactory();
-            serviceCrud.Delete(id);
+            serviceCrud.Delete(dto);
         }
         public Service RetrieveById(int id)
         {

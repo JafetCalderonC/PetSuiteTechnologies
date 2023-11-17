@@ -18,7 +18,7 @@ namespace DataAccess.DAOs
         private SqlDao()
         {
             _connectionString = "Data Source=jcalderon-ucenfotec2023server.database.windows.net;" +
-                "Initial Catalog=jafetCalderonAprendiendo;Persist Security Info=True;" +
+                "Initial Catalog=PetSuiteTechnologies;Persist Security Info=True;" +
                 "User ID=sysman;Password=Cenfotec123!";
         }
 

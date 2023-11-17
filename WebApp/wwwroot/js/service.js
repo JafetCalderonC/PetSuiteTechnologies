@@ -28,6 +28,10 @@ function ServiceController() {
             var vc = new ServiceController();
             vc.Update();
         });
+        $("#btnDelete").click(function () {
+            var vc = new ServiceController();
+            vc.Delete();
+        })
 
         this.LoadTable();
     };
@@ -75,6 +79,8 @@ function ServiceController() {
 
         controlActions.PostToAPI(serviceRoute, service, function () { console.log("Service created" + JSON.stringify(service)) });
 
+        Swal.fire("Success", "The service has been created", "success");
+
 
     }
     this.Update = function () {
@@ -82,6 +88,7 @@ function ServiceController() {
             return;
         }
         var service = {};
+        service.Id = $("#txtServiceId").val();
         service.serviceName = $("#txtServiceName").val();
         service.serviceDescription = $("#txtServiceDescription").val();
         service.serviceStatus = $("#txtServiceStatus").val();
@@ -94,12 +101,10 @@ function ServiceController() {
 
     }
     this.Delete = function () {
-        var service = {};
-        service.service.id = $("#txtServiceId").val();
+        var Id = $("#txtServiceId").val();
         var controlActions = new ControlActions();
         var serviceRoute = this.ApiService + "/Delete";
-        controlActions.PostToAPI(serviceRoute, service, function () { console.log("Service deleted" + JSON.stringify(service)) });
-
+        controlActions.DeleteToAPI(serviceRoute, Id, function () { console.log("Service deleted" + JSON.stringify(service)) });
     }
 
     this.LoadTable = function () {

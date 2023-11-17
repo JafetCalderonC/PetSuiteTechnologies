@@ -1,7 +1,6 @@
-
 function ControlActions() {
 	//Ruta base del API
-	this.URL_API = "https://localhost:7143/api/";//7143
+	this.URL_API = "https://localhost:7299/api/";
 
 	this.GetUrlApiService = function (service) {
 		return this.URL_API + service;
@@ -139,31 +138,35 @@ function ControlActions() {
 			})
 	};
 
-	this.DeleteToAPI = function (service, data, callBackFunction) {
-		var jqxhr = $.delete(this.GetUrlApiService(service), data, function (response) {
-			var ctrlActions = new ControlActions();
-			Swal.fire(
-				'Good job!',
-				'Transaction completed!',
-				'success'
-			)
+	this.DeleteToAPI = function (service, idToDelete, callBackFunction) {
+		var apiUrl = this.GetUrlApiService(service) + '?id=' + idToDelete;
 
-			if (callBackFunction) {
-				callBackFunction(response.Data);
-			}
-		})
-			.fail(function (response) {
+		var jqxhr = $.ajax({
+			url: apiUrl,
+			type: 'DELETE',
+			success: function (response) {
+				Swal.fire(
+					'Good job!',
+					'Transaction completed!',
+					'success'
+				);
+				if (callBackFunction) {
+					callBackFunction(response.Data);
+				}
+			},
+			error: function (response) {
 				var data = response.responseJSON;
 				var errors = data.errors;
 				var errorMessages = Object.values(errors).flat();
-				message = errorMessages.join("<br/> ");
+				var message = errorMessages.join("<br/> ");
 				Swal.fire({
 					icon: 'error',
 					title: 'Oops...',
 					html: message,
 					footer: 'UCenfotec'
-				})
-			})
+				});
+			}
+		});
 	};
 
 	this.GetToApi = function (service, callBackFunction) {

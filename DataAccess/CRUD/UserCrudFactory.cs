@@ -20,20 +20,21 @@ namespace DataAccess.CRUD
             _mapper = new UserMapper();
             _dao = SqlDao.GetInstance();
         }
-      
+
         public override void Create(User dto)
         {
             var sqlOperation = new SqlOperation("CREATE_USER_PR");
-            sqlOperation.AddParameter("@P_IS_OTP_VERIFIED", dto.IsOtpVerified);
-            sqlOperation.AddParameter("@PasswordHash", dto.PasswordHash);
+            sqlOperation.AddParameter("@P_IS_PASSWORD_REQUIRED_CHANGE", dto.IsPasswordRequiredChange);
+            sqlOperation.AddParameter("@P_PASSWORD_HASH", dto.PasswordHash);
+            sqlOperation.AddParameter("@P_PASSWORD_SALT", dto.PasswordSalt);
             sqlOperation.AddParameter("@P_ROLE", dto.Role);
             sqlOperation.AddParameter("@P_STATUS", dto.Status);
             sqlOperation.AddParameter("@P_FIRST_NAME", dto.FirstName);
             sqlOperation.AddParameter("@P_LAST_NAME", dto.LastName);
             sqlOperation.AddParameter("@P_IDENTIFICATION_TYPE", dto.IdentificationType);
-            sqlOperation.AddParameter("@P_IDENTIFIER_VALUE", dto.IdentifierValue);
+            sqlOperation.AddParameter("@P_IDENTIFIER_VALUE", dto.IdentificationValue);
             sqlOperation.AddParameter("@P_EMAIL", dto.Email);
-            sqlOperation.AddParameter("@P_PROFILE_PIC_URL", dto.ProfilePicUrl);
+            sqlOperation.AddParameter("@P_CLOUNDINARY_PUBLIC_ID", dto.CloudinaryPublicId);
             sqlOperation.AddParameter("@P_THEME_PREFERENCE", dto.ThemePreference);
             sqlOperation.AddParameter("@P_CREATED_DATE", dto.CreatedDate);
             sqlOperation.AddParameter("@P_MODIFIED_DATE", dto.ModifiedDate);
@@ -47,10 +48,10 @@ namespace DataAccess.CRUD
             // Add phone numbers to user
             foreach (var phoneNumber in dto.PhoneNumbers)
             {
-                sqlOperation = new SqlOperation("ADD_PHONE_NUMBERS_TO_USER_PR");
+                sqlOperation = new SqlOperation("ADD_PHONE_NUMBER_TO_USER_PR");
                 sqlOperation.AddParameter("@P_USER_ID", dto.Id);
                 sqlOperation.AddParameter("@P_PHONE_NUMBER", phoneNumber);
-                _dao.ExecuteProcedure(sqlOperation);
+                _dao.ExecuteProcedure(sqlOperation, out int phoneNumberId);
             }
         }
 
@@ -85,28 +86,36 @@ namespace DataAccess.CRUD
 
         public override void Update(User dto)
         {
-            var sqlOperation = new SqlOperation("CREATE_USER_PR");
+            var sqlOperation = new SqlOperation("UPDATE_USER_PR");
             sqlOperation.AddParameter("@P_USER_ID", dto.Id);
+            sqlOperation.AddParameter("@P_PASSWORD_HASH", dto.PasswordHash);
+            sqlOperation.AddParameter("@P_PASSWORD_SALT", dto.PasswordSalt);
             sqlOperation.AddParameter("@P_ROLE", dto.Role);
             sqlOperation.AddParameter("@P_STATUS", dto.Status);
             sqlOperation.AddParameter("@P_FIRST_NAME", dto.FirstName);
             sqlOperation.AddParameter("@P_LAST_NAME", dto.LastName);
             sqlOperation.AddParameter("@P_IDENTIFICATION_TYPE", dto.IdentificationType);
-            sqlOperation.AddParameter("@P_IDENTIFIER_VALUE", dto.IdentifierValue);
+            sqlOperation.AddParameter("@P_IDENTIFIER_VALUE", dto.IdentificationValue);
             sqlOperation.AddParameter("@P_EMAIL", dto.Email);
-            sqlOperation.AddParameter("@P_PROFILE_PIC_URL", dto.ProfilePicUrl);
+            sqlOperation.AddParameter("@P_CLOUNDINARY_PUBLIC_ID", dto.CloudinaryPublicId);
             sqlOperation.AddParameter("@P_THEME_PREFERENCE", dto.ThemePreference);
             sqlOperation.AddParameter("@P_MODIFIED_DATE", dto.ModifiedDate);
             sqlOperation.AddParameter("@P_ADDRESS_LATITUDE", dto.AddressLatitude);
             sqlOperation.AddParameter("@P_ADDRESS_LONGITUDE", dto.AddressLongitude);
+            sqlOperation.AddParameter("@P_IS_PASSWORD_REQUIRED_CHANGE", dto.IsPasswordRequiredChange);
 
             _dao.ExecuteProcedure(sqlOperation);
 
             // Get phone numbers of the user
             sqlOperation = new SqlOperation("RETRIEVE_PHONE_NUMBERS_BY_USER_ID_PR");
-            sqlOperation.AddParameter("@UserId", dto.Id);
+            sqlOperation.AddParameter("@P_USER_ID", dto.Id);
             var resultNumbers = _dao.ExecuteQueryProcedure(sqlOperation);
-                       
+
+            if (dto.PhoneNumbers == null)
+            {
+                return;
+            }
+
             // If the phone number is not in the database, add it
             foreach (var phoneNumber in dto.PhoneNumbers)
             {
@@ -132,7 +141,7 @@ namespace DataAccess.CRUD
                 }
             }
         }
-        
+
         public void AddPhoneNumberToUser(int userId, string phoneNumber)
         {
             var sqlOperation = new SqlOperation("ADD_PHONE_NUMBER_TO_USER_PR");
@@ -149,6 +158,14 @@ namespace DataAccess.CRUD
             _dao.ExecuteProcedure(sqlOperation);
         }
 
+        public List<string> RetrieveAllPhoneNumbersByUserId(int userId)
+        {
+            var sqlOperation = new SqlOperation("RETRIEVE_PHONE_NUMBERS_BY_USER_ID_PR");
+            sqlOperation.AddParameter("@P_USER_ID", userId);
+            var result = _dao.ExecuteQueryProcedure(sqlOperation);
+
+            return result.Select(p => (string)p["phone_number"]).ToList();
+        }
 
         public User? RetrieveByEmail(string email)
         {
@@ -160,6 +177,26 @@ namespace DataAccess.CRUD
                 return null;
 
             return _mapper.BuildObject(result[0]);
-        }                
+        }
+
+        public User? RetrieveByPhoneNumber(string phoneNumber)
+        {
+            var sqlOperation = new SqlOperation("RETRIEVE_USER_BY_PHONE_NUMBER_PR");
+            sqlOperation.AddParameter("@P_PHONE_NUMBER", phoneNumber);
+
+            var result = _dao.ExecuteQueryProcedure(sqlOperation);
+            if (result.Count == 0)
+                return null;
+
+            return _mapper.BuildObject(result[0]);
+        }
+
+        public List<User> RetrieveAllClients()
+        {
+            var sqlOperation = new SqlOperation("RETRIEVE_ALL_CLIENTS_PR");
+            var result = _dao.ExecuteQueryProcedure(sqlOperation);
+
+            return _mapper.BuildObjects(result);
+        }
     }
 }

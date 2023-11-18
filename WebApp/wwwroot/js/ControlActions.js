@@ -1,209 +1,207 @@
 
 function ControlActions() {
-	//Ruta base del API
-	this.URL_API = "https://localhost:7143/api/";//7143
+    //Ruta base del API
+    this.URL_API = "https://localhost:7299/api/";
+    this.GetUrlApiService = function (service) {
+        return this.URL_API + service;
+    }
 
-	this.GetUrlApiService = function (service) {
-		return this.URL_API + service;
-	}
+    this.GetTableColumsDataName = function (tableId) {
+        var val = $('#' + tableId).attr("ColumnsDataName");
 
-	this.GetTableColumsDataName = function (tableId) {
-		var val = $('#' + tableId).attr("ColumnsDataName");
+        return val;
+    }
 
-		return val;
-	}
+    this.FillTable = function (service, tableId, refresh) {
 
-	this.FillTable = function (service, tableId, refresh) {
-
-		if (!refresh) {
-			columns = this.GetTableColumsDataName(tableId).split(',');
-			var arrayColumnsData = [];
-
-
-			$.each(columns, function (index, value) {
-				var obj = {};
-				obj.data = value;
-				arrayColumnsData.push(obj);
-			});
-			//Esto es la inicializacion de la tabla de data tables segun la documentacion de 
-			// datatables.net, carga la data usando un request async al API
-			$('#' + tableId).DataTable({
-				"processing": true,
-				"ajax": {
-					"url": this.GetUrlApiService(service),
-					dataSrc: 'Data'
-				},
-				"columns": arrayColumnsData
-			});
-		} else {
-			//RECARGA LA TABLA
-			$('#' + tableId).DataTable().ajax.reload();
-		}
-
-	}
-
-	this.GetSelectedRow = function () {
-		var data = sessionStorage.getItem(tableId + '_selected');
-
-		return data;
-	};
-
-	this.BindFields = function (formId, data) {
-		console.log(data);
-		$('#' + formId + ' *').filter(':input').each(function (input) {
-			var columnDataName = $(this).attr("ColumnDataName");
-			this.value = data[columnDataName];
-		});
-	}
-
-	this.GetDataForm = function (formId) {
-		var data = {};
-
-		$('#' + formId + ' *').filter(':input').each(function (input) {
-			var columnDataName = $(this).attr("ColumnDataName");
-			data[columnDataName] = this.value;
-		});
-
-		console.log(data);
-		return data;
-	}
+        if (!refresh) {
+            columns = this.GetTableColumsDataName(tableId).split(',');
+            var arrayColumnsData = [];
 
 
-	/* ACCIONES VIA AJAX, O ACCIONES ASINCRONAS*/
+            $.each(columns, function (index, value) {
+                var obj = {};
+                obj.data = value;
+                arrayColumnsData.push(obj);
+            });
+            //Esto es la inicializacion de la tabla de data tables segun la documentacion de 
+            // datatables.net, carga la data usando un request async al API
+            $('#' + tableId).DataTable({
+                "processing": true,
+                "ajax": {
+                    "url": this.GetUrlApiService(service),
+                    "dataSrc": 'Data',
+                    "beforeSend": function (request) {
+                        request.setRequestHeader("Authorization", 'Bearer ' + sessionStorage.getItem('token'));
+                    }
+                },
+                "columns": arrayColumnsData
+            });
+        } else {
+            //RECARGA LA TABLA
+            $('#' + tableId).DataTable().ajax.reload();
+        }
 
-	this.PostToAPI = function (service, data, callBackFunction) {
+    }
 
-		$.ajax({
-			type: "POST",
-			url: this.GetUrlApiService(service),
-			data: JSON.stringify(data),
-			contentType: "application/json; charset=utf-8",
-			dataType: "json",
-			success: function (data) {
-				if (callBackFunction) {
-					Swal.fire(
-						'Good job!',
-						'Transaction completed!',
-						'success'
-					)
-					callBackFunction(data);
-				}
-			},
-			error: function (jqXHR, textStatus, errorThrown) {
+    this.GetSelectedRow = function () {
+        var data = sessionStorage.getItem(tableId + '_selected');
 
-				var responseJson = jqXHR.responseJSON;
-				var message = jqXHR.responseText;
+        return data;
+    };
 
-				if (responseJson) {
-					var errors = responseJson.errors;
-					var errorMessages = Object.values(errors).flat();
-					message = errorMessages.join("<br/> ");
-				}
-				Swal.fire({
-					icon: 'error',
-					title: 'Oops...',
-					html: message,
-					footer: 'UCenfotec'
-				})
-			}
-		});
-	};
+    this.BindFields = function (formId, data) {
+        console.log(data);
+        $('#' + formId + ' *').filter(':input').each(function (input) {
+            var columnDataName = $(this).attr("ColumnDataName");
+            this.value = data[columnDataName];
+        });
+    }
+
+    this.GetDataForm = function (formId) {
+        var data = {};
+
+        $('#' + formId + ' *').filter(':input').each(function (input) {
+            var columnDataName = $(this).attr("ColumnDataName");
+            data[columnDataName] = this.value;
+        });
+
+        console.log(data);
+        return data;
+    }
 
 
-	this.PutToAPI = function (service, data, callBackFunction) {
-		var jqxhr = $.put(this.GetUrlApiService(service), data, function (response) {
-			var ctrlActions = new ControlActions();
+    /* ACCIONES VIA AJAX, O ACCIONES ASINCRONAS*/
 
-			Swal.fire(
-				'Good job!',
-				'Transaction completed!',
-				'success'
-			)
+    this.PostToAPI = function (service, data, successCallback, failCallBack) {
+        $.ajax({
+            type: "POST",
+            url: this.GetUrlApiService(service),
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            beforeSend: function (request) {
+                request.setRequestHeader("Authorization", 'Bearer ' + sessionStorage.getItem('token'));
+            },
+            success: function (data) {
+                if (successCallback) {
+                    successCallback(data);
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                var response = jqXHR.responseJSON || jqXHR.responseText;
 
-			if (callBackFunction) {
-				callBackFunction(response.Data);
-			}
+                // if 200 ok
+                if (jqXHR.status == 200) {
+                    if (successCallback) {
+                        successCallback();
+                    }
+                    return;
+                }
 
-		})
-			.fail(function (response) {
-				var data = response.responseJSON;
-				var errors = data.errors;
-				var errorMessages = Object.values(errors).flat();
-				message = errorMessages.join("<br/> ");
-				Swal.fire({
-					icon: 'error',
-					title: 'Oops...',
-					html: message,
-					footer: 'UCenfotec'
-				})
-			})
-	};
+                if (failCallBack) {
+                    failCallBack(response, jqXHR.status);
+                }
+            }
+        });
+    };
 
-	this.DeleteToAPI = function (service, data, callBackFunction) {
-		var jqxhr = $.delete(this.GetUrlApiService(service), data, function (response) {
-			var ctrlActions = new ControlActions();
-			Swal.fire(
-				'Good job!',
-				'Transaction completed!',
-				'success'
-			)
+    this.PutToAPI = function (service, data, successCallback, failCallBack) {
+        $.ajax({
+            type: "PUT",
+            url: this.GetUrlApiService(service),
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            beforeSend: function (request) {
+                request.setRequestHeader("Authorization", 'Bearer ' + sessionStorage.getItem('token'));
+            },
+            success: function (data) {
+                if (successCallback) {
+                    successCallback(data);
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                var response = jqXHR.responseJSON || jqXHR.responseText;
 
-			if (callBackFunction) {
-				callBackFunction(response.Data);
-			}
-		})
-			.fail(function (response) {
-				var data = response.responseJSON;
-				var errors = data.errors;
-				var errorMessages = Object.values(errors).flat();
-				message = errorMessages.join("<br/> ");
-				Swal.fire({
-					icon: 'error',
-					title: 'Oops...',
-					html: message,
-					footer: 'UCenfotec'
-				})
-			})
-	};
+                // if 200 ok
+                if (jqXHR.status == 200) {
+                    if (successCallback) {
+                        successCallback();
+                    }
+                    return;
+                }
 
-	this.GetToApi = function (service, callBackFunction) {
-		var jqxhr = $.get(this.GetUrlApiService(service), function (response) {
-			console.log("Response " + response);
-			if (callBackFunction) {
-				callBackFunction(response.Data);
-			}
+                if (failCallBack) {
+                    failCallBack(response, jqXHR.status);
+                }
+            }
+        });
+    };
 
-		});
-	}
-}
+    this.DeleteToAPI = function (service, data, successCallback, failCallBack) {
+        $.ajax({
+            type: "DELETE",
+            url: this.GetUrlApiService(service),
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            beforeSend: function (request) {
+                request.setRequestHeader("Authorization", 'Bearer ' + sessionStorage.getItem('token'));
+            },
+            success: function (data) {
+                if (successCallback) {
+                    successCallback(data);
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                var response = jqXHR.responseJSON || jqXHR.responseText;
 
-//Custom jquery actions
-$.put = function (url, data, callback) {
-	if ($.isFunction(data)) {
-		type = type || callback,
-			callback = data,
-			data = {}
-	}
-	return $.ajax({
-		url: url,
-		type: 'PUT',
-		success: callback,
-		data: JSON.stringify(data),
-		contentType: 'application/json'
-	});
-}
+                // if 200 ok
+                if (jqXHR.status == 200) {
+                    if (successCallback) {
+                        successCallback();
+                    }
+                    return;
+                }
 
-$.delete = function (url, data, callback) {
-	if ($.isFunction(data)) {
-		type = type || callback,
-			callback = data,
-			data = {}
-	}
-	return $.ajax({
-		url: url,
-		type: 'DELETE',
-		success: callback,
-		data: JSON.stringify(data),
-		contentType: 'application/json'
-	});
+                if (failCallBack) {
+                    failCallBack(response, jqXHR.status);
+                }
+            }
+        });
+    };
+
+    this.GetToApi = function (service, successCallback, failCallBack) {
+        const url = this.GetUrlApiService(service);
+        $.ajax({
+            type: "GET",
+            url: url,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            beforeSend: function (request) {
+                request.setRequestHeader("Authorization", 'Bearer ' + sessionStorage.getItem('token'));
+            },
+            success: function (data) {
+                if (successCallback) {
+                    successCallback(data);
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                var response = jqXHR.responseJSON || jqXHR.responseText;
+
+                // if 200 ok
+                if (jqXHR.status == 200) {
+                    if (successCallback) {
+                        successCallback();
+                    }
+                    return;
+                }
+
+                if (failCallBack) {
+                    failCallBack(response, jqXHR.status);
+                }
+            }
+        });
+    };
 }

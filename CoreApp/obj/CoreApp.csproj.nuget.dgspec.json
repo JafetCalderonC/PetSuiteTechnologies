@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\VisualStudio\\Universidad\\Proyecto 2\\PetSuiteTechnologies\\CoreApp\\CoreApp.csproj": {}
+    "D:\\VisualStudio\\Universidad\\Proyecto 2\\Actual\\PetSuiteTechnologies\\CoreApp\\CoreApp.csproj": {}
   },
   "projects": {
-    "D:\\VisualStudio\\Universidad\\Proyecto 2\\PetSuiteTechnologies\\CoreApp\\CoreApp.csproj": {
+    "D:\\VisualStudio\\Universidad\\Proyecto 2\\Actual\\PetSuiteTechnologies\\CoreApp\\CoreApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\VisualStudio\\Universidad\\Proyecto 2\\PetSuiteTechnologies\\CoreApp\\CoreApp.csproj",
+        "projectUniqueName": "D:\\VisualStudio\\Universidad\\Proyecto 2\\Actual\\PetSuiteTechnologies\\CoreApp\\CoreApp.csproj",
         "projectName": "CoreApp",
-        "projectPath": "D:\\VisualStudio\\Universidad\\Proyecto 2\\PetSuiteTechnologies\\CoreApp\\CoreApp.csproj",
+        "projectPath": "D:\\VisualStudio\\Universidad\\Proyecto 2\\Actual\\PetSuiteTechnologies\\CoreApp\\CoreApp.csproj",
         "packagesPath": "C:\\Users\\Usuario\\.nuget\\packages\\",
-        "outputPath": "D:\\VisualStudio\\Universidad\\Proyecto 2\\PetSuiteTechnologies\\CoreApp\\obj\\",
+        "outputPath": "D:\\VisualStudio\\Universidad\\Proyecto 2\\Actual\\PetSuiteTechnologies\\CoreApp\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
           "C:\\Users\\Usuario\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -26,18 +22,17 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "D:\\VisualStudio\\Universidad\\Proyecto 2\\PetSuiteTechnologies\\DataAccess\\DataAccess.csproj": {
-                "projectPath": "D:\\VisualStudio\\Universidad\\Proyecto 2\\PetSuiteTechnologies\\DataAccess\\DataAccess.csproj"
+              "D:\\VisualStudio\\Universidad\\Proyecto 2\\Actual\\PetSuiteTechnologies\\DataAccess\\DataAccess.csproj": {
+                "projectPath": "D:\\VisualStudio\\Universidad\\Proyecto 2\\Actual\\PetSuiteTechnologies\\DataAccess\\DataAccess.csproj"
               },
-              "D:\\VisualStudio\\Universidad\\Proyecto 2\\PetSuiteTechnologies\\DTOs\\DTOs.csproj": {
-                "projectPath": "D:\\VisualStudio\\Universidad\\Proyecto 2\\PetSuiteTechnologies\\DTOs\\DTOs.csproj"
+              "D:\\VisualStudio\\Universidad\\Proyecto 2\\Actual\\PetSuiteTechnologies\\DTOs\\DTOs.csproj": {
+                "projectPath": "D:\\VisualStudio\\Universidad\\Proyecto 2\\Actual\\PetSuiteTechnologies\\DTOs\\DTOs.csproj"
               }
             }
           }
@@ -55,6 +50,22 @@
             "Azure.Core": {
               "target": "Package",
               "version": "[1.25.0, )"
+            },
+            "CloudinaryDotNet": {
+              "target": "Package",
+              "version": "[1.23.0, )"
+            },
+            "Microsoft.AspNetCore.Http": {
+              "target": "Package",
+              "version": "[2.2.2, )"
+            },
+            "SendGrid": {
+              "target": "Package",
+              "version": "[9.28.1, )"
+            },
+            "Twilio": {
+              "target": "Package",
+              "version": "[6.15.0, )"
             }
           },
           "imports": [
@@ -77,21 +88,17 @@
         }
       }
     },
-    "D:\\VisualStudio\\Universidad\\Proyecto 2\\PetSuiteTechnologies\\DataAccess\\DataAccess.csproj": {
+    "D:\\VisualStudio\\Universidad\\Proyecto 2\\Actual\\PetSuiteTechnologies\\DataAccess\\DataAccess.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\VisualStudio\\Universidad\\Proyecto 2\\PetSuiteTechnologies\\DataAccess\\DataAccess.csproj",
+        "projectUniqueName": "D:\\VisualStudio\\Universidad\\Proyecto 2\\Actual\\PetSuiteTechnologies\\DataAccess\\DataAccess.csproj",
         "projectName": "DataAccess",
-        "projectPath": "D:\\VisualStudio\\Universidad\\Proyecto 2\\PetSuiteTechnologies\\DataAccess\\DataAccess.csproj",
+        "projectPath": "D:\\VisualStudio\\Universidad\\Proyecto 2\\Actual\\PetSuiteTechnologies\\DataAccess\\DataAccess.csproj",
         "packagesPath": "C:\\Users\\Usuario\\.nuget\\packages\\",
-        "outputPath": "D:\\VisualStudio\\Universidad\\Proyecto 2\\PetSuiteTechnologies\\DataAccess\\obj\\",
+        "outputPath": "D:\\VisualStudio\\Universidad\\Proyecto 2\\Actual\\PetSuiteTechnologies\\DataAccess\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
           "C:\\Users\\Usuario\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -99,15 +106,14 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "D:\\VisualStudio\\Universidad\\Proyecto 2\\PetSuiteTechnologies\\DTOs\\DTOs.csproj": {
-                "projectPath": "D:\\VisualStudio\\Universidad\\Proyecto 2\\PetSuiteTechnologies\\DTOs\\DTOs.csproj"
+              "D:\\VisualStudio\\Universidad\\Proyecto 2\\Actual\\PetSuiteTechnologies\\DTOs\\DTOs.csproj": {
+                "projectPath": "D:\\VisualStudio\\Universidad\\Proyecto 2\\Actual\\PetSuiteTechnologies\\DTOs\\DTOs.csproj"
               }
             }
           }
@@ -151,21 +157,17 @@
         }
       }
     },
-    "D:\\VisualStudio\\Universidad\\Proyecto 2\\PetSuiteTechnologies\\DTOs\\DTOs.csproj": {
+    "D:\\VisualStudio\\Universidad\\Proyecto 2\\Actual\\PetSuiteTechnologies\\DTOs\\DTOs.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\VisualStudio\\Universidad\\Proyecto 2\\PetSuiteTechnologies\\DTOs\\DTOs.csproj",
+        "projectUniqueName": "D:\\VisualStudio\\Universidad\\Proyecto 2\\Actual\\PetSuiteTechnologies\\DTOs\\DTOs.csproj",
         "projectName": "DTOs",
-        "projectPath": "D:\\VisualStudio\\Universidad\\Proyecto 2\\PetSuiteTechnologies\\DTOs\\DTOs.csproj",
+        "projectPath": "D:\\VisualStudio\\Universidad\\Proyecto 2\\Actual\\PetSuiteTechnologies\\DTOs\\DTOs.csproj",
         "packagesPath": "C:\\Users\\Usuario\\.nuget\\packages\\",
-        "outputPath": "D:\\VisualStudio\\Universidad\\Proyecto 2\\PetSuiteTechnologies\\DTOs\\obj\\",
+        "outputPath": "D:\\VisualStudio\\Universidad\\Proyecto 2\\Actual\\PetSuiteTechnologies\\DTOs\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
           "C:\\Users\\Usuario\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -173,7 +175,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -191,16 +192,6 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "dependencies": {
-            "Azure.Core": {
-              "target": "Package",
-              "version": "[1.25.0, )"
-            },
-            "Microsoft.AspNetCore.Http.Features": {
-              "target": "Package",
-              "version": "[5.0.17, )"
-            }
-          },
           "imports": [
             "net461",
             "net462",

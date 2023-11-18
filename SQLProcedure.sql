@@ -8,8 +8,9 @@
 
 -- Create user
 CREATE PROCEDURE CREATE_USER_PR
-    @P_IS_OTP_VERIFIED BIT,
+    @P_IS_PASSWORD_REQUIRED_CHANGE BIT,
     @P_PASSWORD_HASH NVARCHAR(MAX),
+    @P_PASSWORD_SALT NVARCHAR(MAX),
     @P_ROLE NVARCHAR(20),
     @P_STATUS TINYINT,
     @P_FIRST_NAME NVARCHAR(50),
@@ -17,7 +18,7 @@ CREATE PROCEDURE CREATE_USER_PR
     @P_IDENTIFICATION_TYPE NVARCHAR(30),
     @P_IDENTIFIER_VALUE NVARCHAR(60),
     @P_EMAIL NVARCHAR(50),
-    @P_PROFILE_PHOTO_URL NVARCHAR(MAX),
+    @P_CLOUNDINARY_PUBLIC_ID NVARCHAR(MAX),
     @P_THEME_PREFERENCE NVARCHAR(20),
     @P_CREATED_DATE DATETIME,
     @P_MODIFIED_DATE DATETIME,
@@ -29,8 +30,9 @@ BEGIN
     DECLARE @ID TABLE (ID INT)
 
     INSERT INTO users(
-        is_otp_verified, 
-        password_hash, 
+        is_password_required_change, 
+		password_hash,
+        password_salt,
         role, 
         status, 
         first_name, 
@@ -38,7 +40,7 @@ BEGIN
         identification_type, 
         identifier_value, 
         email, 
-        profile_photo_url, 
+        cloudinary_public_id, 
         theme_preference, 
         created_date, 
         modified_date, 
@@ -46,8 +48,9 @@ BEGIN
         address_longitude)
     OUTPUT INSERTED.user_id INTO @ID
     VALUES (
-        @P_IS_OTP_VERIFIED, 
+        @P_IS_PASSWORD_REQUIRED_CHANGE, 
         @P_PASSWORD_HASH, 
+        @P_PASSWORD_SALT,
         @P_ROLE, 
         @P_STATUS, 
         @P_FIRST_NAME, 
@@ -55,7 +58,7 @@ BEGIN
         @P_IDENTIFICATION_TYPE, 
         @P_IDENTIFIER_VALUE, 
         @P_EMAIL, 
-        @P_PROFILE_PHOTO_URL, 
+        @P_CLOUNDINARY_PUBLIC_ID, 
         @P_THEME_PREFERENCE, 
         @P_CREATED_DATE, 
         @P_MODIFIED_DATE, 
@@ -95,6 +98,35 @@ BEGIN
 END
 GO
 
+-- Retrive phono by phone number
+CREATE PROCEDURE RETRIEVE_USER_BY_PHONE_NUMBER_PR
+	@P_PHONE_NUMBER NVARCHAR(20)
+AS
+BEGIN
+	SELECT TOP 1 
+		us.user_id, 
+		us.is_password_required_change, 
+		us.password_hash,
+        us.password_salt,
+		us.role, 
+		us.status, 
+		us.first_name, 
+		us.last_name, 
+		us.identification_type, 
+		us.identifier_value, 
+		us.email, 
+		us.cloudinary_public_id, 
+		us.theme_preference, 
+		us.created_date, 
+		us.modified_date, 
+		us.address_latitude, 
+		us.address_longitude
+	FROM phones
+    INNER JOIN users AS us ON phones.user_id = us.user_id
+    WHERE phones.phone_number = @P_PHONE_NUMBER AND status != 0
+END
+GO
+
 -- Retrieve phones by user id
 CREATE PROCEDURE RETRIEVE_PHONE_NUMBERS_BY_USER_ID_PR
     @P_USER_ID INT
@@ -109,6 +141,8 @@ GO
 -- Update user
 CREATE PROCEDURE UPDATE_USER_PR
     @P_USER_ID INT,   
+    @P_PASSWORD_HASH NVARCHAR(MAX),
+    @P_PASSWORD_SALT NVARCHAR(MAX),
     @P_ROLE NVARCHAR(20),
     @P_STATUS TINYINT,
     @P_FIRST_NAME NVARCHAR(50),
@@ -116,22 +150,26 @@ CREATE PROCEDURE UPDATE_USER_PR
     @P_IDENTIFICATION_TYPE NVARCHAR(30),
     @P_IDENTIFIER_VALUE NVARCHAR(60),
     @P_EMAIL NVARCHAR(50),
-    @P_PROFILE_PHOTO_URL NVARCHAR(MAX),
+    @P_CLOUNDINARY_PUBLIC_ID NVARCHAR(MAX),
     @P_THEME_PREFERENCE NVARCHAR(20),  
     @P_MODIFIED_DATE DATETIME,
     @P_ADDRESS_LATITUDE FLOAT,
-    @P_ADDRESS_LONGITUDE FLOAT
+    @P_ADDRESS_LONGITUDE FLOAT,
+    @P_IS_PASSWORD_REQUIRED_CHANGE BIT
 AS
 BEGIN
     UPDATE users
     SET role = @P_ROLE,
+        password_hash = @P_PASSWORD_HASH,
+        password_salt = @P_PASSWORD_SALT,
+        is_password_required_change = @P_IS_PASSWORD_REQUIRED_CHANGE,
         status = @P_STATUS,
         first_name = @P_FIRST_NAME,
         last_name = @P_LAST_NAME,
         identification_type = @P_IDENTIFICATION_TYPE,
         identifier_value = @P_IDENTIFIER_VALUE,
         email = @P_EMAIL,
-        profile_photo_url = @P_PROFILE_PHOTO_URL,
+        cloudinary_public_id = @P_CLOUNDINARY_PUBLIC_ID,
         theme_preference = @P_THEME_PREFERENCE,
         modified_date = @P_MODIFIED_DATE,
         address_latitude = @P_ADDRESS_LATITUDE,
@@ -160,8 +198,9 @@ AS
 BEGIN
     SELECT TOP 1 
 		user_id, 
-		is_otp_verified, 
-		password_hash, 
+		is_password_required_change,
+        password_hash,
+        password_salt,
 		role, 
 		status, 
 		first_name, 
@@ -169,7 +208,7 @@ BEGIN
 		identification_type, 
 		identifier_value, 
 		email, 
-		profile_photo_url, 
+		cloudinary_public_id, 
 		theme_preference, 
 		created_date, 
 		modified_date, 
@@ -187,8 +226,9 @@ AS
 BEGIN
     SELECT TOP 1 
 		user_id, 
-		is_otp_verified, 
-		password_hash, 
+		is_password_required_change, 
+		password_hash,
+        password_salt,
 		role, 
 		status, 
 		first_name, 
@@ -196,7 +236,7 @@ BEGIN
 		identification_type, 
 		identifier_value, 
 		email, 
-		profile_photo_url, 
+		cloudinary_public_id, 
 		theme_preference, 
 		created_date, 
 		modified_date, 
@@ -212,8 +252,9 @@ CREATE PROCEDURE RETRIEVE_ALL_USERS_PR AS
 BEGIN
     SELECT 
 		user_id, 
-		is_otp_verified, 
-		password_hash, 
+		is_password_required_change,
+        password_hash,
+        password_salt,
 		role, 
 		status, 
 		first_name, 
@@ -221,7 +262,7 @@ BEGIN
 		identification_type, 
 		identifier_value, 
 		email, 
-		profile_photo_url, 
+		cloudinary_public_id, 
 		theme_preference, 
 		created_date, 
 		modified_date, 
@@ -232,6 +273,30 @@ BEGIN
 END
 GO
 
+-- Retrive all clients
+CREATE PROCEDURE RETRIEVE_ALL_CLIENTS_PR AS BEGIN
+	SELECT 
+		user_id, 
+		is_password_required_change, 
+		password_hash,
+        password_salt,
+		role, 
+		status, 
+		first_name, 
+		last_name, 
+		identification_type, 
+		identifier_value, 
+		email, 
+		cloudinary_public_id, 
+		theme_preference, 
+		created_date, 
+		modified_date, 
+		address_latitude, 
+		address_longitude
+	FROM users
+	WHERE status != 0 AND role = 1
+END
+GO
 
 /* 
     Pet stored procedures
@@ -279,14 +344,14 @@ GO
 -- Add pet pic
 CREATE PROCEDURE ADD_PHOTOS_TO_PET_PR
     @P_PET_ID INT,
-    @P_PHOTO_URL NVARCHAR(MAX),
+    @P_CLOUNDINARY_PUBLIC_ID NVARCHAR(MAX),
     @P_ID INT OUTPUT
 AS BEGIN
     DECLARE @ID TABLE (ID INT)
 
-    INSERT INTO pet_pics(pet_id, photo_url)
+    INSERT INTO pet_pics(pet_id, cloudinary_public_id)
     OUTPUT INSERTED.pet_photo_id INTO @ID
-    VALUES (@P_PET_ID, @P_PHOTO_URL)
+    VALUES (@P_PET_ID, @P_CLOUNDINARY_PUBLIC_ID)
 
     SELECT @P_ID = ID FROM @ID
 END
@@ -306,7 +371,7 @@ GO
 CREATE PROCEDURE RETRIEVE_PHOTOS_BY_PET_ID_PR
     @P_PET_ID INT
 AS BEGIN
-    SELECT pic_id, pet_id, pic_url
+    SELECT pic_id, pet_id, cloudinary_public_id
     FROM pet_pics
     WHERE pet_id = @P_PET_ID
 END

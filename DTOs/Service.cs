@@ -12,7 +12,7 @@ namespace DTOs
         public string ServiceDescription { get; set; } 
         public int ServiceStatus { get; set; }
         public decimal ServiceCost { get; set; }
-        public DateTime ServiceCreatedDate { get; set; }
+        public DateTime? ServiceCreatedDate { get; set; }
         public DateTime? ServiceModifiedDate { get; set;}
     }
 }

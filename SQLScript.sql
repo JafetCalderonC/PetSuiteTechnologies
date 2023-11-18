@@ -12,8 +12,9 @@ CREATE TABLE admin_settings (
 
 CREATE TABLE users (
     user_id INT PRIMARY KEY IDENTITY(1,1),
-    is_otp_verified BIT,
-    password_hash NVARCHAR(128),
+    is_password_required_change BIT,
+    password_hash NVARCHAR(MAX),
+    password_salt NVARCHAR(MAX),
     role NVARCHAR(20),
     status TINYINT,
     first_name NVARCHAR(50),
@@ -21,7 +22,7 @@ CREATE TABLE users (
     identification_type NVARCHAR(30),
     identifier_value NVARCHAR(60),
     email NVARCHAR(50),
-    profile_photo_url NVARCHAR(MAX),    
+    cloudinary_public_id NVARCHAR(MAX),    
     theme_preference NVARCHAR(20),
     created_date DATETIME,
     modified_date DATETIME,    
@@ -67,6 +68,16 @@ CREATE TABLE services (
     modified_date DATETIME
 );
 
+CREATE TABLE rooms (
+	room_id INT PRIMARY KEY IDENTITY(1,1),
+	room_name NVARCHAR(50),
+	description NVARCHAR(Max),
+	status TINYINT,
+	cost DECIMAL(10, 2),
+	created_date DATETIME,
+	modified_date DATETIME
+);
+
 CREATE TABLE packages (
     package_id INT PRIMARY KEY IDENTITY(1,1),
     package_name NVARCHAR(50),
@@ -100,9 +111,7 @@ CREATE TABLE pets (
     breed NVARCHAR(50),
     aggressiveness TINYINT,
     created_date DATETIME,
-    modified_date DATETIME,
-
-    FOREIGN KEY (user_id) REFERENCES users(user_id)
+    modified_date DATETIME
 );
 
 CREATE TABLE users_pets (
@@ -117,7 +126,7 @@ CREATE TABLE users_pets (
 CREATE TABLE pet_photo (
     pet_photo_id INT PRIMARY KEY IDENTITY(1,1),
     pet_id INT,
-    photo_url NVARCHAR(MAX),
+    cloudinary_public_id NVARCHAR(MAX),   
     FOREIGN KEY (pet_id) REFERENCES pets(pet_id)
 );
 
@@ -199,16 +208,6 @@ CREATE TABLE iot_pet_records (
     created_date DATETIME,
 
     FOREIGN KEY (pet_id) REFERENCES pets(pet_id)
-);
-
-CREATE TABLE rooms (
-	room_id INT PRIMARY KEY IDENTITY(1,1),
-	room_name NVARCHAR(50),
-	description NVARCHAR(Max),
-	status TINYINT,
-	cost DECIMAL(10, 2),
-	created_date DATETIME,
-	modified_date DATETIME
 );
 
 CREATE TABLE iot (

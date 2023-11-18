@@ -14,21 +14,22 @@ namespace DataAccess.Mapper
             var obj = new User()
             {
                 Id = (int)row["user_id"],
-                IsOtpVerified = (byte)row["is_otp_verified"] == 1,
+                IsPasswordRequiredChange = (bool)row["is_password_required_change"],
                 PasswordHash = (string)row["password_hash"],
+                PasswordSalt = (string)row["password_salt"],
                 Role = (string)row["role"],
                 Status = (byte)row["status"],
                 FirstName = (string)row["first_name"],
                 LastName = (string)row["last_name"],
                 IdentificationType = (string)row["identification_type"],
-                IdentifierValue = (string)row["identifier_value"],
+                IdentificationValue = (string)row["identifier_value"],
                 Email = (string)row["email"],
-                ProfilePicUrl = (string)row["profile_pic_url"],
+                CloudinaryPublicId = (string)row["cloudinary_public_id"],
                 ThemePreference = (string)row["theme_preference"],
                 CreatedDate = (DateTime)row["created_date"],
                 ModifiedDate = (DateTime)row["modified_date"],
-                AddressLatitude = (float)row["address_latitude"],
-                AddressLongitude = (float)row["address_longitude"]
+                AddressLatitude = (float)(double)row["address_latitude"],
+                AddressLongitude = (float)(double)row["address_longitude"]
             };
 
             return obj;

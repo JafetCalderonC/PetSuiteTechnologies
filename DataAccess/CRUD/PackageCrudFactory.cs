@@ -29,7 +29,7 @@ namespace DataAccess.CRUD
             sqlOperation.AddParameter("@P_DESCRIPTION", dto.Description);
             sqlOperation.AddParameter("@P_STATUS", dto.Status);
             sqlOperation.AddParameter("@P_ROOM_ID", dto.RoomId);
-            sqlOperation.AddParameter("@P_PET_BREED_TYPE", dto.PetBreedType);
+            sqlOperation.AddParameter("@P_PET_BREED_TYPE", dto.PetBreedType);   
             sqlOperation.AddParameter("@P_PET_SIZE", dto.PetSize);
             sqlOperation.AddParameter("@P_PET_AGGRESSIVENESS", dto.PetAggressiveness);
             sqlOperation.AddParameter("@P_CREATED_DATE", dto.CreatedDate);

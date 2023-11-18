@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DTOs
+namespace DTOs.User
 {
-    public class Authenticate
+    public class ForgotPassword
     {
         public string Email { get; set; }
-        public string Password { get; set; }
     }
 }

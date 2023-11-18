@@ -105,7 +105,7 @@ function ServiceController() {
         service.Id = +$("#txtServiceId").val();
         var controlActions = new ControlActions();
         var serviceRoute = this.ApiService + "/Delete";
-        controlActions.DeleteToAPI(serviceRoute, Id, function () { console.log("Service deleted" + JSON.stringify(service)) });
+        controlActions.DeleteToAPI(serviceRoute, service.Id, function () { console.log("Service deleted" + JSON.stringify(service)) });
     }
 
     this.LoadTable = function () {

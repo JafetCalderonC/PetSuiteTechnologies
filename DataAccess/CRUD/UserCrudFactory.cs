@@ -1,5 +1,6 @@
 ﻿using DataAccess.DAOs;
 using DataAccess.Mapper;
+using DTOs;
 using DTOs.User;
 using System;
 using System.Collections.Generic;
@@ -54,10 +55,10 @@ namespace DataAccess.CRUD
             }
         }
 
-        public override void Delete(int id)
+        public override void Delete(BaseDTO dto)
         {
             var sqlOperation = new SqlOperation("DELETE_USER_PR");
-            sqlOperation.AddParameter("@P_USER_ID", id);
+            sqlOperation.AddParameter("@P_USER_ID", dto.Id);
             sqlOperation.AddParameter("@P_MODIFIED_DATE", DateTime.UtcNow);
 
             _dao.ExecuteProcedure(sqlOperation);

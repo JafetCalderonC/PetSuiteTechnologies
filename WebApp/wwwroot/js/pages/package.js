@@ -5,7 +5,7 @@
 function PackageController() {
 
     this.ViewName = "Package";
-    this.ApiService = "Package";
+    this.ApiService = "PackageCRUD";
 
     this.InitView = function () {
 

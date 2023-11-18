@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final - modif\\PetSuiteTechnologies\\WebAPI\\WebAPI.csproj": {}
+    "D:\\VisualStudio\\Universidad\\Proyecto 2\\Actual\\PetSuiteTechnologies\\WebAPI\\WebAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final - modif\\PetSuiteTechnologies\\CoreApp\\CoreApp.csproj": {
+    "D:\\VisualStudio\\Universidad\\Proyecto 2\\Actual\\PetSuiteTechnologies\\CoreApp\\CoreApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final - modif\\PetSuiteTechnologies\\CoreApp\\CoreApp.csproj",
+        "projectUniqueName": "D:\\VisualStudio\\Universidad\\Proyecto 2\\Actual\\PetSuiteTechnologies\\CoreApp\\CoreApp.csproj",
         "projectName": "CoreApp",
-        "projectPath": "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final - modif\\PetSuiteTechnologies\\CoreApp\\CoreApp.csproj",
-        "packagesPath": "C:\\Users\\mosco\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final - modif\\PetSuiteTechnologies\\CoreApp\\obj\\",
+        "projectPath": "D:\\VisualStudio\\Universidad\\Proyecto 2\\Actual\\PetSuiteTechnologies\\CoreApp\\CoreApp.csproj",
+        "packagesPath": "C:\\Users\\Usuario\\.nuget\\packages\\",
+        "outputPath": "D:\\VisualStudio\\Universidad\\Proyecto 2\\Actual\\PetSuiteTechnologies\\CoreApp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\mosco\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Usuario\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,18 +22,17 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final - modif\\PetSuiteTechnologies\\DataAccess\\DataAccess.csproj": {
-                "projectPath": "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final - modif\\PetSuiteTechnologies\\DataAccess\\DataAccess.csproj"
+              "D:\\VisualStudio\\Universidad\\Proyecto 2\\Actual\\PetSuiteTechnologies\\DataAccess\\DataAccess.csproj": {
+                "projectPath": "D:\\VisualStudio\\Universidad\\Proyecto 2\\Actual\\PetSuiteTechnologies\\DataAccess\\DataAccess.csproj"
               },
-              "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final - modif\\PetSuiteTechnologies\\DTOs\\DTOs.csproj": {
-                "projectPath": "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final - modif\\PetSuiteTechnologies\\DTOs\\DTOs.csproj"
+              "D:\\VisualStudio\\Universidad\\Proyecto 2\\Actual\\PetSuiteTechnologies\\DTOs\\DTOs.csproj": {
+                "projectPath": "D:\\VisualStudio\\Universidad\\Proyecto 2\\Actual\\PetSuiteTechnologies\\DTOs\\DTOs.csproj"
               }
             }
           }
@@ -48,6 +47,10 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "Azure.Core": {
+              "target": "Package",
+              "version": "[1.25.0, )"
+            },
             "CloudinaryDotNet": {
               "target": "Package",
               "version": "[1.23.0, )"
@@ -81,21 +84,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final - modif\\PetSuiteTechnologies\\DataAccess\\DataAccess.csproj": {
+    "D:\\VisualStudio\\Universidad\\Proyecto 2\\Actual\\PetSuiteTechnologies\\DataAccess\\DataAccess.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final - modif\\PetSuiteTechnologies\\DataAccess\\DataAccess.csproj",
+        "projectUniqueName": "D:\\VisualStudio\\Universidad\\Proyecto 2\\Actual\\PetSuiteTechnologies\\DataAccess\\DataAccess.csproj",
         "projectName": "DataAccess",
-        "projectPath": "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final - modif\\PetSuiteTechnologies\\DataAccess\\DataAccess.csproj",
-        "packagesPath": "C:\\Users\\mosco\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final - modif\\PetSuiteTechnologies\\DataAccess\\obj\\",
+        "projectPath": "D:\\VisualStudio\\Universidad\\Proyecto 2\\Actual\\PetSuiteTechnologies\\DataAccess\\DataAccess.csproj",
+        "packagesPath": "C:\\Users\\Usuario\\.nuget\\packages\\",
+        "outputPath": "D:\\VisualStudio\\Universidad\\Proyecto 2\\Actual\\PetSuiteTechnologies\\DataAccess\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\mosco\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Usuario\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -103,15 +106,14 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final - modif\\PetSuiteTechnologies\\DTOs\\DTOs.csproj": {
-                "projectPath": "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final - modif\\PetSuiteTechnologies\\DTOs\\DTOs.csproj"
+              "D:\\VisualStudio\\Universidad\\Proyecto 2\\Actual\\PetSuiteTechnologies\\DTOs\\DTOs.csproj": {
+                "projectPath": "D:\\VisualStudio\\Universidad\\Proyecto 2\\Actual\\PetSuiteTechnologies\\DTOs\\DTOs.csproj"
               }
             }
           }
@@ -126,6 +128,10 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "Azure.Core": {
+              "target": "Package",
+              "version": "[1.25.0, )"
+            },
             "Microsoft.Data.SqlClient": {
               "target": "Package",
               "version": "[5.1.1, )"
@@ -147,21 +153,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final - modif\\PetSuiteTechnologies\\DTOs\\DTOs.csproj": {
+    "D:\\VisualStudio\\Universidad\\Proyecto 2\\Actual\\PetSuiteTechnologies\\DTOs\\DTOs.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final - modif\\PetSuiteTechnologies\\DTOs\\DTOs.csproj",
+        "projectUniqueName": "D:\\VisualStudio\\Universidad\\Proyecto 2\\Actual\\PetSuiteTechnologies\\DTOs\\DTOs.csproj",
         "projectName": "DTOs",
-        "projectPath": "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final - modif\\PetSuiteTechnologies\\DTOs\\DTOs.csproj",
-        "packagesPath": "C:\\Users\\mosco\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final - modif\\PetSuiteTechnologies\\DTOs\\obj\\",
+        "projectPath": "D:\\VisualStudio\\Universidad\\Proyecto 2\\Actual\\PetSuiteTechnologies\\DTOs\\DTOs.csproj",
+        "packagesPath": "C:\\Users\\Usuario\\.nuget\\packages\\",
+        "outputPath": "D:\\VisualStudio\\Universidad\\Proyecto 2\\Actual\\PetSuiteTechnologies\\DTOs\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\mosco\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Usuario\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -169,7 +175,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -203,21 +208,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final - modif\\PetSuiteTechnologies\\WebAPI\\WebAPI.csproj": {
+    "D:\\VisualStudio\\Universidad\\Proyecto 2\\Actual\\PetSuiteTechnologies\\WebAPI\\WebAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final - modif\\PetSuiteTechnologies\\WebAPI\\WebAPI.csproj",
+        "projectUniqueName": "D:\\VisualStudio\\Universidad\\Proyecto 2\\Actual\\PetSuiteTechnologies\\WebAPI\\WebAPI.csproj",
         "projectName": "WebAPI",
-        "projectPath": "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final - modif\\PetSuiteTechnologies\\WebAPI\\WebAPI.csproj",
-        "packagesPath": "C:\\Users\\mosco\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final - modif\\PetSuiteTechnologies\\WebAPI\\obj\\",
+        "projectPath": "D:\\VisualStudio\\Universidad\\Proyecto 2\\Actual\\PetSuiteTechnologies\\WebAPI\\WebAPI.csproj",
+        "packagesPath": "C:\\Users\\Usuario\\.nuget\\packages\\",
+        "outputPath": "D:\\VisualStudio\\Universidad\\Proyecto 2\\Actual\\PetSuiteTechnologies\\WebAPI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\mosco\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Usuario\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -225,18 +230,18 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
+          "C:\\Program Files\\dotnet\\sdk\\7.0.302\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final - modif\\PetSuiteTechnologies\\CoreApp\\CoreApp.csproj": {
-                "projectPath": "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final - modif\\PetSuiteTechnologies\\CoreApp\\CoreApp.csproj"
+              "D:\\VisualStudio\\Universidad\\Proyecto 2\\Actual\\PetSuiteTechnologies\\CoreApp\\CoreApp.csproj": {
+                "projectPath": "D:\\VisualStudio\\Universidad\\Proyecto 2\\Actual\\PetSuiteTechnologies\\CoreApp\\CoreApp.csproj"
               },
-              "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final - modif\\PetSuiteTechnologies\\DTOs\\DTOs.csproj": {
-                "projectPath": "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final - modif\\PetSuiteTechnologies\\DTOs\\DTOs.csproj"
+              "D:\\VisualStudio\\Universidad\\Proyecto 2\\Actual\\PetSuiteTechnologies\\DTOs\\DTOs.csproj": {
+                "projectPath": "D:\\VisualStudio\\Universidad\\Proyecto 2\\Actual\\PetSuiteTechnologies\\DTOs\\DTOs.csproj"
               }
             }
           }
@@ -287,7 +292,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
         }
       }
     }

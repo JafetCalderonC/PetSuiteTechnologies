@@ -1,17 +1,16 @@
-﻿using CoreApp.Utilities;
-using DataAccess.CRUD;
-using DTOs;
+﻿using DataAccess.CRUD;
+using DataAccess.DAOs;
+using DTOs.Service;
 using DTOs.User;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace CoreApp
 {
-    public class ServiceManager : BaseManager
+    public class ServiceManager
     {
         private ServiceCrudFactory _crud;
 
@@ -20,101 +19,53 @@ namespace CoreApp
             _crud = new ServiceCrudFactory();
         }
 
-        private void EnsureGeneralvalidation(Service service, bool isNewService)
-        {           
-            if(service == null)
-            {
-                throw new Exception("El servicio es nulo");
-            }
-
-            if (string.IsNullOrEmpty(service.ServiceName) || string.IsNullOrWhiteSpace(service.ServiceName))
-            {
-                throw new Exception("El nombre del servicio es requerido");
-            }
-
-            if (string.IsNullOrEmpty(service.ServiceDescription) || string.IsNullOrWhiteSpace(service.ServiceDescription))
-            {
-                throw new Exception("La descripción del servicio es requerida");
-            }
-
-            if(service.ServiceCost <= 0)
-            {
-                throw new Exception("El precio tiene que ser mayor a 0");
-            }
-
-            if((service.ServiceStatus == 1 || service.ServiceStatus == 2) == false)
-            {
-                throw new Exception("El estado del servicio es inválido");
-            }
-
-
-            if (isNewService == true)
-            {
-                // Validate if the service already exists by name
-                var currentService = _crud.RetrieveAll();
-                foreach (var item in currentService)
-                {
-                    if (item.ServiceName == service.ServiceName)
-                    {
-                        throw new Exception("El servicio ya existe");
-                    }
-                }
-            }
-        }
-
-        public void Create(Service service)
+        private bool Validate(Service user, out string? message)
         {
-            service.NormalizerDTO();
-            EnsureGeneralvalidation(service, true);
- 
-            service.ServiceCreatedDate = DateTime.Now;
-            service.ServiceModifiedDate = DateTime.Now;
-            _crud.Create(service);
+            if(!IsUnique(service.ServiceName))
+            {
+              throw new Exception("Service name already exists");
+            }
+            var serviceCrud = new ServiceCrudFactory();
+            serviceCrud.Create(service);
         }
         public void Update(Service service)
         {
-            service.NormalizerDTO();
-            EnsureGeneralvalidation(service, false);
-
-            // get service by id
-            var currentService = _crud.RetrieveById(service.Id);
-            if (currentService == null)
-            {
-                throw new Exception("El servicio no existe");
-            }
-
-            currentService.ServiceName = service.ServiceName;
-            currentService.ServiceDescription = service.ServiceDescription;
-            currentService.ServiceStatus = service.ServiceStatus;
-            currentService.ServiceCost = service.ServiceCost;
-            currentService.ServiceModifiedDate = DateTime.Now;
-            _crud.Update(currentService);
+            var serviceCrud = new ServiceCrudFactory();
+            serviceCrud.Update(service);
         }
-        public void Delete(int id)
-        {            
-            // get service by id
-            var currentService = _crud.RetrieveById(id);
-            if (currentService == null)
-            {
-                throw new Exception("El servicio no existe");
-            }
-
-            _crud.Delete(id);
+        public void Delete(BaseDTO dto)
+        {
+            var serviceCrud = new ServiceCrudFactory();
+            serviceCrud.Delete(dto);
         }
         public Service RetrieveById(int id)
         {
-            // get service by id
-            var currentService = _crud.RetrieveById(id);
-            if (currentService == null)
-            {
-                throw new Exception("El servicio no existe");
-            }
-
-            return _crud.RetrieveById(id);
+            var serviceCrud = new ServiceCrudFactory();
+            return serviceCrud.RetrieveById(id);
         }
         public List<Service> RetrieveAll()
         {
-            return _crud.RetrieveAll();
+            var serviceCrud = new ServiceCrudFactory();
+            return serviceCrud.RetrieveAll();
+        }
+
+        public void Create(Service user)
+        {
+            // Default values
+            //user.Role = "client";
+            //user.Status = 1;
+            //user.IsOtpVerified = false;
+            //user.CreatedDate = DateTime.UtcNow;
+            //user.ModifiedDate = DateTime.UtcNow;
+            //user.ThemePreference = "light";
+
+            // Create user
+            _crud.Create(user);
+        }
+
+        public void Update(Service user)
+        {
+            _crud.Update(user);
         }
     }
 }

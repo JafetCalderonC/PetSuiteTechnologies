@@ -42,10 +42,10 @@ namespace DataAccess.CRUD
             sqlOperation.AddParameter("@P_MODIFIED_DATE", dto.ServiceModifiedDate);
             _dao.ExecuteProcedure(sqlOperation);
         }
-        public override void Delete(int id)
+        public override void Delete(BaseDTO dto)
         {
             var sqlOperation = new SqlOperation("DELETE_SERVICE_PR");
-            sqlOperation.AddParameter("@P_SERVICE_ID", id);
+            sqlOperation.AddParameter("@P_SERVICE_ID", dto.Id);
             _dao.ExecuteProcedure(sqlOperation);
         }
         public override Service RetrieveById(int id)

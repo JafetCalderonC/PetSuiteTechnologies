@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using DTOs;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers
@@ -41,12 +42,12 @@ namespace WebAPI.Controllers
 
         [HttpDelete]
         [Route("Delete")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(BaseDTO dto)
         {
             try
             {
                 var serviceManager = new CoreApp.ServiceManager();
-                serviceManager.Delete(id);
+                serviceManager.Delete(dto);
                 return Ok();
             }
             catch (System.Exception ex)

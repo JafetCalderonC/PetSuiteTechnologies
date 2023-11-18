@@ -17,9 +17,9 @@ namespace DataAccess.DAOs
 
         private SqlDao()
         {
-            _connectionString = "Data Source=icastros-proyecto2-server.database.windows.net;" +
-                "Initial Catalog=ICASTROS-PROYECTO2;Persist Security Info=True;" +
-                "User ID=ICASTROS;Password=Cenfotec123!";
+            _connectionString = "Data Source=jcalderon-ucenfotec2023server.database.windows.net;" +
+                "Initial Catalog=PetSuiteTechnologies;Persist Security Info=True;" +
+                "User ID=sysman;Password=Cenfotec123!";
         }
 
         public static SqlDao GetInstance()

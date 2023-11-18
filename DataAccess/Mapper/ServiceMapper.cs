@@ -13,13 +13,13 @@ namespace DataAccess.Mapper
         {
             var service = new Service
             {
-                Id = (int)row["service_id"],
+                Id = Convert.ToInt32(row["service_id"]),
                 ServiceName = (string)row["service_name"],
-                ServiceDescription = (string)row["service_description"],
-                ServiceStatus = (int)row["service_status"],
-                ServiceCost = (decimal)row["service_cost"],
-                ServiceCreatedDate = (DateTime)row["service_created_date"],
-                ServiceModifiedDate = (DateTime)row["service_modified_date"]
+                ServiceDescription = (string)row["description"],
+                ServiceStatus = Convert.ToInt32(row["status"]),
+                ServiceCost = Convert.ToDecimal(row["cost"]),
+                ServiceCreatedDate = (DateTime)row["created_date"],
+                ServiceModifiedDate = (DateTime)row["modified_date"]
             };
             return service;
         }

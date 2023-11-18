@@ -1,4 +1,5 @@
 ﻿using DTOs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,11 +7,12 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ServiceController : ControllerBase
     {
         [HttpPost]
         [Route("Create")]
-        public async Task<IActionResult> Create(DTOs.Service service)
+        public async Task<IActionResult> Create(Service service)
         {
             try
             {
@@ -18,7 +20,7 @@ namespace WebAPI.Controllers
                 serviceManager.Create(service);
                 return Ok();
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
@@ -26,7 +28,7 @@ namespace WebAPI.Controllers
         [HttpPut]
         [Route("Update")]
 
-        public async Task<IActionResult> Update(DTOs.Service service)
+        public async Task<IActionResult> Update(Service service)
         {
             try
             {
@@ -34,7 +36,7 @@ namespace WebAPI.Controllers
                 serviceManager.Update(service);
                 return Ok();
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
@@ -47,10 +49,10 @@ namespace WebAPI.Controllers
             try
             {
                 var serviceManager = new CoreApp.ServiceManager();
-                serviceManager.Delete(dto);
+                serviceManager.Delete(dto.Id);
                 return Ok();
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
@@ -65,7 +67,7 @@ namespace WebAPI.Controllers
                 var service = serviceManager.RetrieveById(id);
                 return Ok(service);
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
@@ -80,11 +82,10 @@ namespace WebAPI.Controllers
                 var services = serviceManager.RetrieveAll();
                 return Ok(services);
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
-
     }
 }

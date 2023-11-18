@@ -402,7 +402,7 @@ namespace CoreApp
             {
                 throw new ValidationException("Lo sentimos, algo salió mal. Inténtalo de nuevo más tarde o comunícate soporte técnico.");
             }
-           
+
         }
 
         public void ChangePassword(ChangePassword change)
@@ -428,10 +428,10 @@ namespace CoreApp
                 throw new ValidationException("La contraseña nueva no coincide con la confirmación");
             }
 
-            if(change.CurrentPassword == change.ConfirmNewPassword)
+            if (change.CurrentPassword == change.ConfirmNewPassword)
             {
                 throw new ValidationException("La contraseña nueva no puede ser igual a la actual");
-            }      
+            }
 
             // Validate new password
             if (!PasswordUtility.ValidatePassword(change.NewPassword, _passwordOptions, out string errorMessage))

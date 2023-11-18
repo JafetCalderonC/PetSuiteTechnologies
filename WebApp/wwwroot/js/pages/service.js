@@ -1,8 +1,11 @@
 function ServiceController() {
 
     this.ApiService = "Service";
+    this.title = "Servicios";
 
     this.InitView = function () {
+        document.title = this.title;
+
 
         $(".bs-component form").hide();
         $("#btnUpdate").hide();
@@ -16,7 +19,7 @@ function ServiceController() {
             $(".bs-component form").toggle();
             $("#btnUpdate").toggle();
             $("#btnDelete").toggle();
-            $("#divtblService").toggle(); 
+            $("#divtblService").toggle();
         });
 
         $("#btnCreate").click(function () {
@@ -43,19 +46,19 @@ function ServiceController() {
         var serviceCost = $("#txtServiceCost").val();
 
         if (!serviceName) {
-            Swal.fire("Error", "Service Name cannot be empty.", "error");
+            Swal.fire("Error", "El nombre del servicio no puede estar vacío.", "error");
             return false;
         }
         if (!serviceDescription) {
-            Swal.fire("Error", "Service Description cannot be empty.", "error");
+            Swal.fire("Error", "La descripción no puede estar vacía.", "error");
             return false;
         }
         if (!serviceStatus) {
-            Swal.fire("Error", "Service Status cannot be empty.", "error");
+            Swal.fire("Error", "El estado no puede estar vacío.", "error");
             return false;
         }
         if (!serviceCost || parseFloat(serviceCost) <= 0) {
-            Swal.fire("Error", "Service Cost must be a number greater than 0.", "error");
+            Swal.fire("Error", "El costo no puede estar vacío o ser menor o igual a 0.", "error");
             return false;
         }
 
@@ -77,12 +80,20 @@ function ServiceController() {
         var controlActions = new ControlActions();
         var serviceRoute = this.ApiService + "/Create";
 
-        controlActions.PostToAPI(serviceRoute, service, function () { console.log("Service created" + JSON.stringify(service)) });
+        function successCallback() {
+            Swal.fire("Success", "El servicio se ha creado correctamente.", "success");
+            // reload
+            location.reload();
+        }
 
-        Swal.fire("Success", "The service has been created", "success");
+        function failCallback(response) {
+            Swal.fire("Error", response, "error");
+        }
 
 
+        controlActions.PostToAPI(serviceRoute, service, successCallback, failCallback);
     }
+
     this.Update = function () {
         if (!this.ValidateInputs()) {
             return;
@@ -97,7 +108,18 @@ function ServiceController() {
 
         var controlActions = new ControlActions();
         var serviceRoute = this.ApiService + "/Update";
-        controlActions.PutToAPI(serviceRoute, service, function () { console.log("Service updated" + JSON.stringify(service)) });
+
+        function successCallback() {
+            Swal.fire("Success", "El servicio se ha actualizado correctamente.", "success");
+            // reload
+            location.reload();
+        }
+
+        function failCallback(response) {
+            Swal.fire("Error", response, "error");
+        }
+
+        controlActions.PutToAPI(serviceRoute, service, successCallback, failCallback);
 
     }
     this.Delete = function () {
@@ -105,7 +127,18 @@ function ServiceController() {
         service.Id = +$("#txtServiceId").val();
         var controlActions = new ControlActions();
         var serviceRoute = this.ApiService + "/Delete";
-        controlActions.DeleteToAPI(serviceRoute, service.Id, function () { console.log("Service deleted" + JSON.stringify(service)) });
+
+        function successCallback() {
+            Swal.fire("Success", "El servicio se ha eliminado correctamente.", "success");
+            // reload
+            location.reload();
+        }
+
+        function failCallback(response) {
+            Swal.fire("Error", response, "error");
+        }
+
+        controlActions.DeleteToAPI(serviceRoute, service, successCallback, failCallback);
     }
 
     this.LoadTable = function () {
@@ -123,14 +156,14 @@ function ServiceController() {
         $("#tblService").DataTable({
             "ajax": {
                 "url": urlService,
-                "dataSrc": ""
+                "dataSrc": "",
+                "beforeSend": function (request) {
+                    request.setRequestHeader("Authorization", 'Bearer ' + sessionStorage.getItem('token'));
+                }
             },
             "columns": columns
         });
-
     }
-
-
 }
 
 

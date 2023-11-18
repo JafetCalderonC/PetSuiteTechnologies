@@ -22,19 +22,6 @@ namespace DataAccess.Mapper
                 ServiceModifiedDate = (DateTime)row["modified_date"]
             };
             return service;
-        }
-
-        public List<Service> BuildObjects(List<Dictionary<string, object>> lstRows)
-        {
-            var lstResults = new List<Service>();
-
-            foreach (var item in lstRows)
-            {
-                var service = BuildObject(item);
-                lstResults.Add(service);
-            }
-
-            return lstResults;
-        }   
+        } 
     }
 }

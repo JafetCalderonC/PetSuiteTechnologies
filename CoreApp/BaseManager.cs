@@ -70,7 +70,7 @@ namespace CoreApp
                 return true;
 
             // Gestor can access client data
-            if (_userAuth.Role == "gestor" && user.Role =="client")
+            if (_userAuth.Role == "gestor" && user.Role == "client")
                 return true;
 
             // Gestor not can access other gestor data

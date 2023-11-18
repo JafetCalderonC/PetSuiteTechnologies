@@ -17,10 +17,9 @@ namespace DataAccess.DAOs
 
         private SqlDao()
         {
-            _connectionString = "Server=tcp:practicaclaseproyecto2.database.windows.net,1433;" +
-                "Initial Catalog=proyecto_pet;Persist Security Info=False;" +
-                "User ID=sysman;Password=Cenfotec123!;" +
-                "MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+            _connectionString = "Data Source=jcalderon-ucenfotec2023server.database.windows.net;" +
+                "Initial Catalog=PetSuiteTechnologies;Persist Security Info=True;" +
+                "User ID=sysman;Password=Cenfotec123!";
         }
 
 

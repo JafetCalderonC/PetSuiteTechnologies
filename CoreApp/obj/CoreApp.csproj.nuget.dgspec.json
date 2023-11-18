@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final\\PetSuiteTechnologies\\CoreApp\\CoreApp.csproj": {}
+    "C:\\Users\\Dell\\Desktop\\Proyecto 2\\Entregables\\PetSuiteTecnologies\\CoreApp\\CoreApp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final\\PetSuiteTechnologies\\CoreApp\\CoreApp.csproj": {
+    "C:\\Users\\Dell\\Desktop\\Proyecto 2\\Entregables\\PetSuiteTecnologies\\CoreApp\\CoreApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final\\PetSuiteTechnologies\\CoreApp\\CoreApp.csproj",
+        "projectUniqueName": "C:\\Users\\Dell\\Desktop\\Proyecto 2\\Entregables\\PetSuiteTecnologies\\CoreApp\\CoreApp.csproj",
         "projectName": "CoreApp",
-        "projectPath": "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final\\PetSuiteTechnologies\\CoreApp\\CoreApp.csproj",
-        "packagesPath": "C:\\Users\\mosco\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final\\PetSuiteTechnologies\\CoreApp\\obj\\",
+        "projectPath": "C:\\Users\\Dell\\Desktop\\Proyecto 2\\Entregables\\PetSuiteTecnologies\\CoreApp\\CoreApp.csproj",
+        "packagesPath": "C:\\Users\\Dell\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Dell\\Desktop\\Proyecto 2\\Entregables\\PetSuiteTecnologies\\CoreApp\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\mosco\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Dell\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -29,11 +33,11 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final\\PetSuiteTechnologies\\DataAccess\\DataAccess.csproj": {
-                "projectPath": "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final\\PetSuiteTechnologies\\DataAccess\\DataAccess.csproj"
+              "C:\\Users\\Dell\\Desktop\\Proyecto 2\\Entregables\\PetSuiteTecnologies\\DataAccess\\DataAccess.csproj": {
+                "projectPath": "C:\\Users\\Dell\\Desktop\\Proyecto 2\\Entregables\\PetSuiteTecnologies\\DataAccess\\DataAccess.csproj"
               },
-              "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final\\PetSuiteTechnologies\\DTOs\\DTOs.csproj": {
-                "projectPath": "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final\\PetSuiteTechnologies\\DTOs\\DTOs.csproj"
+              "C:\\Users\\Dell\\Desktop\\Proyecto 2\\Entregables\\PetSuiteTecnologies\\DTOs\\DTOs.csproj": {
+                "projectPath": "C:\\Users\\Dell\\Desktop\\Proyecto 2\\Entregables\\PetSuiteTecnologies\\DTOs\\DTOs.csproj"
               }
             }
           }
@@ -85,17 +89,21 @@
         }
       }
     },
-    "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final\\PetSuiteTechnologies\\DataAccess\\DataAccess.csproj": {
+    "C:\\Users\\Dell\\Desktop\\Proyecto 2\\Entregables\\PetSuiteTecnologies\\DataAccess\\DataAccess.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final\\PetSuiteTechnologies\\DataAccess\\DataAccess.csproj",
+        "projectUniqueName": "C:\\Users\\Dell\\Desktop\\Proyecto 2\\Entregables\\PetSuiteTecnologies\\DataAccess\\DataAccess.csproj",
         "projectName": "DataAccess",
-        "projectPath": "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final\\PetSuiteTechnologies\\DataAccess\\DataAccess.csproj",
-        "packagesPath": "C:\\Users\\mosco\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final\\PetSuiteTechnologies\\DataAccess\\obj\\",
+        "projectPath": "C:\\Users\\Dell\\Desktop\\Proyecto 2\\Entregables\\PetSuiteTecnologies\\DataAccess\\DataAccess.csproj",
+        "packagesPath": "C:\\Users\\Dell\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Dell\\Desktop\\Proyecto 2\\Entregables\\PetSuiteTecnologies\\DataAccess\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\mosco\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Dell\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -110,8 +118,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final\\PetSuiteTechnologies\\DTOs\\DTOs.csproj": {
-                "projectPath": "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final\\PetSuiteTechnologies\\DTOs\\DTOs.csproj"
+              "C:\\Users\\Dell\\Desktop\\Proyecto 2\\Entregables\\PetSuiteTecnologies\\DTOs\\DTOs.csproj": {
+                "projectPath": "C:\\Users\\Dell\\Desktop\\Proyecto 2\\Entregables\\PetSuiteTecnologies\\DTOs\\DTOs.csproj"
               }
             }
           }
@@ -151,17 +159,21 @@
         }
       }
     },
-    "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final\\PetSuiteTechnologies\\DTOs\\DTOs.csproj": {
+    "C:\\Users\\Dell\\Desktop\\Proyecto 2\\Entregables\\PetSuiteTecnologies\\DTOs\\DTOs.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final\\PetSuiteTechnologies\\DTOs\\DTOs.csproj",
+        "projectUniqueName": "C:\\Users\\Dell\\Desktop\\Proyecto 2\\Entregables\\PetSuiteTecnologies\\DTOs\\DTOs.csproj",
         "projectName": "DTOs",
-        "projectPath": "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final\\PetSuiteTechnologies\\DTOs\\DTOs.csproj",
-        "packagesPath": "C:\\Users\\mosco\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final\\PetSuiteTechnologies\\DTOs\\obj\\",
+        "projectPath": "C:\\Users\\Dell\\Desktop\\Proyecto 2\\Entregables\\PetSuiteTecnologies\\DTOs\\DTOs.csproj",
+        "packagesPath": "C:\\Users\\Dell\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Dell\\Desktop\\Proyecto 2\\Entregables\\PetSuiteTecnologies\\DTOs\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\mosco\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Dell\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

@@ -364,12 +364,6 @@ FodyWeavers.xsd
 
 # Ignore obj folder in any subdirectory
 **/obj/
+**/obj/**/*.*
 **/bin/
-/CoreApp/obj/CoreApp.csproj.nuget.dgspec.json
-/CoreApp/obj/project.assets.json
-/DataAccess/obj/DataAccess.csproj.nuget.dgspec.json
-/CoreApp/obj/Debug/net6.0/CoreApp.csproj.FileListAbsolute.txt
-/CoreApp/obj/Debug/net6.0/CoreApp.assets.cache
-/DataAccess/obj/Debug/net6.0/DataAccess.assets.cache
-/DataAccess/obj/project.assets.json
-/DTOs/obj/Debug/net6.0/DTOs.assets.cache
+**/bin/**/*.*

@@ -2025,19 +2025,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-<<<<<<< HEAD
-      "projectUniqueName": "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final\\PetSuiteTechnologies\\DataAccess\\DataAccess.csproj",
-      "projectName": "DataAccess",
-      "projectPath": "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final\\PetSuiteTechnologies\\DataAccess\\DataAccess.csproj",
-      "packagesPath": "C:\\Users\\mosco\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final\\PetSuiteTechnologies\\DataAccess\\obj\\",
-=======
       "projectUniqueName": "D:\\VisualStudio\\Universidad\\Proyecto 2\\Actual\\PetSuiteTechnologies\\DataAccess\\DataAccess.csproj",
       "projectName": "DataAccess",
       "projectPath": "D:\\VisualStudio\\Universidad\\Proyecto 2\\Actual\\PetSuiteTechnologies\\DataAccess\\DataAccess.csproj",
       "packagesPath": "C:\\Users\\Usuario\\.nuget\\packages\\",
       "outputPath": "D:\\VisualStudio\\Universidad\\Proyecto 2\\Actual\\PetSuiteTechnologies\\DataAccess\\obj\\",
->>>>>>> d14a8383d8f8d25d39b2215af2b3249c97057deb
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Usuario\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -2054,13 +2046,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-<<<<<<< HEAD
-            "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final\\PetSuiteTechnologies\\DTOs\\DTOs.csproj": {
-              "projectPath": "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final\\PetSuiteTechnologies\\DTOs\\DTOs.csproj"
-=======
             "D:\\VisualStudio\\Universidad\\Proyecto 2\\Actual\\PetSuiteTechnologies\\DTOs\\DTOs.csproj": {
               "projectPath": "D:\\VisualStudio\\Universidad\\Proyecto 2\\Actual\\PetSuiteTechnologies\\DTOs\\DTOs.csproj"
->>>>>>> d14a8383d8f8d25d39b2215af2b3249c97057deb
             }
           }
         }

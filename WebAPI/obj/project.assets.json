@@ -5798,19 +5798,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-<<<<<<< HEAD
-      "projectUniqueName": "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final\\PetSuiteTechnologies\\WebAPI\\WebAPI.csproj",
-      "projectName": "WebAPI",
-      "projectPath": "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final\\PetSuiteTechnologies\\WebAPI\\WebAPI.csproj",
-      "packagesPath": "C:\\Users\\mosco\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final\\PetSuiteTechnologies\\WebAPI\\obj\\",
-=======
       "projectUniqueName": "D:\\VisualStudio\\Universidad\\Proyecto 2\\Actual\\PetSuiteTechnologies\\WebAPI\\WebAPI.csproj",
       "projectName": "WebAPI",
       "projectPath": "D:\\VisualStudio\\Universidad\\Proyecto 2\\Actual\\PetSuiteTechnologies\\WebAPI\\WebAPI.csproj",
       "packagesPath": "C:\\Users\\Usuario\\.nuget\\packages\\",
       "outputPath": "D:\\VisualStudio\\Universidad\\Proyecto 2\\Actual\\PetSuiteTechnologies\\WebAPI\\obj\\",
->>>>>>> d14a8383d8f8d25d39b2215af2b3249c97057deb
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Usuario\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -5828,19 +5820,11 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-<<<<<<< HEAD
-            "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final\\PetSuiteTechnologies\\CoreApp\\CoreApp.csproj": {
-              "projectPath": "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final\\PetSuiteTechnologies\\CoreApp\\CoreApp.csproj"
-            },
-            "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final\\PetSuiteTechnologies\\DTOs\\DTOs.csproj": {
-              "projectPath": "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final\\PetSuiteTechnologies\\DTOs\\DTOs.csproj"
-=======
             "D:\\VisualStudio\\Universidad\\Proyecto 2\\Actual\\PetSuiteTechnologies\\CoreApp\\CoreApp.csproj": {
               "projectPath": "D:\\VisualStudio\\Universidad\\Proyecto 2\\Actual\\PetSuiteTechnologies\\CoreApp\\CoreApp.csproj"
             },
             "D:\\VisualStudio\\Universidad\\Proyecto 2\\Actual\\PetSuiteTechnologies\\DTOs\\DTOs.csproj": {
               "projectPath": "D:\\VisualStudio\\Universidad\\Proyecto 2\\Actual\\PetSuiteTechnologies\\DTOs\\DTOs.csproj"
->>>>>>> d14a8383d8f8d25d39b2215af2b3249c97057deb
             }
           }
         }

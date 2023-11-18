@@ -5314,11 +5314,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final - modif\\PetSuiteTechnologies\\CoreApp\\CoreApp.csproj",
+      "projectUniqueName": "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final\\PetSuiteTechnologies\\CoreApp\\CoreApp.csproj",
       "projectName": "CoreApp",
-      "projectPath": "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final - modif\\PetSuiteTechnologies\\CoreApp\\CoreApp.csproj",
+      "projectPath": "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final\\PetSuiteTechnologies\\CoreApp\\CoreApp.csproj",
       "packagesPath": "C:\\Users\\mosco\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final - modif\\PetSuiteTechnologies\\CoreApp\\obj\\",
+      "outputPath": "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final\\PetSuiteTechnologies\\CoreApp\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\mosco\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -5336,11 +5336,11 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final - modif\\PetSuiteTechnologies\\DataAccess\\DataAccess.csproj": {
-              "projectPath": "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final - modif\\PetSuiteTechnologies\\DataAccess\\DataAccess.csproj"
+            "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final\\PetSuiteTechnologies\\DataAccess\\DataAccess.csproj": {
+              "projectPath": "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final\\PetSuiteTechnologies\\DataAccess\\DataAccess.csproj"
             },
-            "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final - modif\\PetSuiteTechnologies\\DTOs\\DTOs.csproj": {
-              "projectPath": "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final - modif\\PetSuiteTechnologies\\DTOs\\DTOs.csproj"
+            "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final\\PetSuiteTechnologies\\DTOs\\DTOs.csproj": {
+              "projectPath": "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final\\PetSuiteTechnologies\\DTOs\\DTOs.csproj"
             }
           }
         }

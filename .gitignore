@@ -376,3 +376,4 @@ FodyWeavers.xsd
 /WebAPI/obj/Debug/net6.0/WebAPI.csproj.FileListAbsolute.txt
 /WebApp/obj/project.assets.json
 /WebApp/obj/WebApp.csproj.nuget.dgspec.json
+*.props

@@ -1730,6 +1730,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
+          "Azure.Core": "1.25.0",
           "DTOs": "1.0.0",
           "Microsoft.Data.SqlClient": "5.1.1"
         },
@@ -5300,6 +5301,7 @@
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "Azure.Core >= 1.25.0",
       "CloudinaryDotNet >= 1.23.0",
       "DTOs >= 1.0.0",
       "DataAccess >= 1.0.0",
@@ -5309,19 +5311,27 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\mosco\\.nuget\\packages\\": {}
+    "C:\\Users\\Usuario\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
+<<<<<<< HEAD
       "projectUniqueName": "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final\\PetSuiteTechnologies\\CoreApp\\CoreApp.csproj",
       "projectName": "CoreApp",
       "projectPath": "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final\\PetSuiteTechnologies\\CoreApp\\CoreApp.csproj",
       "packagesPath": "C:\\Users\\mosco\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final\\PetSuiteTechnologies\\CoreApp\\obj\\",
+=======
+      "projectUniqueName": "D:\\VisualStudio\\Universidad\\Proyecto 2\\Actual\\PetSuiteTechnologies\\CoreApp\\CoreApp.csproj",
+      "projectName": "CoreApp",
+      "projectPath": "D:\\VisualStudio\\Universidad\\Proyecto 2\\Actual\\PetSuiteTechnologies\\CoreApp\\CoreApp.csproj",
+      "packagesPath": "C:\\Users\\Usuario\\.nuget\\packages\\",
+      "outputPath": "D:\\VisualStudio\\Universidad\\Proyecto 2\\Actual\\PetSuiteTechnologies\\CoreApp\\obj\\",
+>>>>>>> d14a8383d8f8d25d39b2215af2b3249c97057deb
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\mosco\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Usuario\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -5329,18 +5339,25 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
+<<<<<<< HEAD
             "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final\\PetSuiteTechnologies\\DataAccess\\DataAccess.csproj": {
               "projectPath": "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final\\PetSuiteTechnologies\\DataAccess\\DataAccess.csproj"
             },
             "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final\\PetSuiteTechnologies\\DTOs\\DTOs.csproj": {
               "projectPath": "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final\\PetSuiteTechnologies\\DTOs\\DTOs.csproj"
+=======
+            "D:\\VisualStudio\\Universidad\\Proyecto 2\\Actual\\PetSuiteTechnologies\\DataAccess\\DataAccess.csproj": {
+              "projectPath": "D:\\VisualStudio\\Universidad\\Proyecto 2\\Actual\\PetSuiteTechnologies\\DataAccess\\DataAccess.csproj"
+            },
+            "D:\\VisualStudio\\Universidad\\Proyecto 2\\Actual\\PetSuiteTechnologies\\DTOs\\DTOs.csproj": {
+              "projectPath": "D:\\VisualStudio\\Universidad\\Proyecto 2\\Actual\\PetSuiteTechnologies\\DTOs\\DTOs.csproj"
+>>>>>>> d14a8383d8f8d25d39b2215af2b3249c97057deb
             }
           }
         }
@@ -5355,6 +5372,10 @@
       "net6.0": {
         "targetAlias": "net6.0",
         "dependencies": {
+          "Azure.Core": {
+            "target": "Package",
+            "version": "[1.25.0, )"
+          },
           "CloudinaryDotNet": {
             "target": "Package",
             "version": "[1.23.0, )"
@@ -5388,7 +5409,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
       }
     }
   }

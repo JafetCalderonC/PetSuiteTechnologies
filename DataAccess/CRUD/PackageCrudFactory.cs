@@ -12,12 +12,12 @@ namespace DataAccess.CRUD
 {
     public class PackageCrudFactory : CrudFactory<Package>
     {
-        private readonly UserMapper _mapper;
+        private readonly PackageMapper _mapper;
         protected SqlDao _dao;
 
         public PackageCrudFactory()
         {
-            _mapper = new UserMapper();
+            _mapper = new PackageMapper();
             _dao = SqlDao.GetInstance();
         }
 
@@ -58,12 +58,23 @@ namespace DataAccess.CRUD
             //_dao.ExecuteProcedure(sqlOperation);
         }
 
-        public override List<Package> RetrieveAll()
-        {
-            //var sqlOperation = new SqlOperation("RETRIEVE_ALL_USERS_PR");
-            //var result = _dao.ExecuteQueryProcedure(sqlOperation);
+        //public override List<Package> RetrieveAll()
+        //{
+        //    var sqlOperation = new SqlOperation("RETRIEVE_ALL_PACKAGES_PR");
+        //    var result = _dao.ExecuteQueryProcedure(sqlOperation);
 
-            //return _mapper.BuildObjects(result);
+        //    return _mapper.BuildObjects(result);
+        //}
+
+        public override List<Package>? RetrieveAll()
+        {
+            var sqlOperation = new SqlOperation("RETRIEVE_ALL_PACKAGES_PR");
+            var lstResult = _dao.ExecuteQueryProcedure(sqlOperation);
+            if (lstResult.Count > 0)
+            {
+                var lstPackages = _mapper.BuildObjects(lstResult);
+                return lstPackages;
+            }
             return null;
         }
 

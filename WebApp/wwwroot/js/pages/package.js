@@ -16,6 +16,10 @@ function PackageController() {
             vc.Create();
         })
 
+
+        this.LoadTable();
+
+
         //$("#btnUpdate").click(function () {
         //    var vc = new PackageController();
         //    vc.Update();
@@ -47,6 +51,32 @@ function PackageController() {
             console.log("Package created --> " + JSON.stringify(package));
         });
     }
+    this.LoadTable = function() {
+        var ctrlActions = new ControlActions();
+        var urlService = ctrlActions.GetUrlApiService(this.ApiService + "/RetrieveAll")
+
+        var columns = []
+        columns[0] = { 'data': 'package_id' }
+        columns[1] = { 'data': 'package_name' }
+        columns[2] = { 'data': 'Description' }
+        columns[3] = { 'data': 'room_id' }
+        columns[4] = { 'data': 'pet_breed_type' }
+        columns[5] = { 'data': 'pet_size' }
+        columns[6] = { 'data': 'pet_aggressiveness' }
+        columns[7] = { 'data': 'created_date' }
+        columns[8] = { 'data': 'modified_date' }
+        columns[9] = { 'data': 'status' }
+
+        $("#tblListPackages").dataTable({
+            "ajax": {
+                "url": urlService,
+                "dataSrc": ""
+            },
+        "columns": columns
+        });
+    }
+
+
 }
 
 

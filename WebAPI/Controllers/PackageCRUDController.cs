@@ -86,21 +86,21 @@ namespace WebAPI.Controllers
 
         //}
 
-        //[HttpGet]
-        //[Route("RetrieveAll")]
-        //public async Task<IActionResult> RetrieveAll()
-        //{
-        //    try
-        //    {
-        //        var um = new PackageManager();
+        [HttpGet]
+        [Route("RetrieveAll")]
+        public async Task<IActionResult> RetrieveAll()
+        {
+            try
+            {
+                var um = new PackageManager();
 
-        //        return Ok(um.RetrieveAll());
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return StatusCode(500, ex.Message);
-        //    }
+                return Ok(um.RetrieveAll());
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
 
-        //}
+        }
     }
 }

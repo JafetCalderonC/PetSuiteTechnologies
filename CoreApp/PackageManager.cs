@@ -47,5 +47,13 @@ namespace CoreApp
         {
             _crud.Update(package);
         }
+
+        public List<Package> RetrieveAll()
+        {
+            var uc = new PackageCrudFactory();
+
+            return uc.RetrieveAll();
+        }
+
     }
 }

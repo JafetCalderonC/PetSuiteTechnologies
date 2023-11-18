@@ -367,3 +367,12 @@ FodyWeavers.xsd
 **/obj/**/*.*
 **/bin/
 **/bin/**/*.*
+/CoreApp/obj/Debug/net6.0/CoreApp.assets.cache
+/CoreApp/obj/Debug/net6.0/CoreApp.csproj.FileListAbsolute.txt
+/DataAccess/obj/Debug/net6.0/DataAccess.assets.cache
+/DTOs/obj/Debug/net6.0/DTOs.assets.cache
+/WebAPI/obj/Debug/net6.0/apphost.exe
+/WebAPI/obj/Debug/net6.0/WebAPI.assets.cache
+/WebAPI/obj/Debug/net6.0/WebAPI.csproj.FileListAbsolute.txt
+/WebApp/obj/project.assets.json
+/WebApp/obj/WebApp.csproj.nuget.dgspec.json

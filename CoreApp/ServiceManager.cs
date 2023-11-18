@@ -1,5 +1,7 @@
 ﻿using DataAccess.CRUD;
-using DTOs;
+using DataAccess.DAOs;
+using DTOs.Service;
+using DTOs.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,29 +12,14 @@ namespace CoreApp
 {
     public class ServiceManager
     {
-        List<Service> list = new List<DTOs.Service>();
+        private ServiceCrudFactory _crud;
 
-        //public ServiceManager()
-        //{
-
-        //    //var serviceCrud = new ServiceCrudFactory();
-        //    //this.list = serviceCrud.RetrieveAll();
-        //}
-
-        public bool IsUnique(string serviceName)
+        public ServiceManager()
         {
-            bool unique = true;
-            foreach (var service in list)
-            {
-                if(service.ServiceName == serviceName)
-                {
-                    unique = false; break;
-                }
-            }
-            return unique;
+            _crud = new ServiceCrudFactory();
         }
 
-        public void Create(Service service)
+        private bool Validate(Service user, out string? message)
         {
             if(!IsUnique(service.ServiceName))
             {
@@ -62,5 +49,23 @@ namespace CoreApp
             return serviceCrud.RetrieveAll();
         }
 
+        public void Create(Service user)
+        {
+            // Default values
+            //user.Role = "client";
+            //user.Status = 1;
+            //user.IsOtpVerified = false;
+            //user.CreatedDate = DateTime.UtcNow;
+            //user.ModifiedDate = DateTime.UtcNow;
+            //user.ThemePreference = "light";
+
+            // Create user
+            _crud.Create(user);
+        }
+
+        public void Update(Service user)
+        {
+            _crud.Update(user);
+        }
     }
 }

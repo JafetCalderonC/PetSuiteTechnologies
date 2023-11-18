@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Dell\\Desktop\\Proyecto 2\\Entregables\\PetSuiteTecnologies\\DTOs\\DTOs.csproj": {}
+    "D:\\VisualStudio\\Universidad\\Proyecto 2\\PetSuiteTechnologies\\DTOs\\DTOs.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Dell\\Desktop\\Proyecto 2\\Entregables\\PetSuiteTecnologies\\DTOs\\DTOs.csproj": {
+    "D:\\VisualStudio\\Universidad\\Proyecto 2\\PetSuiteTechnologies\\DTOs\\DTOs.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Dell\\Desktop\\Proyecto 2\\Entregables\\PetSuiteTecnologies\\DTOs\\DTOs.csproj",
+        "projectUniqueName": "D:\\VisualStudio\\Universidad\\Proyecto 2\\PetSuiteTechnologies\\DTOs\\DTOs.csproj",
         "projectName": "DTOs",
-        "projectPath": "C:\\Users\\Dell\\Desktop\\Proyecto 2\\Entregables\\PetSuiteTecnologies\\DTOs\\DTOs.csproj",
-        "packagesPath": "C:\\Users\\Dell\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Dell\\Desktop\\Proyecto 2\\Entregables\\PetSuiteTecnologies\\DTOs\\obj\\",
+        "projectPath": "D:\\VisualStudio\\Universidad\\Proyecto 2\\PetSuiteTechnologies\\DTOs\\DTOs.csproj",
+        "packagesPath": "C:\\Users\\Usuario\\.nuget\\packages\\",
+        "outputPath": "D:\\VisualStudio\\Universidad\\Proyecto 2\\PetSuiteTechnologies\\DTOs\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Dell\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Usuario\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -45,6 +45,10 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "Azure.Core": {
+              "target": "Package",
+              "version": "[1.25.0, )"
+            },
             "Microsoft.AspNetCore.Http.Features": {
               "target": "Package",
               "version": "[5.0.17, )"
@@ -66,7 +70,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.403\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
         }
       }
     }

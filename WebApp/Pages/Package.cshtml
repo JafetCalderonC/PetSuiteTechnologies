@@ -1,0 +1,111 @@
+﻿@page
+@model WebApp.Pages.PackageModel
+@{
+}
+<script src="~/js/pages/package.js"></script>
+
+<div class="bs-docs-section">
+    <br />
+
+
+    
+    <div class="row">
+        <legend>Packages list</legend>
+        <div class="col-lg-12">
+            <table id="tblListPackages" class="display" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Room Id</th>
+                        <th>Pet Breed Type</th>
+                        <th>Pet Size</th>
+                        <th>Pet Aggressiveness</th>
+                        <th>Created Date</th>
+                        <th>Modified Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+
+
+
+
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="bs-component">
+                <form>
+                    <fieldset>
+                        <legend>Package registration form</legend>
+
+                        <div class="form-group">
+                            <label for="txtName" class="form-label mt-4">Name</label>
+                            <input type="text" class="form-control" id="txtName" aria-describedby="emailHelp" placeholder="Enter the complete name">
+                            <small id="emailHelp" class="form-text text-muted">Use your name.</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="txtName" class="form-label mt-4">Description</label>
+                            <input type="text" class="form-control" id="txtDescription" aria-describedby="emailHelp" placeholder="Enter the description">
+                            <small id="emailHelp" class="form-text text-muted">Use the contry of the city.</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="txtCountry" class="form-label mt-4">Room Id</label>
+                            <input type="number" class="form-control" id="txtRoomId" aria-describedby="emailHelp" placeholder="Enter the Room Id">
+                            <small id="emailHelp" class="form-text text-muted">Enter your longitude as a number.</small>
+
+                        </div>
+
+                        <div class="form-group">
+                            <label for="txtName" class="form-label mt-4">Pet Breed Type</label>
+                            <input type="text" class="form-control" id="txtPetBreedType" aria-describedby="emailHelp" placeholder="Enter the Pet Breed Type">
+                            <small id="emailHelp" class="form-text text-muted">Use your name.</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="txtName" class="form-label mt-4">Pet Size</label>
+                            <input type="text" class="form-control" id="txtPetSize" aria-describedby="emailHelp" placeholder="Enter the Pet Size">
+                            <small id="emailHelp" class="form-text text-muted">Use your name.</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="txtName" class="form-label mt-4">Pet Aggressiveness</label>
+                            <input type="number" class="form-control" id="txtPetAggressiveness" aria-describedby="emailHelp" placeholder="Enter the Pet Aggressiveness">
+                            <small id="emailHelp" class="form-text text-muted">Use your name.</small>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="txtCountry" class="form-label mt-4">Status</label>
+                            <input type="number" class="form-control" id="txtStatus" aria-describedby="emailHelp" placeholder="Enter the Status">
+                            <small id="emailHelp" class="form-text text-muted">Enter your longitude as a number.</small>
+
+
+                        </div>
+
+                        <div class="form-group">
+                            <label for="txtServices" class="form-label mt-4">Services</label>
+                            <textarea class="form-control" id="txtServices" placeholder="Enter services separated by commas"></textarea>
+                            <small id="servicesHelp" class="form-text text-muted">Enter services separated by commas (e.g., Service1, Service2, Service3).</small>
+                        </div>
+
+
+
+
+                        @*<div class="form-group">
+                        <label for="formFile" class="form-label mt-4">Attach your document ID.</label>
+                        <input class="form-control" type="file" id="formFile">
+                        </div>*@
+                </form>
+                <br />
+                @*<button id="btnNew" class="source-button btn btn-info btn-xs" type="button" tabindex="0"><i class="bi bi-code">New</i></button>*@
+                <button id="btnCreate" class="source-button btn btn-primary btn-xs" type="button" tabindex="0"><i class="bi bi-code">Create</i></button>
+
+            </div>
+        </div>
+    </div>
+</div>

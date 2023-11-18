@@ -361,3 +361,33 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+*.json
+*.json
+*.props
+CoreApp/obj/CoreApp.csproj.nuget.g.props
+*.props
+*.props
+*.cache
+*.props
+*.cache
+*.txt
+*.json
+CoreApp/obj/project.assets.json
+CoreApp/obj/Debug/net6.0/CoreApp.csproj.FileListAbsolute.txt
+CoreApp/obj/Debug/net6.0/CoreApp.assets.cache
+CoreApp/obj/CoreApp.csproj.nuget.g.props
+CoreApp/obj/CoreApp.csproj.nuget.dgspec.json
+*.props
+*.cache
+*.json
+*.json
+*.props
+*.cache
+DataAccess/obj/DataAccess.csproj.nuget.dgspec.json
+DataAccess/obj/DataAccess.csproj.nuget.g.props
+DataAccess/obj/Debug/net6.0/DataAccess.assets.cache
+DataAccess/obj/project.assets.json
+DTOs/obj/Debug/net6.0/DTOs.assets.cache
+DTOs/obj/DTOs.csproj.nuget.dgspec.json
+DTOs/obj/DTOs.csproj.nuget.g.props
+DTOs/obj/project.assets.json

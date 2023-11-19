@@ -52,19 +52,23 @@ namespace CoreApp
             {
                 // Validate if the service already exists by name
                 var currentService = _crud.RetrieveAll();
-                foreach (var item in currentService)
+                if (currentService != null)
                 {
-                    if (item.ServiceName == service.ServiceName)
+                    foreach (var item in currentService)
                     {
-                        throw new Exception("El servicio ya existe");
+                        if (item.ServiceName == service.ServiceName)
+                        {
+                            throw new Exception("El servicio ya existe");
+                        }
                     }
                 }
+
             }
         }
 
         public void Create(Service service)
         {
-            service.NormalizerDTO();
+            //service.NormalizerDTO();
             EnsureGeneralvalidation(service, true);
 
             service.ServiceCreatedDate = DateTime.Now;

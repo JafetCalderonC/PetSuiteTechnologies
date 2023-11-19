@@ -190,11 +190,11 @@
           "lib/netcoreapp2.0/_._": {}
         }
       },
-      "Microsoft.Data.SqlClient/5.1.1": {
+      "Microsoft.Data.SqlClient/5.1.2": {
         "type": "package",
         "dependencies": {
           "Azure.Identity": "1.7.0",
-          "Microsoft.Data.SqlClient.SNI.runtime": "5.1.0",
+          "Microsoft.Data.SqlClient.SNI.runtime": "5.1.1",
           "Microsoft.Identity.Client": "4.47.2",
           "Microsoft.IdentityModel.JsonWebTokens": "6.24.0",
           "Microsoft.IdentityModel.Protocols.OpenIdConnect": "6.24.0",
@@ -228,7 +228,7 @@
           }
         }
       },
-      "Microsoft.Data.SqlClient.SNI.runtime/5.1.0": {
+      "Microsoft.Data.SqlClient.SNI.runtime/5.1.1": {
         "type": "package",
         "runtimeTargets": {
           "runtimes/win-arm/native/Microsoft.Data.SqlClient.SNI.dll": {
@@ -1857,7 +1857,7 @@
         "dependencies": {
           "Azure.Core": "1.25.0",
           "DTOs": "1.0.0",
-          "Microsoft.Data.SqlClient": "5.1.1"
+          "Microsoft.Data.SqlClient": "5.1.2"
         },
         "compile": {
           "bin/placeholder/DataAccess.dll": {}
@@ -2109,10 +2109,10 @@
         "version.txt"
       ]
     },
-    "Microsoft.Data.SqlClient/5.1.1": {
-      "sha512": "MW5E9HFvCaV069o8b6YpuRDPBux8s96qDnOJ+4N9QNUCs7c5W3KxwQ+ftpAjbMUlImL+c9WR+l+f5hzjkqhu2g==",
+    "Microsoft.Data.SqlClient/5.1.2": {
+      "sha512": "q/F1HTOn9QLwgRp4esJIA1b2X15faeV8WozkNhvU3Zk0DcYDWUsEf5WMkbypY4CaNkZntOduods5wLyv8I699w==",
       "type": "package",
-      "path": "microsoft.data.sqlclient/5.1.1",
+      "path": "microsoft.data.sqlclient/5.1.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -2139,7 +2139,7 @@
         "lib/netstandard2.1/Microsoft.Data.SqlClient.dll",
         "lib/netstandard2.1/Microsoft.Data.SqlClient.pdb",
         "lib/netstandard2.1/Microsoft.Data.SqlClient.xml",
-        "microsoft.data.sqlclient.5.1.1.nupkg.sha512",
+        "microsoft.data.sqlclient.5.1.2.nupkg.sha512",
         "microsoft.data.sqlclient.nuspec",
         "ref/net462/Microsoft.Data.SqlClient.dll",
         "ref/net462/Microsoft.Data.SqlClient.pdb",
@@ -2169,16 +2169,16 @@
         "runtimes/win/lib/netstandard2.1/Microsoft.Data.SqlClient.pdb"
       ]
     },
-    "Microsoft.Data.SqlClient.SNI.runtime/5.1.0": {
-      "sha512": "jVsElisM5sfBzaaV9kdq2NXZLwIbytetnsOIlJ0cQGgQP4zFNBmkfHBnpwtmKrtBJBEV9+9PVQPVrcCVhDgcIg==",
+    "Microsoft.Data.SqlClient.SNI.runtime/5.1.1": {
+      "sha512": "wNGM5ZTQCa2blc9ikXQouybGiyMd6IHPVJvAlBEPtr6JepZEOYeDxGyprYvFVeOxlCXs7avridZQ0nYkHzQWCQ==",
       "type": "package",
-      "path": "microsoft.data.sqlclient.sni.runtime/5.1.0",
+      "path": "microsoft.data.sqlclient.sni.runtime/5.1.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "LICENSE.txt",
         "dotnet.png",
-        "microsoft.data.sqlclient.sni.runtime.5.1.0.nupkg.sha512",
+        "microsoft.data.sqlclient.sni.runtime.5.1.1.nupkg.sha512",
         "microsoft.data.sqlclient.sni.runtime.nuspec",
         "runtimes/win-arm/native/Microsoft.Data.SqlClient.SNI.dll",
         "runtimes/win-arm64/native/Microsoft.Data.SqlClient.SNI.dll",
@@ -5788,24 +5788,30 @@
       "CoreApp >= 1.0.0",
       "DTOs >= 1.0.0",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 6.0.25",
+      "Microsoft.Data.SqlClient >= 5.1.2",
       "SendGrid >= 9.28.1",
       "Swashbuckle.AspNetCore >= 6.5.0"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\mosco\\.nuget\\packages\\": {}
+    "C:\\Users\\Dell\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\mosco\\OneDrive\\Escritorio\\Nueva carpeta (2)\\PetSuiteTechnologies\\WebAPI\\WebAPI.csproj",
+      "projectUniqueName": "C:\\Users\\Dell\\Desktop\\Proyecto 2\\Entregables\\PetSuiteTecnologies\\WebAPI\\WebAPI.csproj",
       "projectName": "WebAPI",
-      "projectPath": "C:\\Users\\mosco\\OneDrive\\Escritorio\\Nueva carpeta (2)\\PetSuiteTechnologies\\WebAPI\\WebAPI.csproj",
-      "packagesPath": "C:\\Users\\mosco\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\mosco\\OneDrive\\Escritorio\\Nueva carpeta (2)\\PetSuiteTechnologies\\WebAPI\\obj\\",
+      "projectPath": "C:\\Users\\Dell\\Desktop\\Proyecto 2\\Entregables\\PetSuiteTecnologies\\WebAPI\\WebAPI.csproj",
+      "packagesPath": "C:\\Users\\Dell\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Dell\\Desktop\\Proyecto 2\\Entregables\\PetSuiteTecnologies\\WebAPI\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\mosco\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Dell\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -5820,11 +5826,11 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\mosco\\OneDrive\\Escritorio\\Nueva carpeta (2)\\PetSuiteTechnologies\\CoreApp\\CoreApp.csproj": {
-              "projectPath": "C:\\Users\\mosco\\OneDrive\\Escritorio\\Nueva carpeta (2)\\PetSuiteTechnologies\\CoreApp\\CoreApp.csproj"
+            "C:\\Users\\Dell\\Desktop\\Proyecto 2\\Entregables\\PetSuiteTecnologies\\CoreApp\\CoreApp.csproj": {
+              "projectPath": "C:\\Users\\Dell\\Desktop\\Proyecto 2\\Entregables\\PetSuiteTecnologies\\CoreApp\\CoreApp.csproj"
             },
-            "C:\\Users\\mosco\\OneDrive\\Escritorio\\Nueva carpeta (2)\\PetSuiteTechnologies\\DTOs\\DTOs.csproj": {
-              "projectPath": "C:\\Users\\mosco\\OneDrive\\Escritorio\\Nueva carpeta (2)\\PetSuiteTechnologies\\DTOs\\DTOs.csproj"
+            "C:\\Users\\Dell\\Desktop\\Proyecto 2\\Entregables\\PetSuiteTecnologies\\DTOs\\DTOs.csproj": {
+              "projectPath": "C:\\Users\\Dell\\Desktop\\Proyecto 2\\Entregables\\PetSuiteTecnologies\\DTOs\\DTOs.csproj"
             }
           }
         }
@@ -5846,6 +5852,10 @@
           "Microsoft.AspNetCore.Authentication.JwtBearer": {
             "target": "Package",
             "version": "[6.0.25, )"
+          },
+          "Microsoft.Data.SqlClient": {
+            "target": "Package",
+            "version": "[5.1.2, )"
           },
           "SendGrid": {
             "target": "Package",
@@ -5875,7 +5885,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.403\\RuntimeIdentifierGraph.json"
       }
     }
   }

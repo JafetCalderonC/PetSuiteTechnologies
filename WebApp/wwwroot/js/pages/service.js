@@ -14,7 +14,7 @@ function ServiceController() {
 
         $("#divtblService").show();
 
-
+        
         $("#btnToggleForm").click(function () {
             $(".bs-component form").toggle();
             $("#btnUpdate").toggle();

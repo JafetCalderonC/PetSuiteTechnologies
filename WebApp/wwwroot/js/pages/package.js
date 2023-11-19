@@ -9,7 +9,7 @@ function PackageController() {
 
     this.InitView = function () {
         document.title = this.title;
-
+        
         console.log("City view init!!!");
         //Binding del evento del clic al metodo de create del controlador
         $("#btnCreate").click(function () {
@@ -42,7 +42,7 @@ function PackageController() {
         package.PetBreedType = $("#txtPetBreedType").val();
         package.PetSize = $("#txtPetSize").val();
         package.PetAggressiveness = $("#txtPetAggressiveness").val();
-        package.Status = $("#txtStatus").val(); txtServices
+        package.Status = $("#txtStatus").val();
         package.Services = $("#txtServices").val().split(',').map(s => s.trim());
 
         var ctrlActions = new ControlActions();
@@ -65,15 +65,15 @@ function PackageController() {
         var urlService = ctrlActions.GetUrlApiService(this.ApiService + "/RetrieveAll")
 
         var columns = []
-        columns[0] = { 'data': 'package_id' }
-        columns[1] = { 'data': 'package_name' }
-        columns[2] = { 'data': 'Description' }
-        columns[3] = { 'data': 'room_id' }
-        columns[4] = { 'data': 'pet_breed_type' }
-        columns[5] = { 'data': 'pet_size' }
-        columns[6] = { 'data': 'pet_aggressiveness' }
-        columns[7] = { 'data': 'created_date' }
-        columns[8] = { 'data': 'modified_date' }
+        columns[0] = { 'data': 'id' }
+        columns[1] = { 'data': 'packageName' }
+        columns[2] = { 'data': 'description' }
+        columns[3] = { 'data': 'roomId' }
+        columns[4] = { 'data': 'petBreedType' }
+        columns[5] = { 'data': 'petSize' }
+        columns[6] = { 'data': 'petAggressiveness' }
+        columns[7] = { 'data': 'createdDate' }
+        columns[8] = { 'data': 'modifiedDate' }
         columns[9] = { 'data': 'status' }
 
         $("#tblListPackages").DataTable({

@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\mosco\\OneDrive\\Escritorio\\Nueva carpeta (2)\\PetSuiteTechnologies\\DTOs\\DTOs.csproj": {}
+    "C:\\Users\\Dell\\Desktop\\Proyecto 2\\Entregables\\PetSuiteTecnologies\\DTOs\\DTOs.csproj": {}
   },
   "projects": {
-    "C:\\Users\\mosco\\OneDrive\\Escritorio\\Nueva carpeta (2)\\PetSuiteTechnologies\\DTOs\\DTOs.csproj": {
+    "C:\\Users\\Dell\\Desktop\\Proyecto 2\\Entregables\\PetSuiteTecnologies\\DTOs\\DTOs.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\mosco\\OneDrive\\Escritorio\\Nueva carpeta (2)\\PetSuiteTechnologies\\DTOs\\DTOs.csproj",
+        "projectUniqueName": "C:\\Users\\Dell\\Desktop\\Proyecto 2\\Entregables\\PetSuiteTecnologies\\DTOs\\DTOs.csproj",
         "projectName": "DTOs",
-        "projectPath": "C:\\Users\\mosco\\OneDrive\\Escritorio\\Nueva carpeta (2)\\PetSuiteTechnologies\\DTOs\\DTOs.csproj",
-        "packagesPath": "C:\\Users\\mosco\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\mosco\\OneDrive\\Escritorio\\Nueva carpeta (2)\\PetSuiteTechnologies\\DTOs\\obj\\",
+        "projectPath": "C:\\Users\\Dell\\Desktop\\Proyecto 2\\Entregables\\PetSuiteTecnologies\\DTOs\\DTOs.csproj",
+        "packagesPath": "C:\\Users\\Dell\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Dell\\Desktop\\Proyecto 2\\Entregables\\PetSuiteTecnologies\\DTOs\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\mosco\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Dell\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -56,7 +60,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.403\\RuntimeIdentifierGraph.json"
         }
       }
     }

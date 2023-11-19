@@ -161,7 +161,10 @@ function ServiceController() {
                     request.setRequestHeader("Authorization", 'Bearer ' + sessionStorage.getItem('token'));
                 }
             },
-            "columns": columns
+            "columns": columns,
+            "language": {
+                url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
+            },
         });
     }
 }

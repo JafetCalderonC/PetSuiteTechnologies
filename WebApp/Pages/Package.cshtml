@@ -7,24 +7,22 @@
 <div class="bs-docs-section">
     <br />
 
-
-    
     <div class="row">
-        <legend>Packages list</legend>
+        <legend>Lista de paquetes</legend>
         <div class="col-lg-12">
             <table id="tblListPackages" class="display" style="width:100%">
                 <thead>
                     <tr>
                         <th>Id</th>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Room Id</th>
-                        <th>Pet Breed Type</th>
-                        <th>Pet Size</th>
-                        <th>Pet Aggressiveness</th>
-                        <th>Created Date</th>
-                        <th>Modified Date</th>
-                        <th>Status</th>
+                        <th>Nombre</th>
+                        <th>Descricción</th>
+                        <th>Id de la habitación</th>
+                        <th>Tipo de raza de mascota</th>
+                        <th>Tamaño de mascota</th>
+                        <th>Agresividad de mascota</th>
+                        <th>Fecha de creación</th>
+                        <th>Fecha de actualización</th>
+                        <th>Estatus</th>
                     </tr>
                 </thead>
             </table>
@@ -39,58 +37,48 @@
             <div class="bs-component">
                 <form>
                     <fieldset>
-                        <legend>Package registration form</legend>
+                        <legend>Formulario pra registrar paquetes</legend>
 
                         <div class="form-group">
-                            <label for="txtName" class="form-label mt-4">Name</label>
-                            <input type="text" class="form-control" id="txtName" aria-describedby="emailHelp" placeholder="Enter the complete name">
-                            <small id="emailHelp" class="form-text text-muted">Use your name.</small>
+                            <label for="txtName" class="form-label mt-3">Nombre</label>
+                            <input type="text" class="form-control" id="txtName" aria-describedby="emailHelp" placeholder="Ingrese el nombre del paquete">
                         </div>
 
                         <div class="form-group">
-                            <label for="txtName" class="form-label mt-4">Description</label>
-                            <input type="text" class="form-control" id="txtDescription" aria-describedby="emailHelp" placeholder="Enter the description">
-                            <small id="emailHelp" class="form-text text-muted">Use the description of the package.</small>
+                            <label for="txtName" class="form-label mt-4">Descripción</label>
+                            <input type="text" class="form-control" id="txtDescription" aria-describedby="emailHelp" placeholder="Ingrese la descripción del paquete">
                         </div>
 
                         <div class="form-group">
-                            <label for="txtCountry" class="form-label mt-4">Room Id</label>
-                            <input type="number" class="form-control" id="txtRoomId" aria-describedby="emailHelp" placeholder="Enter the Room Id">
-                            <small id="emailHelp" class="form-text text-muted">Enter the Room Id of the package.</small>
-
+                            <label for="txtCountry" class="form-label mt-4">Id de la habitación</label>
+                            <input type="number" class="form-control" id="txtRoomId" aria-describedby="emailHelp" placeholder="Ingrese el Id de la habitación">
                         </div>
 
                         <div class="form-group">
-                            <label for="txtName" class="form-label mt-4">Pet Breed Type</label>
-                            <input type="text" class="form-control" id="txtPetBreedType" aria-describedby="emailHelp" placeholder="Enter the Pet Breed Type">
-                            <small id="emailHelp" class="form-text text-muted">Use the Pet Breed Type of the package.</small>
+                            <label for="txtName" class="form-label mt-4">Tipo de raza de mascota</label>
+                            <input type="text" class="form-control" id="txtPetBreedType" aria-describedby="emailHelp" placeholder="Ingrese el tipo de raza de mascota">
                         </div>
 
                         <div class="form-group">
-                            <label for="txtName" class="form-label mt-4">Pet Size</label>
-                            <input type="text" class="form-control" id="txtPetSize" aria-describedby="emailHelp" placeholder="Enter the Pet Size">
-                            <small id="emailHelp" class="form-text text-muted">Use the Pet Size of the package.</small>
+                            <label for="txtName" class="form-label mt-4">Tamaño de mascota</label>
+                            <input type="text" class="form-control" id="txtPetSize" aria-describedby="emailHelp" placeholder="Ingrese el tamaño de mascota">
                         </div>
 
                         <div class="form-group">
-                            <label for="txtName" class="form-label mt-4">Pet Aggressiveness</label>
-                            <input type="number" class="form-control" id="txtPetAggressiveness" aria-describedby="emailHelp" placeholder="Enter the Pet Aggressiveness">
-                            <small id="emailHelp" class="form-text text-muted">Use the Pet Aggressiveness of the package.</small>
+                            <label for="txtName" class="form-label mt-4">Agresividad de mascota</label>
+                            <input type="number" class="form-control" id="txtPetAggressiveness" aria-describedby="emailHelp" placeholder="Ingrese la agresividad de mascota">
                         </div>
 
 
                         <div class="form-group">
-                            <label for="txtCountry" class="form-label mt-4">Status</label>
-                            <input type="number" class="form-control" id="txtStatus" aria-describedby="emailHelp" placeholder="Enter the Status">
-                            <small id="emailHelp" class="form-text text-muted">Enter the Status of the package.</small>
-
-
+                            <label for="txtCountry" class="form-label mt-4">Estado</label>
+                            <input type="number" class="form-control" id="txtStatus" aria-describedby="emailHelp" placeholder="Ingrese el estado del paquete">
                         </div>
 
                         <div class="form-group">
-                            <label for="txtServices" class="form-label mt-4">Services</label>
-                            <textarea class="form-control" id="txtServices" placeholder="Enter services separated by commas"></textarea>
-                            <small id="servicesHelp" class="form-text text-muted">Enter services separated by commas (e.g., Service1, Service2, Service3).</small>
+                            <label for="txtServices" class="form-label mt-4">Lista de servicios</label>
+                            <textarea class="form-control" id="txtServices" placeholder="Ingrese los servicios del paquete, separados por comas."></textarea>
+                            <small id="servicesHelp" class="form-text text-muted">Ejemplo: Servicio 1, Servicio 2, Servicio 3</small>
                         </div>
 
 
@@ -103,7 +91,7 @@
                 </form>
                 <br />
                 @*<button id="btnNew" class="source-button btn btn-info btn-xs" type="button" tabindex="0"><i class="bi bi-code">New</i></button>*@
-                <button id="btnCreate" class="source-button btn btn-primary btn-xs" type="button" tabindex="0"><i class="bi bi-code">Create</i></button>
+                <button id="btnCreate" class="source-button btn btn-primary btn-xs" type="button" tabindex="0"><i class="bi bi-code">Crear paquete</i></button>
 
             </div>
         </div>

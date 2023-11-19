@@ -4,10 +4,11 @@
 //Definicion de la clase
 function PackageController() {
 
-    this.ViewName = "Package";
-    this.ApiService = "PackageCRUD";
+    this.title = "Paquetes";
+    this.ApiService = "Package";
 
     this.InitView = function () {
+        document.title = this.title;
 
         console.log("City view init!!!");
         //Binding del evento del clic al metodo de create del controlador
@@ -47,11 +48,19 @@ function PackageController() {
         var ctrlActions = new ControlActions();
         var serviceRoute = this.ApiService + "/Create";
 
-        ctrlActions.PostToAPI(serviceRoute, package, function () {
-            console.log("Package created --> " + JSON.stringify(package));
-        });
+        function successCallback(response) {
+            Swal.fire("success!", "Paquete creado correctamente!", "success");
+        }
+
+        function failCallback(response, status) {
+            Swal.fire("error!",response, "error");
+            console.log("fail callback");
+        }
+
+
+        ctrlActions.PostToAPI(serviceRoute, package, successCallback, failCallback);
     }
-    this.LoadTable = function() {
+    this.LoadTable = function () {
         var ctrlActions = new ControlActions();
         var urlService = ctrlActions.GetUrlApiService(this.ApiService + "/RetrieveAll")
 
@@ -67,12 +76,18 @@ function PackageController() {
         columns[8] = { 'data': 'modified_date' }
         columns[9] = { 'data': 'status' }
 
-        $("#tblListPackages").dataTable({
+        $("#tblListPackages").DataTable({
             "ajax": {
                 "url": urlService,
-                "dataSrc": ""
+                "dataSrc": "",
+                "beforeSend": function (request) {
+                    request.setRequestHeader("Authorization", 'Bearer ' + sessionStorage.getItem('token'));
+                }
             },
-        "columns": columns
+            "columns": columns,
+            "language": {
+                url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
+            },
         });
     }
 
@@ -80,8 +95,8 @@ function PackageController() {
 }
 
 
-    //Instanciamiento de la clase
-    $(document).ready(function () {
-        var viewCont = new PackageController();
-        viewCont.InitView();
-    })
+//Instanciamiento de la clase
+$(document).ready(function () {
+    var viewCont = new PackageController();
+    viewCont.InitView();
+})

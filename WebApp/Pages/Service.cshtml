@@ -11,13 +11,13 @@
             <table class="display" style="width:100%" id="tblService">
                 <thead>
                     <tr>
-                        <th>Service Id</th>
-                        <th>Service Name</th>
-                        <th>Service Description</th>
-                        <th>Service Status</th>
-                        <th>Service Cost</th>
-                        <th>Created Date</th>
-                        <th>Modified Date</th>
+                        <th>Id</th>
+                        <th>Nombre</th>
+                        <th>Descricción</th>
+                        <th>Estado</th>
+                        <th>Costo</th>
+                        <th>Fecha de creación</th>
+                        <th>Fecha de modificación</th>
                     </tr>
                 </thead>
             </table>
@@ -27,37 +27,37 @@
         <div class="col-lg-6">
             <div class="bs-component">
                 <button id="btnToggleForm" class="source-button btn btn-secondary btn-xs" type="button" tabindex="0">
-                    <i class="bi bi-code">Service Form</i>
+                    <i class="bi bi-code">Formulario de servicio</i>
                 </button>
                 <form>
                     <fieldset>
-                        <legend>Service registration form</legend>
+                        <legend>Fomulario para crear, actualizar y eliminar servicios</legend>
                         <div class="form-group">
-                            <label for="txtServiceId" class="form-label mt-4">Service Id</label>
-                            <input id="txtServiceId" type="number" class="form-control" placeholder="Enter Service ID only to update or delete">
+                            <label for="txtServiceId" class="form-label mt-4">Id de servicio</label>
+                            <input id="txtServiceId" type="number" class="form-control" placeholder="Ingrese el id del servicio, use solo para actualizar o eliminar">
                         </div>
 
                         <div class="form-group">
-                            <label for="txtServiceName" class="form-label mt-4">Service Name</label>
-                            <input id="txtServiceName" type="text" class="form-control" placeholder="Enter Service Name">
+                            <label for="txtServiceName" class="form-label mt-4">Nombre de servicio</label>
+                            <input id="txtServiceName" type="text" class="form-control" placeholder="Ingrese el nombre del servicio">
                         </div>
                         <div class="form-group">
-                            <label for="txtServiceDescription" class="form-label mt-4">Service Description</label>
-                            <input id="txtServiceDescription" type="text" class="form-control" placeholder="Enter Service Description">
+                            <label for="txtServiceDescription" class="form-label mt-4">Descripción de servicio</label>
+                            <input id="txtServiceDescription" type="text" class="form-control" placeholder="Ingrese la descripción del servicio">
                         </div>
                         <div class="form-group">
-                            <label for="txtServiceStatus" class="form-label mt-4">Service Status</label>
-                            <input id="txtServiceStatus" type="number" class="form-control" placeholder="Enter Service Status">
+                            <label for="txtServiceStatus" class="form-label mt-4">Estado de servicio</label>
+                            <input id="txtServiceStatus" type="number" class="form-control" placeholder="Ingrese el estado del servicio">
                         </div>
                         <div class="form-group">
-                            <label for="txtServiceCost" class="form-label mt-4">Service Cost</label>
-                            <input id="txtServiceCost" type="number" step="0.01" class="form-control" placeholder="Enter Service Cost">
+                            <label for="txtServiceCost" class="form-label mt-4">Costo de servicio</label>
+                            <input id="txtServiceCost" type="number" step="0.01" class="form-control" placeholder="Ingrese el costo del servicio">
                         </div>
                     </fieldset>
                     <br />
-                    <button id="btnCreate" class="source-button btn btn-primary btn-xs" type="button" tabindex="0"><i class="bi bi-code">Submit</i></button>
-                    <button id="btnUpdate" class="source-button btn btn-warning btn-xs" type="button" tabindex="0"><i class="bi bi-code">Update</i></button>
-                    <button id="btnDelete" class="source-button btn btn-danger btn-xs" type="button" tabindex="0"><i class="bi bi-code">Delete</i></button>
+                    <button id="btnCreate" class="source-button btn btn-primary btn-xs" type="button" tabindex="0"><i class="bi bi-code">Create</i></button>
+                    <button id="btnUpdate" class="source-button btn btn-warning btn-xs" type="button" tabindex="0"><i class="bi bi-code">Actualizar</i></button>
+                    <button id="btnDelete" class="source-button btn btn-danger btn-xs" type="button" tabindex="0"><i class="bi bi-code">Eliminar</i></button>
                 </form>
             </div>
         </div>

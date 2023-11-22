@@ -44,6 +44,8 @@ function PackageController() {
         package.PetAggressiveness = $("#txtPetAggressiveness").val();
         package.Status = $("#txtStatus").val();
         package.Services = $("#txtServices").val().split(',').map(s => s.trim());
+        package.CreatedDate = new Date();
+        package.ModifiedDate = new Date();
 
         var ctrlActions = new ControlActions();
         var serviceRoute = this.ApiService + "/Create";

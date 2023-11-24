@@ -19,23 +19,20 @@ namespace CoreApp.Utilities
         {
             try
             {
-                var cloudinary_url = Environment.GetEnvironmentVariable("CLOUDINARY_URL", EnvironmentVariableTarget.User);
-                if (string.IsNullOrWhiteSpace(cloudinary_url))
+                var cloudinary_name = Environment.GetEnvironmentVariable("CLOUDINARY_NAME", EnvironmentVariableTarget.User);
+                var cloudinary_api_key = Environment.GetEnvironmentVariable("CLOUDINARY_API_KEY", EnvironmentVariableTarget.User);
+                var cloudinary_api_secret = Environment.GetEnvironmentVariable("CLOUDINARY_API_SECRET", EnvironmentVariableTarget.User);
+                if (string.IsNullOrWhiteSpace(cloudinary_api_secret) || string.IsNullOrWhiteSpace(cloudinary_api_key) || string.IsNullOrWhiteSpace(cloudinary_name))
                 {
-                    throw new Exception("Error getting image");
+                    throw new Exception("Error uploading image");
                 }
 
-                Cloudinary cloudinary = new Cloudinary(cloudinary_url);
+                Cloudinary cloudinary = new Cloudinary(new Account(cloudinary_name, cloudinary_api_key, cloudinary_api_secret));
                 cloudinary.Api.Secure = true;
 
-                // Get image from cloudinary and convert to base64
-                var url = cloudinary.Api.UrlImgUp.Secure().Transform(new Transformation().Width(100).Height(100).Crop("thumb")).BuildUrl(publicId);
-
-                // Get image format
-                string format = url.Contains("png") ? "png" :
-                                url.Contains("jpg") ? "jpg" :
-                                url.Contains("jpeg") ? "jpeg" :
-                                url.Contains("gif") ? "gif" : "";
+                var getResult = cloudinary.GetResource(new GetResourceParams(publicId));
+                string format = getResult.Format;
+                string url = cloudinary.Api.UrlImgUp.Transform(new Transformation().Width(200).Height(200).Crop("fill")).BuildUrl(publicId);
 
                 // Download image
                 HttpClient client = new HttpClient();
@@ -46,7 +43,7 @@ namespace CoreApp.Utilities
             }
             catch (Exception)
             {
-                throw new Exception("Error getting image");
+                return string.Empty;
             }
         }
 
@@ -69,6 +66,7 @@ namespace CoreApp.Utilities
                 {
                     File = new FileDescription(imageBase64),
                     Folder = folder,
+                    Overwrite = true,
                 };
 
                 var uploadResult = cloudinary.Upload(uploadParams);
@@ -98,13 +96,15 @@ namespace CoreApp.Utilities
         {
             try
             {
-                var cloudinary_url = Environment.GetEnvironmentVariable("CLOUDINARY_URL", EnvironmentVariableTarget.User);
-                if (string.IsNullOrWhiteSpace(cloudinary_url))
+                var cloudinary_name = Environment.GetEnvironmentVariable("CLOUDINARY_NAME", EnvironmentVariableTarget.User);
+                var cloudinary_api_key = Environment.GetEnvironmentVariable("CLOUDINARY_API_KEY", EnvironmentVariableTarget.User);
+                var cloudinary_api_secret = Environment.GetEnvironmentVariable("CLOUDINARY_API_SECRET", EnvironmentVariableTarget.User);
+                if (string.IsNullOrWhiteSpace(cloudinary_api_secret) || string.IsNullOrWhiteSpace(cloudinary_api_key) || string.IsNullOrWhiteSpace(cloudinary_name))
                 {
-                    throw new Exception("Error deleting image");
+                    throw new Exception("Error uploading image");
                 }
 
-                Cloudinary cloudinary = new Cloudinary(cloudinary_url);
+                Cloudinary cloudinary = new Cloudinary(new Account(cloudinary_name, cloudinary_api_key, cloudinary_api_secret));
                 cloudinary.Api.Secure = true;
 
                 var deleteParams = new DeletionParams(publicId);
@@ -122,7 +122,7 @@ namespace CoreApp.Utilities
         }
 
 
-        public static void updateImage(string publicId, string imageBase64)
+        public static void UpdateImage(string folder, string publicId, string imageBase64)
         {
             try
             {
@@ -140,9 +140,10 @@ namespace CoreApp.Utilities
                 var uploadParams = new ImageUploadParams()
                 {
                     File = new FileDescription(imageBase64),
+                    Folder = folder,
                     PublicId = publicId,
+                    Overwrite = true,
                 };
-
 
                 var uploadResult = cloudinary.Upload(uploadParams);
 

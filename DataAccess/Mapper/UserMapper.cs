@@ -11,7 +11,7 @@ namespace DataAccess.Mapper
     {
         public override User BuildObject(Dictionary<string, object> row)
         {
-            var obj = new User()
+            var user = new User()
             {
                 Id = (int)row["user_id"],
                 IsPasswordRequiredChange = (bool)row["is_password_required_change"],
@@ -32,7 +32,7 @@ namespace DataAccess.Mapper
                 AddressLongitude = (float)(double)row["address_longitude"]
             };
 
-            return obj;
+            return user;
         }
     }
 }

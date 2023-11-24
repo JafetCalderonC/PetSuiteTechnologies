@@ -1,5 +1,6 @@
 ﻿using CoreApp;
 using CoreApp.Others;
+using DTOs;
 using DTOs.User;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -106,6 +107,8 @@ namespace WebAPI.Controllers
         {
             try
             {
+                signUp.Role = "client";
+                signUp.Status = 1; // active
                 var manager = new UserManager(_passwordOptions);
                 manager.Create(signUp);
 
@@ -130,7 +133,7 @@ namespace WebAPI.Controllers
                 // Get the user id from the token
                 var userAuthId = int.Parse((HttpContext.User.Identity as ClaimsIdentity)?.FindFirst(ClaimTypes.NameIdentifier)?.Value);
 
-                var manager = new UserManager(userAuthId, _passwordOptions);
+                var manager = new UserManager(_passwordOptions);
                 manager.ChangePassword(change);
 
                 return Ok();
@@ -155,7 +158,7 @@ namespace WebAPI.Controllers
                 var userAuthId = int.Parse((HttpContext.User.Identity as ClaimsIdentity)?.FindFirst(ClaimTypes.NameIdentifier)?.Value);
 
                 // get the user from the database
-                var manager = new UserManager(userAuthId, _passwordOptions);
+                var manager = new UserManager(_passwordOptions);
                 var user = manager.RetrieveById(userAuthId);
                 if (user == null)
                 {
@@ -179,7 +182,7 @@ namespace WebAPI.Controllers
                 // Get the user id from the token
                 var userAuthId = int.Parse((HttpContext.User.Identity as ClaimsIdentity)?.FindFirst(ClaimTypes.NameIdentifier)?.Value);
 
-                var manager = new UserManager(userAuthId, _passwordOptions);
+                var manager = new UserManager(_passwordOptions);
                 manager.Create(create);
 
                 return Ok(create);
@@ -203,7 +206,7 @@ namespace WebAPI.Controllers
                 // Get the user id from the token
                 var userAuthId = int.Parse((HttpContext.User.Identity as ClaimsIdentity)?.FindFirst(ClaimTypes.NameIdentifier)?.Value);
 
-                var manager = new UserManager(userAuthId, _passwordOptions);
+                var manager = new UserManager(_passwordOptions);
                 manager.Update(update);
 
                 return Ok(update);
@@ -220,15 +223,15 @@ namespace WebAPI.Controllers
 
         [HttpDelete]
         [Route("Delete")]
-        public IActionResult Delete(int id)
+        public IActionResult Delete(BaseDTO dto)
         {
             try
             {
                 // Get the user id from the token
                 var userAuthId = int.Parse((HttpContext.User.Identity as ClaimsIdentity)?.FindFirst(ClaimTypes.NameIdentifier)?.Value);
 
-                var manager = new UserManager(userAuthId, _passwordOptions);
-                manager.Delete(id);
+                var manager = new UserManager(_passwordOptions);
+                manager.Delete(dto.Id);
 
                 return Ok();
             }
@@ -251,7 +254,7 @@ namespace WebAPI.Controllers
                 // Get the user id from the token
                 var userAuthId = int.Parse((HttpContext.User.Identity as ClaimsIdentity)?.FindFirst(ClaimTypes.NameIdentifier)?.Value);
 
-                var manager = new UserManager(userAuthId, _passwordOptions);
+                var manager = new UserManager(_passwordOptions);
                 var user = manager.RetrieveById(id);
 
                 return Ok(user);
@@ -275,7 +278,7 @@ namespace WebAPI.Controllers
                 // Get the user id from the token
                 var userAuthId = int.Parse((HttpContext.User.Identity as ClaimsIdentity)?.FindFirst(ClaimTypes.NameIdentifier)?.Value);
 
-                var manager = new UserManager(userAuthId, _passwordOptions);
+                var manager = new UserManager(_passwordOptions);
                 var users = manager.RetrieveAll();
 
                 return Ok(users);

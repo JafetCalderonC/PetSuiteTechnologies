@@ -19,15 +19,18 @@
     <!-- login -->
     <script src="~/js/controlactions.js" asp-append-version="true"></script>
     <script src="~/js/pages/login.js" asp-append-version="true"></script>
-    <link rel="stylesheet" href="~/css/pages/login.css" asp-append-version="true" /> 
+    <link rel="stylesheet" href="~/css/pages/login.css" asp-append-version="true" />
+
+    <!-- favicon.ico -->
+    <link href="~/favicon.png" rel="shortcut icon" type="image/x-icon" />
 </head>
 
 <body>
     <div class="container mt-5">
         <div class="container">
             <form class="login-form">
-                <h2 class="mb-2 text-center">Bienvenido a PetSuite Technologies</h2>
-                <h3 class="text-center mb-3">Inicio de Sesión</h3>
+                <h3 class="text-center">Bienvenido a PetSuite Technologies</h3>
+                <h5 class="text-center mb-3">Inicio de Sesión</h5>
 
                 <div class="mb-2">
                     <div id="validationErrors" class="alert alert-danger d-none"></div>
@@ -53,11 +56,12 @@
 
         <div class="container">
             <form class="login-form mt-5">
-                <h2 class="mb-2 text-center">¿No tienes una cuenta?</h2>
+                <h5 class="mb-2 text-center">¿No tienes una cuenta?</h5>
 
                 <button id="btnCreateAccount" type="button" class="btn">Crear Usuario</button>
             </form>
         </div>
+    </div>
 </body>
 </html>
 

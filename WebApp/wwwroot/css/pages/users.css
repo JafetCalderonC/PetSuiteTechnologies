@@ -1,0 +1,9 @@
+﻿#btnAddUser {
+    background-color: #32bbad;
+    color: #ffffff;
+    border: 1px solid #32bbad;
+    border-radius: 2px;
+    padding: 5px;
+    width: 60%;
+    height: 40px;
+}

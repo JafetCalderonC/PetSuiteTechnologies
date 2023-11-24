@@ -1,0 +1,68 @@
+﻿@page
+@{
+}
+
+<div class="bs-docs-section">
+    <br />
+    <h3 class="text-center">Lista de habitaciones</h3>
+
+    <button id="btnCreate" class="btn btn-primary mb-4">Registar habitación</button>
+
+    <div class="row">
+        <div style="width:100%">
+            <table id="tblListRooms" class="display compact" style="width:100%"></table>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="formModal" data-bs-backdrop="static" class="modal fade" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="titleModal"></h3>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-2">
+                        <div id="validationErrors" class="alert alert-danger d-none"></div>
+                    </div>
+                    <form>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="mb-2">
+                                    <label for="txtName" class="form-label">Nombre:</label>
+                                    <input id="txtName" type="text" class="form-control" autocomplete="on" />
+                                </div>
+
+                                <div class="mb-2">
+                                    <label for="txtDescription" class="form-label">Descripción:</label>
+                                    <textarea id="txtDescription" class="form-control" autocomplete="on"></textarea>
+                                </div>
+
+                                <div class="mb-2">
+                                    <label for="txtCost" class="form-label">Precio:</label>
+                                    <input id="txtCost" type="number" class="form-control" autocomplete="on" min="0" />
+                                </div>
+
+                                <div class="mb-2">
+                                    <label for="cbStatus" class="form-label">Estado:</label>
+                                    <select id="cbStatus" class="form-select">
+                                        <option selected value="" hidden></option>
+                                        <option value="1">Activo</option>
+                                        <option value="2">Inactivo</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <button id="btnCancel" type="button" class="btn btn-secondary me-md-2">Cancelar</button>
+                        <button id="btnSubmit" type="button" class="btn btn-primary"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/js/pages/room.js" asp-append-version="true"></script>

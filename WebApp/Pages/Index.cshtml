@@ -1,10 +1,14 @@
 ﻿@page
-@model IndexModel
-@{
-    ViewData["Title"] = "Home page";
-}
+
+<link rel="stylesheet" href="~/css/pages/index.css" asp-append-version="true" />
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <header class="welcome-section">
+        <h2>Bienvenidos a PetSuite</h2>
+        <h5>Innovación en el cuidado de mascotas.</h5>
+    </header>
 </div>
+
+<div class="packages-section"></div>
+
+<script src="~/js/pages/index.js" asp-append-version="true"></script>

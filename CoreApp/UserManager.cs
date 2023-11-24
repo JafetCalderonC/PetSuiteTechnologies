@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace CoreApp
 {
-    public class UserManager : BaseManager
+    public class UserManager
     {
         private readonly UserCrudFactory _crud;
         private readonly PasswordOptions _passwordOptions;
@@ -27,12 +27,6 @@ namespace CoreApp
         {
             _crud = new UserCrudFactory();
             _passwordOptions = passwordOptions;
-        }
-        public UserManager(int userAuthId, PasswordOptions passwordOptions) : base()
-        {
-            _crud = new UserCrudFactory();
-            _passwordOptions = passwordOptions;
-            _userAuth = _crud.RetrieveById(userAuthId) ?? throw new ValidationException("El usuario no existe");
         }
 
         private void EnsureGeneralvalidation(User user, bool isNewUser)
@@ -72,8 +66,9 @@ namespace CoreApp
 
             // Validate profile photo base64 (png, jpg, jpeg, gif)
             if (string.IsNullOrWhiteSpace(user.ProfilePhoto) || ((
-                user.ProfilePhoto.Contains("data:image/png;base64,") ||
-                user.ProfilePhoto.Contains("data:image/jpg;base64,") ||
+                user.ProfilePhoto.Contains("data:image/;base64")      ||
+                user.ProfilePhoto.Contains("data:image/png;base64,")  ||
+                user.ProfilePhoto.Contains("data:image/jpg;base64,")  ||
                 user.ProfilePhoto.Contains("data:image/jpeg;base64,") ||
                 user.ProfilePhoto.Contains("data:image/gif;base64,")) == false))
             {
@@ -193,13 +188,6 @@ namespace CoreApp
         {
             user.NormalizerDTO("ProfilePhoto");
 
-            // if the user is not authenticated, the user will be created as a client
-            if (_userAuth == null)
-            {
-                user.Role = "client";
-                user.Status = 1;
-            }
-
             // General validation
             EnsureGeneralvalidation(user, true);
 
@@ -248,25 +236,16 @@ namespace CoreApp
 
         public void Update(User user)
         {
-            ValidateUserAuth();
-
-            user.NormalizerDTO();
+            user.NormalizerDTO("ProfilePhoto");
 
             // General validation
             EnsureGeneralvalidation(user, false);
 
             // Get user from database
             var userFromDb = _crud.RetrieveById(user.Id) ?? throw new ValidationException("El usuario no existe");
-            EnsureUserCannotAccessData(userFromDb);
-
-            // Client or Gestor cannot update an admin or gestor role
-            if ((_userAuth.Role == "client" || _userAuth.Role == "gestor") && (user.Role == "admin" || user.Role == "gestor"))
-            {
-                throw new ValidationException("Usted no tiene permisos para actualizar este usuario");
-            }
-
+        
             // Upload new image
-            CloudinaryUtility.updateImage(userFromDb.CloudinaryPublicId, user.ProfilePhoto);
+            userFromDb.CloudinaryPublicId =  CloudinaryUtility.UploadImage("PetSuite Technologies/Profile photos", user.ProfilePhoto);
 
             // Update data
             userFromDb.FirstName = user.FirstName;
@@ -285,42 +264,39 @@ namespace CoreApp
 
         public void Delete(int id)
         {
-            ValidateUserAuth();
-
             var userFromDb = _crud.RetrieveById(id) ?? throw new ValidationException("El usuario no existe");
-            EnsureUserCannotAccessData(userFromDb);
-
+            // Delete profile photo
+            CloudinaryUtility.DeleteImage(userFromDb.CloudinaryPublicId);
             _crud.Delete(id);
         }
 
         public User? RetrieveById(int id)
         {
-            ValidateUserAuth();
-
             var userFromDb = _crud.RetrieveById(id) ?? throw new ValidationException("El usuario no existe");
-            EnsureUserCannotAccessData(userFromDb);
 
             // get profile photo
             userFromDb.ProfilePhoto = CloudinaryUtility.GetImage(userFromDb.CloudinaryPublicId);
             // get phone numbers
             userFromDb.PhoneNumbers = _crud.RetrieveAllPhoneNumbersByUserId(userFromDb.Id);
 
+            TextInfo textInfo = CultureInfo.CurrentCulture.TextInfo;
+
             // Remove sensitive data
             userFromDb.PasswordHash = null;
             userFromDb.PasswordSalt = null;
             userFromDb.CloudinaryPublicId = null;
+            userFromDb.FirstName = textInfo.ToTitleCase(userFromDb.FirstName);
+            userFromDb.LastName = textInfo.ToTitleCase(userFromDb.LastName);
 
             return userFromDb;
         }
 
         public List<User> RetrieveAll()
         {
-            ValidateUserAuth();
-
+            TextInfo textInfo = CultureInfo.CurrentCulture.TextInfo;
             List<User> users = new List<User>();
 
-            var usersFromDb = _crud.RetrieveAll();
-            foreach (var user in usersFromDb.Where(x => CanAccessUserData(x)))
+             foreach (var user in _crud.RetrieveAll())
             {
                 // get profile photo
                 user.ProfilePhoto = CloudinaryUtility.GetImage(user.CloudinaryPublicId);
@@ -331,6 +307,8 @@ namespace CoreApp
                 user.PasswordHash = null;
                 user.PasswordSalt = null;
                 user.CloudinaryPublicId = null;
+                user.FirstName = textInfo.ToTitleCase(user.FirstName);
+                user.LastName = textInfo.ToTitleCase(user.LastName);
 
                 users.Add(user);
             }
@@ -410,7 +388,6 @@ namespace CoreApp
             change.NormalizerDTO("CurrentPassword", "NewPassword", "ConfirmNewPassword");
 
             var userFromDb = _crud.RetrieveByEmail(change.Email) ?? throw new ValidationException("El usuario no existe");
-            EnsureUserCannotAccessData(userFromDb); // Ensure user cannot access data from another user
 
             // Validate password
             if (!PasswordUtility.VerifyPassword(change.CurrentPassword, userFromDb.PasswordSalt, userFromDb.PasswordHash))

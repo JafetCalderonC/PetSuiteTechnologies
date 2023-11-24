@@ -66,6 +66,54 @@ function site_enableDisableForm(enable) {
     $('#btnChangePassword').prop('disabled', !enable);
 };
 
+// hide validation errors
+function hideValidationErrors() {
+    $('#validationErrors').addClass('d-none');
+    $('#validationErrors').text('')
+}
+
+// show validation errors
+function showValidationErrors(message) {
+    $('#validationErrors').removeClass('d-none');
+    $('#validationErrors').text(message);
+}
+
+// Title modal
+function setTitleModal(title, btnText) {
+    $('#titleModal').text(title);
+    $('#btnSubmit').text(btnText);
+}
+
+// hide or show modal
+function showModal(show) {
+    if (show) {
+        $('#formModal').modal('show');
+    }
+    else {
+        $('#formModal').modal('hide');
+    }
+}
+
+function formatDateTime(date) {
+    let day = date.getDate();
+    let month = date.getMonth() + 1;
+    let year = date.getFullYear();
+    let hour = date.getHours();
+    let minutes = date.getMinutes();
+    let ampm = hour >= 12 ? 'PM' : 'AM';
+
+    hour = hour % 12;
+    hour = hour ? hour : 12;
+    minutes = minutes < 10 ? '0' + minutes : minutes;
+
+    return `${day}/${month}/${year} ${hour}:${minutes} ${ampm}`;
+}
+
+// Using the function
+let currentDate = new Date();
+console.log(formatDateTime(currentDate));
+
+
 function siteController() {
     this.ApiService = "user";
 
@@ -76,11 +124,33 @@ function siteController() {
             viewCont.ChangePassword();
         });
 
+        $('#btnLogout').click(function () {
+            // Clear session storage
+            sessionStorage.clear();
+            window.location.href = '/login';
+        });
+
         // check if user is logged in
         this.isLogged().then((response) => {
             if (response == false) {
                 window.location.href = '/login';
             } else {
+                const roleUser = JSON.parse(sessionStorage.getItem('user')).role;    
+
+                if(roleUser == "admin") {
+                    $('a[href="/user"]').removeClass('d-none');
+                    $('a[href="/Room"]').removeClass('d-none');
+                    $('a[href="/Service"]').removeClass('d-none');
+                    $('a[href="/Package"]').removeClass('d-none');
+                }
+
+                if (roleUser == "gestor") {
+                    $('a[href="/user"]').removeClass('d-none');
+                    $('a[href="/Room"]').removeClass('d-none');
+                    $('a[href="/Service"]').removeClass('d-none');
+                    $('a[href="/Package"]').removeClass('d-none');
+                }
+
                 const viewCont = new siteController();
                 viewCont.checkOtpVerification();
             }
@@ -101,7 +171,7 @@ function siteController() {
         const serviceRouteUser = this.ApiService + "/retrievebyid";
 
         function successCallback(response) {
-                 
+
 
             // Update user in session storage
             let userId = JSON.parse(sessionStorage.getItem('user')).id;
@@ -110,7 +180,7 @@ function siteController() {
                 sessionStorage.setItem('user', JSON.stringify(user));
 
                 $('#modelChangePassword').modal('hide');
-                site_enableDisableForm(true);       
+                site_enableDisableForm(true);
                 Swal.fire({
                     title: 'Contraseña cambiada',
                     text: 'Su contraseña ha sido cambiada exitosamente',
@@ -137,6 +207,12 @@ function siteController() {
     }
 
     this.isLogged = function () {
+        const user = JSON.parse(sessionStorage.getItem('user'));
+        if (user == null) {
+            window.location.href = '/login';
+            return;
+        };
+
         return new Promise((resolve, reject) => {
             const controlActions = new ControlActions();
             let serviceRoute = this.ApiService + "/IsLoggedIn";

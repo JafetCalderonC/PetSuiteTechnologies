@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace CoreApp
 {
-    public class ServiceManager : BaseManager
+    public class ServiceManager
     {
         private ServiceCrudFactory _crud;
 
@@ -47,28 +47,15 @@ namespace CoreApp
                 throw new Exception("El estado del servicio es inválido");
             }
 
-
-            if (isNewService == true)
+            if (_crud.RetrieveAll().Any(x => x.ServiceName == service.ServiceName && x.Id != service.Id))
             {
-                // Validate if the service already exists by name
-                var currentService = _crud.RetrieveAll();
-                if (currentService != null)
-                {
-                    foreach (var item in currentService)
-                    {
-                        if (item.ServiceName == service.ServiceName)
-                        {
-                            throw new Exception("El servicio ya existe");
-                        }
-                    }
-                }
-
+                throw new ValidationException("Servicio ya existe con el mismo nombre");
             }
         }
 
         public void Create(Service service)
         {
-            //service.NormalizerDTO();
+            service.NormalizerDTO();
             EnsureGeneralvalidation(service, true);
 
             service.ServiceCreatedDate = DateTime.Now;
@@ -114,11 +101,25 @@ namespace CoreApp
                 throw new Exception("El servicio no existe");
             }
 
-            return _crud.RetrieveById(id);
+            // Capitalize first letter
+            currentService.ServiceName = char.ToUpper(currentService.ServiceName[0]) + currentService.ServiceName.Substring(1);
+            currentService.ServiceDescription = char.ToUpper(currentService.ServiceDescription[0]) + currentService.ServiceDescription.Substring(1);
+
+            return currentService;
         }
         public List<Service> RetrieveAll()
         {
-            return _crud.RetrieveAll();
+            var services = new List<Service>();
+
+            foreach (var service in _crud.RetrieveAll())
+            {
+                // Capitalize first letter
+                service.ServiceName = char.ToUpper(service.ServiceName[0]) + service.ServiceName.Substring(1);
+                service.ServiceDescription = char.ToUpper(service.ServiceDescription[0]) + service.ServiceDescription.Substring(1);
+
+                services.Add(service);
+            }
+            return services;
         }
     }
 }

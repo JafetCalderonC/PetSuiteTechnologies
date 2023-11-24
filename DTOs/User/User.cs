@@ -23,8 +23,9 @@ namespace DTOs.User
         public byte Status { get; set; }
         public string Role { get; set; }
         public bool IsPasswordRequiredChange { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public DateTime ModifiedDate { get; set; }
+        public bool OtpVerified { get; set; }
+        public DateTime? CreatedDate { get; set; }
+        public DateTime? ModifiedDate { get; set; }
 
         public string? PasswordHash { get; set; }
         public string? PasswordSalt { get; set; }

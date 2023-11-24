@@ -1,0 +1,122 @@
+﻿@page
+@{
+}
+<div class="bs-docs-section">
+    <br />
+    <h3 class="text-center" >Lista de usuarios</h3>
+
+    <button id="btnCreateForm" class="btn btn-primary mb-4">Registrar Usuario</button>
+
+    <div class="row">
+        <div style="width:100%">
+            <table id="tblListUsers" class="display compact" style="width:100%"></table>
+        </div>
+    </div>
+
+
+    <!-- Modal -->
+    <div id="formModal" data-bs-backdrop="static" class="modal fade" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="titleModal"></h3>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-2">
+                            <div id="validationErrors" class="alert alert-danger d-none"></div>
+                        </div>
+
+                        <div class="row">
+                            <input id="txtHideId" type="hidden" value="" />
+                            <input id="textHideProfilePhoto" type="hidden" value="" />
+
+                            <div class="col-md-6">
+                                <div class="mb-2">
+                                    <label for="txtFirstName" class="form-label">Nombre:</label>
+                                    <input id="txtFirstName" type="text" class="form-control" autocomplete="on" />
+                                </div>
+
+                                <div class="mb-2">
+                                    <label for="txtLastName" class="form-label">Apellidos:</label>
+                                    <input id="txtLastName" type="text" class="form-control" autocomplete="on" />
+                                </div>
+
+                                <div class="mb-2">
+                                    <label for="cbRole" class="form-label">Tipo de Rol:</label>
+                                    <select id="cbRole" class="form-select">
+                                        <option selected value="" hidden></option>
+                                        <option value="client">Cliente</option>
+                                        <option value="gestor">Gestor</option>
+                                        <option value="admin">Administrador</option>
+                                    </select>
+                                </div>
+
+                                <div class="mb-2">
+                                    <label for="cbIdentificationType" class="form-label">Tipo de Identificación:</label>
+                                    <select id="cbIdentificationType" class="form-select">
+                                        <option selected value="" hidden></option>
+                                        <option value="national-id">Cédula de Identidad</option>
+                                        <option value="passport">Pasaporte</option>
+                                        <option value="dimex">Dimex</option>
+                                    </select>
+                                </div>
+
+                                <div class="mb-2">
+                                    <label for="txtIdentificationValue" class="form-label">Número de Identificación:</label>
+                                    <input id="txtIdentificationValue" readonly type="text" class="form-control" autocomplete="off" placeholder="" />
+                                </div>
+
+                                <div class="mb-2">
+                                    <label for="txtAddress" class="form-label">Dirección:</label>
+                                    <input id="txtAddress" type="text" class="form-control" readonly autocomplete="off" placeholder="Seleccione una ubicación en el mapa" />
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="mb-2">
+                                    <label for="cbStatus" class="form-label">Estado:</label>
+                                    <select id="cbStatus" class="form-select">
+                                        <option selected value="" hidden></option>
+                                        <option value="1">Activo</option>
+                                        <option value="2">Inactivo</option>
+                                    </select>
+                                </div>
+
+                                <div class="mb-2">
+                                    <label for="txtEmail" class="form-label">Email:</label>
+                                    <input id="txtEmail" type="email" class="form-control" autocomplete="on" />
+                                </div>
+
+                                <div class="mb-2">
+                                    <label for="profilePicture" class="form-label">Foto de Perfil:</label>
+                                    <input type="file" class="form-control" id="profilePicture">
+                                </div>
+
+                                <div class="mb-2">
+                                    <label class="form-label">Teléfonos:</label>
+                                    <div class="input-group mb-2">
+                                        <button id="btnAddPhone" class="btn btn-outline-secondary btn-phone" type="button">Agregar teléfono</button>
+                                    </div>
+                                    <div id="phone-group"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Map -->
+                        <div id="map" style="height:250px;" class="mb-3"></div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <button id="btnCancel" type="button" class="btn btn-secondary me-md-2">Cancelar</button>
+                            <button id="btnSubmit" type="button" class="btn btn-primary">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="~/js/pages/users.js" asp-append-version="true"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD9BNvpbtqpeND11ZUfZdWjlw33QlNRvh0&callback=initMap"></script>

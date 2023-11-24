@@ -1,28 +1,10 @@
 ﻿// Read form data
 function readFormData() {
-    let formData = {};
+    let formData = { id:0};
     formData.email = $('#txtEmail').val().trim();
     formData.password = $('#txtPassword').val().trim();
     return formData;
 };
-
-// hide validation errors
-function hideValidationErrors() {
-    $('#validationErrors').addClass('d-none');
-    $('#validationErrors').text('')
-}
-
-// show validation errors
-function showValidationErrors(element, message) {
-    $('#validationErrors').removeClass('d-none');
-    $('#validationErrors').text(message);
-
-    // Hide validation errors when the user changes the value
-    if (element) {
-        // Set focus on the element
-        $(element).focus();
-    }
-}
 
 // Validate form data
 function ValidateFormData(formData) {
@@ -49,6 +31,24 @@ function EnableDisableForm(enable) {
     $('#txtPassword').prop('disabled', !enable);
     $('#btnLogin').prop('disabled', !enable);
     $('#btnCreateAccount').prop('disabled', !enable);
+}
+
+// hide validation errors
+function hideValidationErrors() {
+    $('#validationErrors').addClass('d-none');
+    $('#validationErrors').text('')
+}
+
+// show validation errors
+function showValidationErrors(element, message) {
+    $('#validationErrors').removeClass('d-none');
+    $('#validationErrors').text(message);
+
+    // Hide validation errors when the user changes the value
+    if (element) {
+        // Set focus on the element
+        $(element).focus();
+    }
 }
 
 function LoginController() {

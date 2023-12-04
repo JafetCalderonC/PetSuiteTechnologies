@@ -1,95 +1,110 @@
-let id = 0;
+
+let id = 0
 let isEditModal = false;
+let mascotaSeleccionada = null;
+let paqueteSeleccionado = null;
 
 function readFormData() {
-    let formData = {id};
-    formData.serviceName = $("#txtServiceName").val();
-    formData.serviceDescription = $("#txtServiceDescription").val();
-    formData.serviceStatus = $("#txtServiceStatus").val();
-    formData.serviceCost = $("#txtServiceCost").val();
-    formData.serviceCreatedDate = new Date();
-    formData.serviceModifiedDate = new Date();
-
-    return formData;
+    let formData = { id };
+    formdata.StartDate = $("#StartDate").val();
+    formdata.EndDate = $("#EndDate").val();
+    formdata.UserID = $("#petDropdown").val();//
+    formdata.PetId = mascotaSeleccionada.id;
+    formdata.PackageId = paqueteSeleccionado.id;
+    formdata.ReservationCreatedDate = new Date();
+    formdata.ReservationModifiedDate = new Date();
+    
+        return formData;
 }
 
 function writeFormData(formData) {
     id = formData.id;
-    $("#txtServiceName").val(formData.serviceName);
-    $("#txtServiceDescription").val(formData.serviceDescription);
-    $("#txtServiceStatus").val(formData.serviceStatus);
-    $("#txtServiceCost").val(formData.serviceCost);
-    $("#txtServiceCreatedDate").val(formData.serviceCreatedDate);
-    $("#txtServiceModifiedDate").val(formData.serviceModifiedDate);
+    $("#StartDate").val(formData.StartDate);
+    $("#EndDate").val(formData.EndDate);
+    $("#petDropdown").val(formData.PetId); //
+    $("#packageDropdown").val(formData.PackageId); //
+    $("#txtReservationCreatedDate").val(formData.ReservationCreatedDate);
+    $("#txtReservationModifiedDate").val(formData.ReservationModifiedDate);
 }
+
 function enableFormControls(enabled) {
-    $("#txtServiceName").prop("disabled", !enabled);
-    $("#txtServiceDescription").prop("disabled", !enabled);
-    $("#txtServiceStatus").prop("disabled", !enabled);
-    $("#txtServiceCost").prop("disabled", !enabled);
-    $("#txtServiceCreatedDate").prop("disabled", !enabled);
-    $("#txtServiceModifiedDate").prop("disabled", !enabled);
+    $("#StartDate").prop("disabled", !enabled);
+    $("#EndDate").prop("disabled", !enabled);
+    $("#txtUserID").prop("disabled", !enabled);
+    $("#petDropdown").prop("disabled", !enabled);
+    $("#packageDropdown").prop("disabled", !enabled);
+    $("#txtReservationCreatedDate").prop("disabled", !enabled);
+    $("#txtReservationModifiedDate").prop("disabled", !enabled);
 }
+
 function resetForm() {
     id = 0;
-    $("#txtServiceName").val("");
-    $("#txtServiceDescription").val("");
-    $("#txtServiceStatus").val("");
-    $("#txtServiceCost").val("");
-    $("#txtServiceCreatedDate").val("");
-    $("#txtServiceModifiedDate").val("");
+    $("#StartDate").val("");
+    $("#EndDate").val("");
+    $("#txtUserID").val("");
+    $("#petDropdown").val("");
+    $("#packageDropdown.").val("");
+    $("#txtReservationCreatedDate").val("");
+    $("#txtReservationModifiedDate").val("");
 
     hideValidationErrors();
     enableFormControls(true);
 }
+
 function validateData(formData) {
     hideValidationErrors();
 
-    if (formData.serviceName == "") {
-        showValidationErrors("El nombre es requerido");
+    if (formData.StartDate == "") {
+        showValidationErrors("La fecha de inicio es requerida");
         return false;
     }
 
-    if (formData.serviceDescription == "") {
-        showValidationErrors("La descripción es requerida");
+    if (formData.EndDate == "") {
+        showValidationErrors("La fecha de fin es requerida");
         return false;
     }
 
-    if (formData.serviceStatus == "") {
-        showValidationErrors("El estado es requerido");
+    if (formData.UserID == "") {
+        showValidationErrors("El usuario es requerido");
         return false;
     }
 
-    if (formData.serviceCost == "") {
-        showValidationErrors("El costo es requerido");
+    if (formData.PetId == "") {
+        showValidationErrors("La mascota es requerida");
+        return false;
+    }
+
+    if (formData.PackageId == "") {
+        showValidationErrors("El paquete es requerido");
         return false;
     }
 
     return true;
 }
-function ServiceController() {
-    this.ApiService = "Service";
-    this.Title = "Servicios";
+
+function ReservationController() {
+    this.ApiService = "Reservation";
+    this.Title = "Reservaciones";
 
     this.InitView = function () {
         document.Title = this.Title;
         $(document).on('click', '.btnEdit', function () {
-            const vc = new ServiceController();
+            const vc = new ReservationController();
             vc.RetrieveById($(this).data('id'));
         });
 
         $('#btnCreate').click(function () {
             resetForm();
             isEditModal = false;
-            setTitleModal('Registrar servicio', 'Registrar');
+            setTitleModal('Registrar reservación', 'Registrar');
             showModal(true);
         });
         $('#btnSubmit').click(function () {
             if (isEditModal) {
-                const vc = new ServiceController();
+                const vc = new ReservationController();
                 vc.Update();
             } else {
-                const vc = new ServiceController();
+                const vc = new ReservationController();
                 vc.Create();
             }
         });
@@ -100,7 +115,7 @@ function ServiceController() {
         });
 
         $(document).on('click', '.btnDelete', function () {
-            const vc = new ServiceController();
+            const vc = new ReservationController();
             vc.Delete($(this).data('id'));
         });
 
@@ -116,20 +131,18 @@ function ServiceController() {
             return;
         }
 
-
         function successCallback(response) {
-            $('#tblListServices').DataTable().ajax.reload();
+            $('#tblListReservations').DataTable().ajax.reload();
             showModal(false);
 
             Swal.fire({
                 icon: 'success',
-                title: 'El servicio se ha creado correctamente',
+                title: 'La reservación se ha creado correctamente',
                 footer: 'PetSuite Technologies',
                 confirmButtonText: 'Entendido'
             });
 
         }
-
 
         function failCallBack(response) {
             showValidationErrors(response);
@@ -142,53 +155,19 @@ function ServiceController() {
 
     }
 
-
-    this.Update = async function () {
-        enableFormControls(false);
-
-        let formData = await readFormData();
-        if (!validateData(formData)) {
-            enableFormControls(true);
-            return;
-        }
-
-        function successCallback(response) {
-            $('#tblListServices').DataTable().ajax.reload();
-            showModal(false);
-
-            Swal.fire({
-                icon: 'success',
-                title: 'El servicio se ha actualizado correctamente',
-                footer: 'PetSuite Technologies',
-                confirmButtonText: 'Entendido'
-            });
-        }
-
-        function failCallBack(response) {
-            showValidationErrors(response);
-            enableFormControls(true);
-        }
-
-        const controlActions = new ControlActions();
-        const serviceRoute = this.ApiService + "/Update";
-        controlActions.PutToAPI(serviceRoute, formData, successCallback, failCallBack);
-
-
-    };
-
     this.Delete = function (id) {
-        function successCallBack(response) {
-            $('#tblListServices').DataTable().ajax.reload();
+    function successCallBack(response) {
+            $('#tblListReservations').DataTable().ajax.reload();
             Swal.fire({
                 icon: 'success',
-                title: 'El servicio se ha eliminado correctamente',
+                title: 'La reservación se ha eliminado correctamente',
                 footer: 'PetSuite Technologies',
                 confirmButtonText: 'Entendido'
             });
         };
 
         function failCallBack(response) {
-            $('#tblListServices').DataTable().ajax.reload();
+            $('#tblListReservations').DataTable().ajax.reload();
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
@@ -201,7 +180,7 @@ function ServiceController() {
         var controlActions = new ControlActions();
         var serviceRoute = this.ApiService + "/delete";
         controlActions.DeleteToAPI(serviceRoute, { id }, successCallBack, failCallBack);
-    };
+    }
 
     this.RetrieveById = function (id) {
         resetForm();
@@ -209,7 +188,7 @@ function ServiceController() {
         function successCallback(response) {
             isEditModal = true;
             writeFormData(response);
-            setTitleModal('Actualizar servicio', 'Actualizar');
+            setTitleModal('Actualizar reservación', 'Actualizar');
             showModal(true);
         }
 
@@ -227,33 +206,33 @@ function ServiceController() {
         const serviceRoute = this.ApiService + "/RetrieveById?id=" + id;
         controlActions.GetToApi(serviceRoute, successCallback, failCallBack);
 
-
     }
 
     this.LoadTable = function () {
-        let controlActions = new ControlActions();
+    let controlActions = new ControlActions();
         let serviceRoute = controlActions.GetUrlApiService(this.ApiService + "/RetrieveAll");
 
         let columns = [];
-        columns[0] = { "data": "serviceName", title: "Nombre" };
-        columns[1] = { "data": "serviceDescription", title: "Descripcion" };
-        columns[2] = { "data": "serviceStatus", title: "Estado" };
-        columns[3] = { "data": "serviceCost", title: "Costo" };
-        columns[4] = {
-            "data": "serviceCreatedDate",
+        columns[0] = { "data": "StartDate", title: "Fecha de inicio" };
+        columns[1] = { "data": "EndDate", title: "Fecha de fin" };
+        columns[2] = { "data": "UserID", title: "Usuario" };
+        columns[3] = { "data": "PetId", title: "Mascota" };
+        columns[4] = { "data": "PackageId", title: "Paquete" };
+        columns[5] = {
+            "data": "ReservationCreatedDate",
             "title": "Fecha de creacion",
             "render": function (value) {
                 return formatDateTime(new Date(value));
             }
         };
-        columns[5] = {
-            "data": "serviceModifiedDate",
+        columns[6] = {
+            "data": "ReservationModifiedDate",
             "title": "Fecha de modificacion",
             "render": function (value) {
                 return formatDateTime(new Date(value));
             }
         };
-        columns[6] = {
+        columns[7] = {
             "orderable": false,
             'searchable': false,
             "title": "Acciones",
@@ -266,7 +245,7 @@ function ServiceController() {
             }
         };
 
-        $('#tblListServices').DataTable({
+        $('#tblListReservations').DataTable({
             "responsive": true,
             "processing": true,
             "ajax": {
@@ -281,12 +260,14 @@ function ServiceController() {
                 url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
             },
         });
-    };
-        
-}
+    }
 
-$(document).ready(function () {
-    var viewCont = new ServiceController();
-    viewCont.InitView();
-});
+
+    $(document).ready(function () {
+        var viewCount = new ReservationController();
+        viewCount.InitView();
+
+    });
+
+}
 

@@ -46,11 +46,14 @@ namespace CoreApp
             {
                 throw new Exception("El estado del servicio es inválido");
             }
-
-            if (_crud.RetrieveAll().Any(x => x.ServiceName == service.ServiceName && x.Id != service.Id))
+            if (isNewService)
             {
-                throw new ValidationException("Servicio ya existe con el mismo nombre");
+                if (_crud.RetrieveAll().Any(x => x.ServiceName == service.ServiceName && x.Id != service.Id))
+                {
+                    throw new ValidationException("Servicio ya existe con el mismo nombre");
+                }
             }
+
         }
 
         public void Create(Service service)

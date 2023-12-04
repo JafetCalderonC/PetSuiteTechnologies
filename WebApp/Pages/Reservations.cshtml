@@ -1,15 +1,17 @@
 ﻿@page
+@model WebApp.Pages.ReservationsModel
 @{
 }
+
 <div class="bs-docs-section">
     <br />
-    <h3 class="text-center">Lista de Servicios</h3>
+    <h3 class="text-center">Lista de Reservaciones</h3>
 
-    <button id="btnCreate" class="btn btn-primary mb-4">Registar Servicio</button>
+    <button id="btnCreate" class="btn btn-primary mb-4">Registar Reservacion</button>
 
     <div class="row">
         <div style="width:100%">
-            <table id="tblListServices" class="display compact" style="width:100%"></table>
+            <table id="tblListReservations" class="display compact" style="width:100%"></table>
         </div>
     </div>
 
@@ -26,22 +28,28 @@
                     </div>
                     <form>
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="mb-2">
-                                    <label for="txtServiceName" class="form-label mt-4">Nombre de servicio</label>
-                                    <input id="txtServiceName" type="text" class="form-control" placeholder="Ingrese el nombre del servicio">
+                                    <label for="startDate" class="form-label mt-4">Fecha de inicio</label>
+                                    <input id="startDate" type="date" class="form-control">
                                 </div>
                                 <div class="mb-2">
-                                    <label for="txtServiceDescription" class="form-label mt-4">Descripción de servicio</label>
-                                    <input id="txtServiceDescription" type="text" class="form-control" placeholder="Ingrese la descripción del servicio">
+                                    <label for="endDate" class="form-label mt-4">Fecha de finalización</label>
+                                    <input id="endDate" type="date" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-2">
+                                    <label for="petDropdown" class="form-label mt-4">Mascota disponible</label>
+                                    <select id="petDropdown" class="form-select">
+                                        <!-- Opciones de mascotas se insertarán dinámicamente con JavaScript -->
+                                    </select>
                                 </div>
                                 <div class="mb-2">
-                                    <label for="txtServiceStatus" class="form-label mt-4">Estado de servicio</label>
-                                    <input id="txtServiceStatus" type="number" class="form-control" placeholder="Ingrese el estado del servicio">
-                                </div>
-                                <div class="mb-2">
-                                    <label for="txtServiceCost" class="form-label mt-4">Costo de servicio</label>
-                                    <input id="txtServiceCost" type="number" step="0.01" class="form-control" placeholder="Ingrese el costo del servicio">
+                                    <label for="packageDropdown" class="form-label mt-4">Paquete disponible</label>
+                                    <select id="packageDropdown" class="form-select">
+                                        <!-- Opciones de paquetes se insertarán dinámicamente con JavaScript -->
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -57,4 +65,4 @@
         </div>
     </div>
 </div>
-<script src="~/js/pages/service.js" asp-append-version="true"></script>
+

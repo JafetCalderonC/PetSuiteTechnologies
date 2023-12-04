@@ -58,6 +58,12 @@ namespace CoreApp
                             throw new Exception("El servicio ya existe");
                     }
                 }
+            } else if (isNewService == false)
+            {
+                if (package.Id <= 0)
+                {
+                    throw new Exception("Debe de contar con un Id valido");
+                }
             }
 
         }
@@ -71,6 +77,7 @@ namespace CoreApp
 
         public void Update(Package package)
         {
+            EnsureGeneralvalidation(package, false);
             _crud.Update(package);
         }
 
@@ -80,6 +87,9 @@ namespace CoreApp
 
             return uc.RetrieveAll();
         }
-
+        public void Delete(int id)
+        {
+            _crud.Delete(id);
+        }
     }
 }

@@ -7,18 +7,16 @@ using System.Threading.Tasks;
 
 namespace DTOs
 {
-    public class Package : BaseDTO
+    public class Pet : BaseDTO
     {
-        public string PackageName { get; set; }
-        public string Description { get; set; }
-        public int RoomId { get; set; }
-        public string PetBreedType { get; set; }
-        public string PetSize { get; set; }
-        public byte PetAggressiveness { get; set; }
+        public string PetName { get; set; }
         public byte Status { get; set; }
-        public List<string> Services { get; set; }
+        public string Description { get; set; }
+        public int PetAge { get; set; }
+        public string PetBreedType { get; set; }
+        public byte PetAggressiveness { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime ModifiedDate { get; set; }
-
+        public string UserId { get; set; }
     }
 }

@@ -88,7 +88,7 @@ namespace WebAPI.Controllers
             }
         }
         [HttpGet]
-        [Route("RetrieveAll")]
+        [Route("RetrieveByUserID")]
         public async Task<IActionResult> RetrieveByUserId(int id)
         {
             try

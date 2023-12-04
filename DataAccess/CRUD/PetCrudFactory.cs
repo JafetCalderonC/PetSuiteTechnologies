@@ -88,7 +88,7 @@ namespace DataAccess.CRUD
 
         public List<Pet>? RetrieveByUserId(int id)
         {
-            var sqlOperation = new SqlOperation("RETRIEVE_PET_BY_ID_PR");
+            var sqlOperation = new SqlOperation("RETRIEVE_PETS_BY_USER_ID_PR");
             sqlOperation.AddParameter("@P_USER_ID", id);
 
             var lstResult = _dao.ExecuteQueryProcedure(sqlOperation);

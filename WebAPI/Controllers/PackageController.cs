@@ -35,39 +35,38 @@ namespace WebAPI.Controllers
             }
         }
 
-        //[HttpPut]
-        //[Route("Update")]
-        //public async Task<IActionResult> Update(Package city)
-        //{
-        //    var um = new PackageManager();
+        [HttpPut]
+        [Route("Update")]
+        public async Task<IActionResult> Update(Package package)
+        {
+            var um = new PackageManager();
 
-        //    try
-        //    {
-        //        um.Update(city);
-        //        return Ok(city);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return StatusCode(500, ex.Message);
-        //    }
-        //}
+            try
+            {
+                um.Update(package);
+                return Ok(package);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
 
-        //[HttpDelete]
-        //[Route("Delete")]
-        //public async Task<IActionResult> Delete(Package city)
-        //{
-        //    var um = new PackageManager();
-
-        //    try
-        //    {
-        //        um.Delete(city);
-        //        return Ok(city);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return StatusCode(500, ex.Message);
-        //    }
-        //}
+        [HttpDelete]
+        [Route("Delete")]
+        public async Task<IActionResult> Delete(BaseDTO dto)
+        {
+            try
+            {
+                var serviceManager = new CoreApp.PackageManager();
+                serviceManager.Delete(dto.Id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
 
 
         //[HttpGet]

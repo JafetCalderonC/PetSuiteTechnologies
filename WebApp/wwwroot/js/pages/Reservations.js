@@ -1,28 +1,83 @@
 
 let id = 0
 let isEditModal = false;
-let mascotaSeleccionada = null;
-let paqueteSeleccionado = null;
+let petOptions = [];
+let packageOptions = [];
+let user = sessionStorage.getItem('user');
+let userIdLogged = user.IdentificationValue;
+
+function SearchPetId(petOptions, PetName) {
+    forEach(petOptions, function (pet) {
+        if (pet.PetName == PetName) {
+            return pet.Id;
+        }
+
+    });
+}
+
+//search pet's name
+function SearchPetName(petOptions, PetId) {
+    forEach(petOptions, function (pet) {
+        if (pet.Id == PetId) {
+            return pet.PetName;
+        }
+
+    });
+}
+
+//search package's name
+function SearchPackageName(packageOptions, PackageId) {
+    forEach(packageOptions, function (package) {
+        if (package.Id == PackageId) {
+            return package.PackageName;
+        }
+
+    });
+}
+
+
+function SearchPackageId(packageOptions, PackageName) {
+forEach(packageOptions, function (package) {
+        if (package.PackageName == PackageName) {
+            return package.Id;
+        }
+
+    });
+}
+
 
 function readFormData() {
     let formData = { id };
     formdata.StartDate = $("#StartDate").val();
     formdata.EndDate = $("#EndDate").val();
-    formdata.UserID = $("#petDropdown").val();//
-    formdata.PetId = mascotaSeleccionada.id;
-    formdata.PackageId = paqueteSeleccionado.id;
+    formdata.UserID = userIdLogged;
+    formdata.PetId = SearchPetId(petOptions, $("#petDropdown").val());
+    formdata.PackageId = SearchPackageId(packageOptions, $("#packageDropdown").val());
     formdata.ReservationCreatedDate = new Date();
     formdata.ReservationModifiedDate = new Date();
     
         return formData;
 }
 
+function FillDropdowns() {
+    // Dropdown de mascotas
+    const petDropdown = $('#petDropdown');
+    petOptions.forEach(option => {
+        petDropdown.append(`<option value="${option.PetName}">${option.PetName}</option>`);
+    });
+
+    // Dropdown de paquetes
+    const packageDropdown = $('#packageDropdown');
+    packageOptions.forEach(option => {
+        packageDropdown.append(`<option value="${option.PackageName}">${option.PackageName}</option>`);
+    });
+}
 function writeFormData(formData) {
     id = formData.id;
     $("#StartDate").val(formData.StartDate);
     $("#EndDate").val(formData.EndDate);
-    $("#petDropdown").val(formData.PetId); //
-    $("#packageDropdown").val(formData.PackageId); //
+    $("#petDropdown").val(SearchPetName(petOptions,formData.PetId)); 
+    $("#packageDropdown").val(SearchPackageName(packageOptions,formData.PackageId));
     $("#txtReservationCreatedDate").val(formData.ReservationCreatedDate);
     $("#txtReservationModifiedDate").val(formData.ReservationModifiedDate);
 }
@@ -118,10 +173,51 @@ function ReservationController() {
             const vc = new ReservationController();
             vc.Delete($(this).data('id'));
         });
-
+        RetrievePetByUserID(userIdLogged);
+        RetrieveAllPackages();
         this.LoadTable();
     }
 
+    function RetrievePetByUserID(userIdLogged)
+    {
+        function successCallback(response) {
+            petOptions = response.Data;
+            FillDropdowns();
+        }
+        function failCallBack(response) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: response,
+                footer: 'PetSuite Technologies',
+                confirmButtonText: 'Entendido'
+            });
+        }
+        const controlActions = new ControlActions();
+        const serviceRoute = "Pet" + "/RetrieveByUserID?userID=" + userIdLogged;
+        controlActions.GetToApi(serviceRoute, successCallback, failCallBack);
+    }
+
+    // Package/RetrieveAll
+    function RetrieveAllPackages()
+    {
+        function successCallback(response) {
+            packageOptions = response.Data;
+            FillDropdowns();
+        }
+        function failCallBack(response) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: response,
+                footer: 'PetSuite Technologies',
+                confirmButtonText: 'Entendido'
+            });
+        }
+        const controlActions = new ControlActions();
+        const serviceRoute = "Package" + "/RetrieveAll";
+        controlActions.GetToApi(serviceRoute, successCallback, failCallBack);
+    }
     this.Create = async function () {
         enableFormControls(false);
 
@@ -263,11 +359,13 @@ function ReservationController() {
     }
 
 
-    $(document).ready(function () {
-        var viewCount = new ReservationController();
-        viewCount.InitView();
 
-    });
 
 }
+
+$(document).ready(function () {
+    var viewCount = new ReservationController();
+    viewCount.InitView();
+
+});
 

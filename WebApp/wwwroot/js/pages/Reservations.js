@@ -3,8 +3,14 @@ let id = 0
 let isEditModal = false;
 let petOptions = [];
 let packageOptions = [];
-let user = sessionStorage.getItem('user');
-let userIdLogged = user.IdentificationValue;
+
+// return user logged id
+
+function UserLogged() {
+    let user = JSON.parse(sessionStorage.getItem('user'));
+    userIdLogged = user.id;
+    return userIdLogged;
+}
 
 function SearchPetId(petOptions, PetName) {
     forEach(petOptions, function (pet) {
@@ -50,7 +56,7 @@ function readFormData() {
     let formData = { id };
     formdata.StartDate = $("#StartDate").val();
     formdata.EndDate = $("#EndDate").val();
-    formdata.UserID = userIdLogged;
+    formdata.UserID = UserLogged();
     formdata.PetId = SearchPetId(petOptions, $("#petDropdown").val());
     formdata.PackageId = SearchPackageId(packageOptions, $("#packageDropdown").val());
     formdata.ReservationCreatedDate = new Date();
@@ -173,7 +179,7 @@ function ReservationController() {
             const vc = new ReservationController();
             vc.Delete($(this).data('id'));
         });
-        RetrievePetByUserID(userIdLogged);
+        RetrievePetByUserID(UserLogged());
         RetrieveAllPackages();
         this.LoadTable();
     }
@@ -181,7 +187,7 @@ function ReservationController() {
     function RetrievePetByUserID(userIdLogged)
     {
         function successCallback(response) {
-            petOptions = response.Data;
+            petOptions.push(response.data);
             FillDropdowns();
         }
         function failCallBack(response) {
@@ -194,11 +200,10 @@ function ReservationController() {
             });
         }
         const controlActions = new ControlActions();
-        const serviceRoute = "Pet" + "/RetrieveByUserID?userID=" + userIdLogged;
+        const serviceRoute = "Pet" + "/RetrieveByUserId?id=" + userIdLogged;
         controlActions.GetToApi(serviceRoute, successCallback, failCallBack);
     }
 
-    // Package/RetrieveAll
     function RetrieveAllPackages()
     {
         function successCallback(response) {
@@ -311,24 +316,23 @@ function ReservationController() {
         let columns = [];
         columns[0] = { "data": "StartDate", title: "Fecha de inicio" };
         columns[1] = { "data": "EndDate", title: "Fecha de fin" };
-        columns[2] = { "data": "UserID", title: "Usuario" };
-        columns[3] = { "data": "PetId", title: "Mascota" };
-        columns[4] = { "data": "PackageId", title: "Paquete" };
-        columns[5] = {
+        columns[2] = { "data": "PetId", title: "Mascota" };
+        columns[3] = { "data": "PackageId", title: "Paquete" };
+        columns[4] = {
             "data": "ReservationCreatedDate",
             "title": "Fecha de creacion",
             "render": function (value) {
                 return formatDateTime(new Date(value));
             }
         };
-        columns[6] = {
+        columns[5] = {
             "data": "ReservationModifiedDate",
             "title": "Fecha de modificacion",
             "render": function (value) {
                 return formatDateTime(new Date(value));
             }
         };
-        columns[7] = {
+        columns[6] = {
             "orderable": false,
             'searchable': false,
             "title": "Acciones",

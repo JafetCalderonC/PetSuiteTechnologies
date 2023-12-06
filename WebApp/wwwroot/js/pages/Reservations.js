@@ -187,7 +187,12 @@ function ReservationController() {
     function RetrievePetByUserID(userIdLogged)
     {
         function successCallback(response) {
-            petOptions.push(response.data);
+            //response.data.forEach(function (pet) {
+            //    var formattedPet = { Id: pet.Id, PetName: pet.PetName };
+            //    petOptions.push(formattedPet);
+            //});
+            petOptions = response;
+     
             FillDropdowns();
         }
         function failCallBack(response) {
@@ -207,7 +212,13 @@ function ReservationController() {
     function RetrieveAllPackages()
     {
         function successCallback(response) {
-            packageOptions = response.Data;
+            //response.data.forEach(function (package) {
+            //    var formmatedPackage = { Id: package.Id, PackageName: package.PackageName };
+            //    packageOptions.push(formmatedPackage);
+            //});
+
+            packageOptions = response;
+
             FillDropdowns();
         }
         function failCallBack(response) {

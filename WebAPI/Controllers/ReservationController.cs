@@ -1,7 +1,16 @@
-﻿using DTOs;
+﻿using CoreApp;
+using CoreApp.Others;
+using DTOs;
+using DTOs.User;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.VisualBasic;
+using Microsoft.Win32;
+using System.ComponentModel.DataAnnotations;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace WebAPI.Controllers
 {

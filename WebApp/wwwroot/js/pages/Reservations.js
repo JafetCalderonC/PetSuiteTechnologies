@@ -12,55 +12,57 @@ function UserLogged() {
     return userIdLogged;
 }
 
-function SearchPetId(petOptions, PetName) {
-    forEach(petOptions, function (pet) {
-        if (pet.PetName == PetName) {
-            return pet.Id;
+function SearchPetId(petOptions, petName) {
+    for (let i = 0; i < petOptions.length; i++) {
+        if (petOptions[i].petName === petName) {
+            return petOptions[i].id;
         }
-
-    });
-}
-
-//search pet's name
-function SearchPetName(petOptions, PetId) {
-    forEach(petOptions, function (pet) {
-        if (pet.Id == PetId) {
-            return pet.PetName;
-        }
-
-    });
-}
-
-//search package's name
-function SearchPackageName(packageOptions, PackageId) {
-    forEach(packageOptions, function (package) {
-        if (package.Id == PackageId) {
-            return package.PackageName;
-        }
-
-    });
+    }
+   
+    return null;
 }
 
 
-function SearchPackageId(packageOptions, PackageName) {
-forEach(packageOptions, function (package) {
-        if (package.PackageName == PackageName) {
-            return package.Id;
-        }
 
-    });
+function SearchPetName(petOptions, petId) {
+    for (let i = 0; i < petOptions.length; i++) {
+        if (petOptions[i].id === petId) {
+            return petOptions[i].petName;
+        }
+    }
+    return null; 
+}
+
+function SearchPackageName(packageOptions, packageId) {
+    for (let i = 0; i < packageOptions.length; i++) {
+        if (packageOptions[i].id === packageId) {
+            return packageOptions[i].packageName;
+        }
+    }
+    return null; 
+}
+
+
+
+function SearchPackageId(packageOptions, packageName) {
+    for (let i = 0; i < packageOptions.length; i++) {
+        if (packageOptions[i].packageName === packageName) {
+            return packageOptions[i].id;
+        }
+    }
+    return null; 
 }
 
 
 function readFormData() {
-    let formData = { id };
-    formdata.StartDate = $("#StartDate").val();
-    formdata.EndDate = $("#EndDate").val();
-    formdata.UserID = UserLogged();
-    formdata.PetId = SearchPetId(petOptions, $("#petDropdown").val());
-    formdata.PackageId = SearchPackageId(packageOptions, $("#packageDropdown").val());
-    formdata.ReservationCreatedDate = new Date();
-    formdata.ReservationModifiedDate = new Date();
+    let formData = {id};
+    formData.startDate = $("#startDate").val();
+    formData.endDate = $("#endDate").val();
+    formData.userID = UserLogged();
+    formData.petId = SearchPetId(petOptions, $("#petDropdown").val());
+    formData.packageId = SearchPackageId(packageOptions, $("#packageDropdown").val());
+    formData.reservationCreatedDate = new Date();
+    formData.reservationModifiedDate = new Date();
     
         return formData;
 }
@@ -69,19 +71,19 @@ function FillDropdowns() {
     // Dropdown de mascotas
     const petDropdown = $('#petDropdown');
     petOptions.forEach(option => {
-        petDropdown.append(`<option value="${option.PetName}">${option.PetName}</option>`);
+        petDropdown.append(`<option value="${option.petName}">${option.petName}</option>`);
     });
 
     // Dropdown de paquetes
     const packageDropdown = $('#packageDropdown');
     packageOptions.forEach(option => {
-        packageDropdown.append(`<option value="${option.PackageName}">${option.PackageName}</option>`);
+        packageDropdown.append(`<option value="${option.packageName}">${option.packageName}</option>`);
     });
 }
 function writeFormData(formData) {
     id = formData.id;
-    $("#StartDate").val(formData.StartDate);
-    $("#EndDate").val(formData.EndDate);
+    $("#startDate").val(formData.StartDate);
+    $("#endDate").val(formData.EndDate);
     $("#petDropdown").val(SearchPetName(petOptions,formData.PetId)); 
     $("#packageDropdown").val(SearchPackageName(packageOptions,formData.PackageId));
     $("#txtReservationCreatedDate").val(formData.ReservationCreatedDate);
@@ -89,8 +91,8 @@ function writeFormData(formData) {
 }
 
 function enableFormControls(enabled) {
-    $("#StartDate").prop("disabled", !enabled);
-    $("#EndDate").prop("disabled", !enabled);
+    $("#startDate").prop("disabled", !enabled);
+    $("#endDate").prop("disabled", !enabled);
     $("#txtUserID").prop("disabled", !enabled);
     $("#petDropdown").prop("disabled", !enabled);
     $("#packageDropdown").prop("disabled", !enabled);
@@ -100,11 +102,11 @@ function enableFormControls(enabled) {
 
 function resetForm() {
     id = 0;
-    $("#StartDate").val("");
-    $("#EndDate").val("");
+    $("#startDate").val("");
+    $("#endDate").val("");
     $("#txtUserID").val("");
     $("#petDropdown").val("");
-    $("#packageDropdown.").val("");
+    $("#packageDropdown").val("");
     $("#txtReservationCreatedDate").val("");
     $("#txtReservationModifiedDate").val("");
 
@@ -149,6 +151,8 @@ function ReservationController() {
 
     this.InitView = function () {
         document.Title = this.Title;
+        petOptions = [];
+        packageOptions = [];
         $(document).on('click', '.btnEdit', function () {
             const vc = new ReservationController();
             vc.RetrieveById($(this).data('id'));
@@ -187,11 +191,12 @@ function ReservationController() {
     function RetrievePetByUserID(userIdLogged)
     {
         function successCallback(response) {
-            //response.data.forEach(function (pet) {
-            //    var formattedPet = { Id: pet.Id, PetName: pet.PetName };
-            //    petOptions.push(formattedPet);
-            //});
-            petOptions = response;
+            petOptionsData = response;
+            petOptionsData.forEach(function (obj) {
+                var newObj = { id: obj.id, petName: obj.petName };
+                petOptions.push(newObj);
+            });
+
      
             FillDropdowns();
         }
@@ -212,12 +217,13 @@ function ReservationController() {
     function RetrieveAllPackages()
     {
         function successCallback(response) {
-            //response.data.forEach(function (package) {
-            //    var formmatedPackage = { Id: package.Id, PackageName: package.PackageName };
-            //    packageOptions.push(formmatedPackage);
-            //});
 
-            packageOptions = response;
+
+            packageOptionsResponse = response;
+            packageOptionsResponse.forEach(function (obj) {
+                var newObj = { id: obj.id, packageName: obj.packageName };
+                packageOptions.push(newObj);
+            });
 
             FillDropdowns();
         }
@@ -265,6 +271,38 @@ function ReservationController() {
         const serviceRoute = this.ApiService + "/Create";
         controlActions.PostToAPI(serviceRoute, formData, successCallback, failCallBack);
 
+    }
+
+    // update reservation
+    this.Update = async function () {
+        enableFormControls(false);
+
+        let formData = await readFormData();
+        if (!validateData(formData)) {
+            enableFormControls(true);
+            return;
+        }
+
+        function successCallback(response) {
+            $('#tblListReservations').DataTable().ajax.reload();
+            showModal(false);
+
+            Swal.fire({
+                icon: 'success',
+                title: 'La reservación se ha actualizado correctamente',
+                footer: 'PetSuite Technologies',
+                confirmButtonText: 'Entendido'
+            });
+        }
+
+        function failCallBack(response) {
+            showValidationErrors(response);
+            enableFormControls(true);
+        }
+
+        const controlActions = new ControlActions();
+        const serviceRoute = this.ApiService + "/Update";
+        controlActions.PutToAPI(serviceRoute, formData, successCallback, failCallBack);
     }
 
     this.Delete = function (id) {
@@ -325,19 +363,35 @@ function ReservationController() {
         let serviceRoute = controlActions.GetUrlApiService(this.ApiService + "/RetrieveAll");
 
         let columns = [];
-        columns[0] = { "data": "StartDate", title: "Fecha de inicio" };
-        columns[1] = { "data": "EndDate", title: "Fecha de fin" };
-        columns[2] = { "data": "PetId", title: "Mascota" };
-        columns[3] = { "data": "PackageId", title: "Paquete" };
+        columns[0] = { "data": "startDate", title: "Fecha de inicio" };
+        columns[1] = { "data": "endDate", title: "Fecha de fin" };
+        columns[2] = {
+            "data": "petId",
+            "title": "Mascota",
+            "render": function (petId) {
+                //RetrievePetByUserID(UserLogged());
+                let petName = SearchPetName(petOptions, petId); 
+                return petName; 
+            }
+        };
+        columns[3] = {
+            "data": "packageId",
+            "title": "Paquete",
+            "render": function (packageId) {
+                //RetrieveAllPackages();
+                let packageName = SearchPackageName(packageOptions, packageId);
+                return packageName;
+            }
+        };
         columns[4] = {
-            "data": "ReservationCreatedDate",
+            "data": "reservationCreatedDate",
             "title": "Fecha de creacion",
             "render": function (value) {
                 return formatDateTime(new Date(value));
             }
         };
         columns[5] = {
-            "data": "ReservationModifiedDate",
+            "data": "reservationModifiedDate",
             "title": "Fecha de modificacion",
             "render": function (value) {
                 return formatDateTime(new Date(value));

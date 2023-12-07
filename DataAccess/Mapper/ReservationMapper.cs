@@ -11,11 +11,13 @@ namespace DataAccess.Mapper
     {
         public override Reservation BuildObject(Dictionary<string, object> row)
         {
+            var StartDate = (DateTime)row["start_date"];
+            var EndDate = (DateTime)row["end_date"];
             var reservation = new Reservation
             {
                 Id = Convert.ToInt32(row["reservation_id"]),
-                StartDate = (DateOnly)row["start_date"],
-                EndDate = (DateOnly)row["end_date"],
+                StartDate = StartDate.Date,
+                EndDate = EndDate.Date,
                 UserID = Convert.ToInt32(row["user_id"]),
                 PetId = Convert.ToInt32(row["pet_id"]),
                 PackageId = Convert.ToInt32(row["package_id"]),

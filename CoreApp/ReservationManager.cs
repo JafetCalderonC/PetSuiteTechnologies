@@ -74,7 +74,7 @@ namespace CoreApp
                reservation.NormalizerDTO();
             EnsureGeneralValidation(reservation, false);
 
-            var currentReservation = _crud.RetrieveById(reservation.ReservationID);
+            var currentReservation = _crud.RetrieveById(reservation.Id);
             if (currentReservation == null)
             {
                 throw new Exception("La reservación no existe");

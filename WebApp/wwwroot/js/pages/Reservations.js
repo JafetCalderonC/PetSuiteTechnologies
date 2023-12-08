@@ -4,6 +4,7 @@ let id = 0
 let isEditModal = false;
 let petOptions = [];
 let packageOptions = [];
+let reservations = [];
 let services = [];
 // return user logged id
 
@@ -23,18 +24,30 @@ function SearchPetId(petOptions, petName) {
     return null;
 }
 
-function sumarCostoPorId(packageId, listaServicios) {
-    let listaIds = [];
-    for (let i = 0; i < listaServicios.length; i++) {
-        if (listaServicios[i].packageId === packageId) {
-            listaIds.push(listaServicios[i].serviceId);
+function IdMasNuevo(reservations) {
+    if (reservations.length === 0) {
+        return null; 
+    }
+    let maxId = 0;
+
+    for (let i = 1; i < reservations.length; i++) {
+        if (reservations[i].id > maxId) {
+            maxId = reservations[i].id; 
         }
     }
+
+    return maxId;
+}
+
+
+function sumarCostoPorId(servicesInPackage, listaServicios) {
     let costoTotal = 0;
 
-    for (let i = 0; i < listaServicios.length; i++) {
-        if (listaIds.includes(listaServicios[i].id)) {
-            costoTotal += listaServicios[i].serviceCost;
+    for (let servicioId of servicesInPackage) {
+        let servicioEncontrado = listaServicios.find(servicio => servicio.id === servicioId);
+
+        if (servicioEncontrado && servicioEncontrado.serviceCost) {
+            costoTotal += servicioEncontrado.serviceCost;
         }
     }
 
@@ -60,6 +73,20 @@ function SearchPackageName(packageOptions, packageId) {
 }
 
 
+function SearchServiceID(packageOptions, packageID) {
+    let listOfServices = [];
+
+    for (let i = 0; i < packageOptions.length; i++) {
+        if (packageOptions[i].id === packageID) {
+            listOfServices = packageOptions[i].services.slice(); // Crea una copia de la lista de servicios
+            listOfServices.unshift(0); // Agrega el ID "0" al inicio de la lista
+            break; // Termina el bucle una vez que se encuentra el paquete correspondiente
+        }
+    }
+
+    return listOfServices;
+}
+
 
 function SearchPackageId(packageOptions, packageName) {
     for (let i = 0; i < packageOptions.length; i++) {
@@ -70,6 +97,7 @@ function SearchPackageId(packageOptions, packageName) {
     return null; 
 }
 
+// s
 
 function readFormData() {
     let formData = {id};
@@ -171,6 +199,7 @@ function ReservationController() {
         petOptions = [];
         packageOptions = [];
         services = [];
+        reservations = [];
         $(document).on('click', '.btnEdit', function () {
             const vc = new ReservationController();
             vc.RetrieveById($(this).data('id'));
@@ -204,6 +233,7 @@ function ReservationController() {
         RetrievePetByUserID(UserLogged());
         RetrieveAllPackages();
         RetrieveAllServices()
+        RetrieveAllReservations();
         this.LoadTable();
     }
 
@@ -233,12 +263,15 @@ function ReservationController() {
         controlActions.GetToApi(serviceRoute, successCallback, failCallBack);
     }
 
+
+
     function RetrieveAllPackages()
     {
         function successCallback(response) {
 
 
             packageOptionsResponse = response;
+            // aqui esta el error, el retrieve de paquetes no trae los servicios (el programa esta hecho para que ese retrive all contenga una lista de los id de los servicios)
             packageOptionsResponse.forEach(function (obj) {
                 var newObj = { id: obj.id, packageName: obj.packageName, packageServices : obj.services };
                 packageOptions.push(newObj);
@@ -257,6 +290,32 @@ function ReservationController() {
         }
         const controlActions = new ControlActions();
         const serviceRoute = "Package" + "/RetrieveAll";
+        controlActions.GetToApi(serviceRoute, successCallback, failCallBack);
+    }
+
+        // RetrieveAllReservations
+    function RetrieveAllReservations() {
+
+        function successCallback(response) {
+
+
+            reservationOptionsResponse = response;
+            reservationOptionsResponse.forEach(function (obj) {
+                var newObj = { id: obj.id};
+                reservations.push(newObj);
+            });
+        }
+        function failCallBack(response) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: response,
+                footer: 'PetSuite Technologies',
+                confirmButtonText: 'Entendido'
+            });
+        }
+        const controlActions = new ControlActions();
+        const serviceRoute = "Reservation" + "/RetrieveAll";
         controlActions.GetToApi(serviceRoute, successCallback, failCallBack);
     }
     function RetrieveAllServices() {
@@ -300,6 +359,10 @@ function ReservationController() {
                 footer: 'PetSuite Technologies',
                 confirmButtonText: 'Entendido'
             });
+            const invoiceController = new InvoiceController();
+            RetrieveAllReservations();
+            var newReservationId = IdMasNuevo(reservations);
+            invoiceController.Create(UserLogged(), newReservationId, sumarCostoPorId(SearchServiceID(packageOptions,formData.packageId), services))
 
         }
 
@@ -311,8 +374,7 @@ function ReservationController() {
         const controlActions = new ControlActions();
         const serviceRoute = this.ApiService + "/Create";
         controlActions.PostToAPI(serviceRoute, formData, successCallback, failCallBack);
-        const invoiceController = new InvoiceController();
-        invoiceController.Create(UserLogged(), formData.id, sumarCostoPorId(formData.packageId, services))
+
 
     }
 

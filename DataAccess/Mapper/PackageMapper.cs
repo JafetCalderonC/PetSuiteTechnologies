@@ -22,7 +22,7 @@ namespace DataAccess.Mapper
                 PetAggressiveness = (byte)row["pet_aggressiveness"],
                 Status = (byte)row["status"],
                 CreatedDate = (DateTime)row["created_date"],
-                ModifiedDate = (DateTime)row["modified_date"]
+                ModifiedDate = (DateTime)row["modified_date"],
     };
             return package;
         }

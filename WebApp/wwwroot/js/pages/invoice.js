@@ -1,4 +1,4 @@
-let idInvoice = 0;
+
 let invoices = [];
 
 function RetrieveAllInvoice() {
@@ -51,7 +51,7 @@ function CreateInvoiceMapper(userId, reservationId, totalAmount) {
     invoiceData.invoiceNumber = null;
     invoiceData.issueDate = new Date();
     let dueDate = new Date(invoiceData.issueDate);
-    dueDate.setDate(issueDate.getDate() + 10);
+    dueDate.setDate(invoiceData.issueDate.getDate() + 10);
     invoiceData.userID = userId;
     invoiceData.reservationId = reservationId;
     invoiceData.totalAmount = totalAmount;

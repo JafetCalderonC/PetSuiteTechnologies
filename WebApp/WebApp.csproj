@@ -10,4 +10,11 @@
     <None Include="wwwroot\Imagenes\Logo PetSuiteTechnologies.png" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="Pages\Pet.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>

@@ -291,7 +291,7 @@ function PackageController() {
         });
     };
 
-    function loadRoomOptions() {
+    this.function loadRoomOptions = function () {
         var ctrlActions = new ControlActions();
         var urlRoomOptions = ctrlActions.GetUrlApiService("Room/RetrieveAll");
 

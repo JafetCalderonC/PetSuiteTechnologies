@@ -1,27 +1,27 @@
 ﻿@page
-@model WebApp.Pages.PackageModel
+@model WebApp.Pages.PetModel
 @{
 }
-<script src="~/js/pages/package.js" asp-append-version="true"></script>
+<script src="~/js/pages/pet.js" asp-append-version="true"></script>
 
 <div class="bs-docs-section">
     <br />
 
     <div class="row">
         <div class="col-lg-12">
-            <table id="tblListPackages" class="display" style="width:100%">
+            <table id="tblListPets" class="display" style="width:100%">
                 <thead>
                     <tr>
                         <th>Id</th>
                         <th>Nombre</th>
                         <th>Descripción</th>
-                        <th>Id de la habitación</th>
+                        <th>Edad de Mascota</th>
                         <th>Raza de mascota</th>
-                        <th>Tamaño de mascota</th>
                         <th>Agresividad de mascota</th>
                         <th>Fecha de creación</th>
                         <th>Fecha de actualización</th>
-                        <th>Estado</th>
+                        <th>Estatus</th>
+                        <th>Id de usuario</th>
                     </tr>
                 </thead>
             </table>
@@ -39,55 +39,48 @@
                         <legend>Formulario pra registrar paquetes</legend>
 
                         <div class="form-group">
-                            <label for="txtPackageId" class="form-label mt-4">Id de servicio</label>
-                            <input id="txtPackageId" type="number" class="form-control" placeholder="Ingrese el id del paquete, use solo para actualizar o eliminar">
+                            <label for="txtPetId" class="form-label mt-4">Id de servicio</label>
+                            <input id="txtPetId" type="number" class="form-control" placeholder="Ingrese el id de la mascota, use solo para actualizar o eliminar">
                         </div>
 
                         <div class="form-group">
                             <label for="txtName" class="form-label mt-3">Nombre</label>
-                            <input id="txtName" type="text" class="form-control"  placeholder="Ingrese el nombre del paquete">
+                            <input id="txtName" type="text" class="form-control"  placeholder="Ingrese el nombre de la mascota">
                         </div>
 
                         <div class="form-group">
                             <label for="txtDescription" class="form-label mt-3">Descripción</label>
-                            <input id="txtDescription" type="text" class="form-control"  placeholder="Ingrese la descripción del paquete">
+                            <input id="txtDescription" type="text" class="form-control"  placeholder="Ingrese la descripción de la mascota">
                         </div>
-
+                        
                         <div class="form-group">
-                            <label for="txtRoomId" class="form-label mt-3">Id de la habitación</label>
-                            <select id="txtRoomId" class="form-control">
-                                <option value="1">Habitación 1</option>
-                                <option value="2">Habitación 2</option>
-                            </select>
+                            <label for="txtAge" class="form-label mt-3">Edad de mascota</label>
+                            <input id="txtAge" type="text" class="form-control"  placeholder="Ingrese la edad de la mascota">
                         </div>
 
                         <div class="form-group">
                             <label for="txtPetBreedType" class="form-label mt-3">Raza de mascota</label>
-                            <input id="txtPetBreedType" type="text" class="form-control"  placeholder="Ingrese La raza de la mascota">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="txtPetSize" class="form-label mt-3">Tamaño de mascota</label>
-                            <input id="txtPetSize" type="text" class="form-control"  placeholder="Ingrese el tamaño de mascota">
+                            <input id="txtPetBreedType" type="text" class="form-control"  placeholder="Ingrese la raza de la mascota">
                         </div>
                                                 
                         <div class="form-group">
                             <label for="txtPetAggressiveness" class="form-label mt-3">Agresividad de mascota</label>
                             <input id="txtPetAggressiveness" type="number" class="form-control"  placeholder="Ingrese el nivel de agresividad de la mascota">
                         </div>
-                                                                        
+                                               
+                        <div class="form-group">
+                            <label for="txtUserId" class="form-label mt-3">Id del Usuario</label>
+                            <select id="txtUserId" class="form-control">
+                                <option value="1">User 1</option>
+                                <option value="2">User 2</option>
+                            </select>
+                        </div>
+
                         <div class="form-group">
                             <label for="txtStatus" class="form-label mt-3">Estado</label>
                             <input id="txtStatus" type="number" class="form-control"  placeholder="Ingrese el estado del paquete">
                         </div>
 
-                        <div class="mb-2">
-                            <label class="form-label">Servicios:</label>
-                            <div class="input-group mb-2">
-                                <button id="btnAddService" class="btn btn-outline-secondary btn-service" type="button">Agregar servicio</button>
-                            </div>
-                            <div id="service-group"></div>
-                        </div>
                     </fieldset>
                 </form>
                 <br />

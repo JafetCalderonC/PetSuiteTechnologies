@@ -1,9 +1,10 @@
 
+
 let id = 0
 let isEditModal = false;
 let petOptions = [];
 let packageOptions = [];
-
+let services = [];
 // return user logged id
 
 function UserLogged() {
@@ -22,7 +23,23 @@ function SearchPetId(petOptions, petName) {
     return null;
 }
 
+function sumarCostoPorId(packageId, listaServicios) {
+    let listaIds = [];
+    for (let i = 0; i < listaServicios.length; i++) {
+        if (listaServicios[i].packageId === packageId) {
+            listaIds.push(listaServicios[i].serviceId);
+        }
+    }
+    let costoTotal = 0;
 
+    for (let i = 0; i < listaServicios.length; i++) {
+        if (listaIds.includes(listaServicios[i].id)) {
+            costoTotal += listaServicios[i].serviceCost;
+        }
+    }
+
+    return costoTotal;
+}
 
 function SearchPetName(petOptions, petId) {
     for (let i = 0; i < petOptions.length; i++) {
@@ -153,6 +170,7 @@ function ReservationController() {
         document.Title = this.Title;
         petOptions = [];
         packageOptions = [];
+        services = [];
         $(document).on('click', '.btnEdit', function () {
             const vc = new ReservationController();
             vc.RetrieveById($(this).data('id'));
@@ -185,6 +203,7 @@ function ReservationController() {
         });
         RetrievePetByUserID(UserLogged());
         RetrieveAllPackages();
+        RetrieveAllServices()
         this.LoadTable();
     }
 
@@ -221,7 +240,7 @@ function ReservationController() {
 
             packageOptionsResponse = response;
             packageOptionsResponse.forEach(function (obj) {
-                var newObj = { id: obj.id, packageName: obj.packageName };
+                var newObj = { id: obj.id, packageName: obj.packageName, packageServices : obj.services };
                 packageOptions.push(newObj);
             });
 
@@ -240,6 +259,29 @@ function ReservationController() {
         const serviceRoute = "Package" + "/RetrieveAll";
         controlActions.GetToApi(serviceRoute, successCallback, failCallBack);
     }
+    function RetrieveAllServices() {
+        function successCallback(response) {
+
+
+            serviceOptionsResponse = response;
+            serviceOptionsResponse.forEach(function (obj) {
+                var newObj = { id: obj.id, serviceName: obj.serviceName, serviceCost: obj.serviceCost };
+                services.push(newObj);
+            });
+        }
+        function failCallBack(response) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: response,
+                footer: 'PetSuite Technologies',
+                confirmButtonText: 'Entendido'
+            });
+        }
+        const controlActions = new ControlActions();
+        const serviceRoute = "Service" + "/RetrieveAll";
+        controlActions.GetToApi(serviceRoute, successCallback, failCallBack);
+    }
     this.Create = async function () {
         enableFormControls(false);
 
@@ -252,7 +294,6 @@ function ReservationController() {
         function successCallback(response) {
             $('#tblListReservations').DataTable().ajax.reload();
             showModal(false);
-
             Swal.fire({
                 icon: 'success',
                 title: 'La reservación se ha creado correctamente',
@@ -270,6 +311,8 @@ function ReservationController() {
         const controlActions = new ControlActions();
         const serviceRoute = this.ApiService + "/Create";
         controlActions.PostToAPI(serviceRoute, formData, successCallback, failCallBack);
+        const invoiceController = new InvoiceController();
+        invoiceController.Create(UserLogged(), formData.id, sumarCostoPorId(formData.packageId, services))
 
     }
 

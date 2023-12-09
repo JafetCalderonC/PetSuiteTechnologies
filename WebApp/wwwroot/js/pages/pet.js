@@ -1,229 +1,347 @@
-function PetController() {
+let id = 0;
+let isEditModal = false;
 
-    this.title = "Pets";
-    this.ApiService = "Pet";
+function readFormData() {
+    let formData = { id };
+    formData.petName = $("#txtName").val();
+    formData.description = $("#txtDescription").val();
+    formData.petAge = $("#txtAge").val();
+    formData.petBreedType = $("#txtPetBreedType").val();
+    formData.petAggressiveness = $("#txtPetAggressiveness").val();
+    formData.userId = $("#txtUserId").val();
+    formData.status = $("#txtStatus").val();
+    formData.createdDate = new Date();
+    formData.modifiedDate = new Date();
 
-    this.InitView = function () {
-        document.title = this.title;
-        
-        $(".bs-component form").hide();
-        $("#btnUpdate").hide();
-        $("#btnDelete").hide();
-        $("#btnCreate").hide();
+    return formData;
+}
 
-        $("#tblListPets").show();
+function writeFormData(formData) {
+    id = formData.id;
+    $("#txtName").val(formData.petName);
+    $("#txtDescription").val(formData.description);
+    $("#txtAge").val(formData.petAge);
+    $("#txtPetBreedType").val(formData.petBreedType);
+    $("#txtPetAggressiveness").val(formData.petAggressiveness);
+    $("#txtUserId").val(formData.userId);
+    $("#txtStatus").val(formData.status);
+    $("#txtCreatedDate").val(formData.createdDate);
+    $("#txtModifiedDate").val(formData.modifiedDate);
+}
 
-        $("#btnToggleForm").click(function () {
-            $(".bs-component form").toggle();
-            $("#btnCreate").toggle();
-            $("#btnUpdate").toggle();
-            $("#btnDelete").toggle();
-            $("#tblListPets").toggle();
-        });
-
-        $("#btnCreate").click(function () {
-            var vc = new PetController();
-            vc.Create();
-        });
-        $("#btnUpdate").click(function () {
-            var vc = new PetController();
-            vc.Update();
-        });
-        $("#btnDelete").click(function () {
-            var vc = new PetController();
-            vc.Delete();
-        });
-
-        this.LoadTable();
-        this.loadUserOptions();
-    }
-
-
-    this.ValidateInputs = function () {
-        var petName = $("#txtName").val();
-        var petDescription = $("#txtDescription").val();
-        var petAge = $("#txtAge").val();
-        var petPetBreedType = $("#txtPetBreedType").val();
-        var petPetAggressiveness = $("#txtPetAggressiveness").val();
-        var petUserId = $("#txtUserId").val();
-        var petStatus = $("#txtStatus").val();
-
-        if (!petName) {
-            Swal.fire("Error", "El nombre de la mascota no puede estar vacío.", "error");
-            return false;
-        }
-        if (!petDescription) {
-            Swal.fire("Error", "La descripción de la mascota no puede estar vacía.", "error");
-            return false;
-        }
-        if (!petAge) {
-            Swal.fire("Error", "La edad de la mascota no puede estar vacía.", "error");
-            return false;
-        }
-        if (!petPetBreedType) {
-            Swal.fire("Error", "La raza de la mascota no puede estar vacío.", "error");
-            return false;
-        }
-        if (!petPetAggressiveness) {
-            Swal.fire("Error", "La agresividad de la mascota no puede estar vacía.", "error");
-            return false;
-        }
-        if (!petUserId) {
-            Swal.fire("Error", "El Usuario no puede estar vacío.", "error");
-            return false;
-        }
-        if (!petStatus) {
-            Swal.fire("Error", "El estado del paquete no puede estar vacío.", "error");
-            return false;
-        }
-
-        return true;
-    }
-
-    this.Create = function () {
-        if (!this.ValidateInputs()) {
-            return;
-        }
-        var pet = {};
-        pet.PetName = $("#txtName").val();
-        pet.Description = $("#txtDescription").val();
-        pet.PetAge = $("#txtAge").val();
-        pet.PetBreedType = $("#txtPetBreedType").val();
-        pet.PetAggressiveness = $("#txtPetAggressiveness").val();
-        pet.CreatedDate = new Date();
-        pet.ModifiedDate = new Date();
-        pet.UserId = $("#txtUserId").val();
-        pet.Status = $("#txtStatus").val();
-
-
-        var ctrlActions = new ControlActions();
-        var serviceRoute = this.ApiService + "/Create";
-
-        function successCallback(response) {
-            Swal.fire("success!", "Mascota creado correctamente!", "success");
-        }
-
-        function failCallback(response, status) {
-            Swal.fire("error!",response, "error");
-            console.log("fail callback");
-        }
-
-
-        ctrlActions.PostToAPI(serviceRoute, pet, successCallback, failCallback);
-    }
-
-    this.Update = function () {
-        if (!this.ValidateInputs()) {
-            return;
-        }
-        var pet = {};
-        pet.Id = $("#txtPetId").val();
-        pet.PetName = $("#txtName").val();
-        pet.Description = $("#txtDescription").val();
-        pet.PetAge = $("#txtAge").val();
-        pet.PetBreedType = $("#txtPetBreedType").val();
-        pet.PetAggressiveness = $("#txtPetAggressiveness").val();
-        pet.CreatedDate = new Date();
-        pet.ModifiedDate = new Date();
-        pet.UserId = $("#txtUserId").val();
-        pet.Status = $("#txtStatus").val();
-
-        var controlActions = new ControlActions();
-        var serviceRoute = this.ApiService + "/Update";
-
-        function successCallback(response) {
-            Swal.fire("success!", "Paquete modificadp correctamente!", "success");
-        }
-
-        function failCallback(response, status) {
-            Swal.fire("error!", response, "error");
-            console.log("fail callback");
-        }
-
-        controlActions.PutToAPI(serviceRoute, pet, successCallback, failCallback);
-
-    }
-    this.Delete = function () {
-        var pet = {};
-        pet.Id = $("#txtPetId").val();
-
-        var controlActions = new ControlActions();
-        var serviceRoute = this.ApiService + "/Delete";
-
-        function successCallback() {
-            Swal.fire("Success", "El servicio se ha eliminado correctamente.", "success");
-            // reload
-            location.reload();
-        }
-
-        function failCallback(response) {
-            Swal.fire("Error", response, "error");
-        }
-
-        controlActions.DeleteToAPI(serviceRoute, pet, successCallback, failCallback);
-    }
-    this.LoadTable = function () {
-        var ctrlActions = new ControlActions();
-        var urlService = ctrlActions.GetUrlApiService(this.ApiService + "/RetrieveAll")
-
-        var columns = []
-        columns[0] = { 'data': 'id' }
-        columns[1] = { 'data': 'petName' }
-        columns[2] = { 'data': 'description' }
-        columns[3] = { 'data': 'petAge' }
-        columns[4] = { 'data': 'petBreedType' }
-        columns[5] = { 'data': 'petAggressiveness' }
-        columns[6] = { 'data': 'createdDate' }
-        columns[7] = { 'data': 'modifiedDate' }
-        columns[8] = { 'data': 'userId' }
-        columns[9] = { 'data': 'status' }
-
-
-        $("#tblListPets").DataTable({
-            "ajax": {
-                "url": urlService,
-                "dataSrc": "",
-                "beforeSend": function (request) {
-                    request.setRequestHeader("Authorization", 'Bearer ' + sessionStorage.getItem('token'));
-                }
-            },
-            "columns": columns,
-            "language": {
-                url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
-            },
-        });
-    }
-
-    this.loadUserOptions = function () {
-        var ctrlActions = new ControlActions();
-        var urlUserOptions = ctrlActions.GetUrlApiService("User/RetrieveAll");
-
-        $.ajax({
-            url: urlUserOptions,
-            type: 'GET',
-            beforeSend: function (request) {
-                request.setRequestHeader("Authorization", 'Bearer ' + sessionStorage.getItem('token'));
-            },
-            success: function (data) {
-                var userSelect = $('#txtUserId');
-                userSelect.empty();
-
-                data.forEach(function (user) {
-                    userSelect.append($('<option>', {
-                        value: user.id,
-                        text: user.IdentificationValue
-                    }));
-                });
-            },
-            error: function (error) {
-                console.error('Error loading user options:', error);
-            }
-        });
-    }
-
+function enableFormControls(enabled) {
+    $("#txtName").prop("disabled", !enabled);
+    $("#txtDescription").prop("disabled", !enabled);
+    $("#txtAge").prop("disabled", !enabled);
+    $("#txtPetBreedType").prop("disabled", !enabled);
+    $("#txtPetAggressiveness").prop("disabled", !enabled);
+    $("#txtUserId").prop("disabled", !enabled);
+    $("#txtStatus").prop("disabled", !enabled);
+    $("#txtCreatedDate").prop("disabled", !enabled);
+    $("#txtModifiedDate").prop("disabled", !enabled);
 
 }
 
+function resetForm() {
+    id = 0;
+    $("#txtName").val("");
+    $("#txtDescription").val("");
+    $("#txtAge").val("");
+    $("#txtPetBreedType").val("");
+    $("#txtPetAggressiveness").val("");
+    $("#txtUserId").val("");
+    $("#txtStatus").val("");
+
+    $("#txtCreatedDate").val("");
+    $("#txtModifiedDate").val("");
+    hideValidationErrors();
+    enableFormControls(true);
+}
+function validateData(formData) {
+    hideValidationErrors();
+
+    if (formData.petName === "") {
+        showValidationErrors("El nombre de la mascota es requerido");
+        return false;
+    }
+
+    if (formData.description === "") {
+        showValidationErrors("La descripción es requerida");
+        return false;
+    }
+
+    if (formData.petAge === "") {
+        showValidationErrors("La edad de la mascota es requerida");
+        return false;
+    }
+
+    if (formData.petBreedType === "") {
+        showValidationErrors("El tipo de raza de la mascota es requerido");
+        return false;
+    }
+
+    if (formData.petAggressiveness === "") {
+        showValidationErrors("La agresividad de la mascota es requerida");
+        return false;
+    }
+
+    if (formData.userId === "") {
+        showValidationErrors("El ID de usuario es requerido");
+        return false;
+    }
+
+    if (formData.status === "") {
+        showValidationErrors("El estado es requerido");
+        return false;
+    }
+
+    return true;
+}
+
+    function PetController() {
+
+        this.title = "Pets";
+        this.ApiService = "Pet";
+
+        this.InitView = function () {
+            document.Title = this.Title;
+            $(document).on('click', '.btnEdit', function () {
+                const vc = new PetController();
+                vc.RetrieveById($(this).data('id'));
+            });
+
+            $('#btnCreate').click(function () {
+                resetForm();
+                isEditModal = false;
+                setTitleModal('Registrar mascota', 'Registrar');
+                showModal(true);
+            });
+            $('#btnSubmit').click(function () {
+                if (isEditModal) {
+                    const vc = new PetController();
+                    vc.Update();
+                } else {
+                    const vc = new PetController();
+                    vc.Create();
+                }
+            });
+
+            $('#btnCancel').click(function () {
+                resetForm();
+                showModal(false);
+            });
+
+            $(document).on('click', '.btnDelete', function () {
+                const vc = new PetController();
+                vc.Delete($(this).data('id'));
+            });
+
+            this.LoadTable();
+            this.loadUserOptions();
+        }
+
+        this.Create = async function () {
+            enableFormControls(false);
+
+            let formData = await readFormData();
+            if (!validateData(formData)) {
+                enableFormControls(true);
+                return;
+            }
+
+
+            function successCallback(response) {
+                $('#tblListPets').DataTable().ajax.reload();
+                showModal(false);
+
+                Swal.fire({
+                    icon: 'success',
+                    title: 'La mascota se ha creado correctamente',
+                    footer: 'PetSuite Technologies',
+                    confirmButtonText: 'Entendido'
+                });
+
+            }
+
+            function failCallBack(response) {
+                showValidationErrors(response);
+                enableFormControls(true);
+            }
+
+            const controlActions = new ControlActions();
+            const serviceRoute = this.ApiService + "/Create";
+            controlActions.PostToAPI(serviceRoute, formData, successCallback, failCallBack);
+
+        }
+
+        this.Update = async function () {
+            enableFormControls(false);
+
+            let formData = await readFormData();
+            if (!validateData(formData)) {
+                enableFormControls(true);
+                return;
+            }
+
+            function successCallback(response) {
+                $('#tblListPets').DataTable().ajax.reload();
+                showModal(false);
+
+                Swal.fire({
+                    icon: 'success',
+                    title: 'La mascota se ha actualizado correctamente',
+                    footer: 'PetSuite Technologies',
+                    confirmButtonText: 'Entendido'
+                });
+            }
+
+            function failCallBack(response) {
+                showValidationErrors(response);
+                enableFormControls(true);
+            }
+
+            const controlActions = new ControlActions();
+            const serviceRoute = this.ApiService + "/Update";
+            controlActions.PutToAPI(serviceRoute, formData, successCallback, failCallBack);
+
+
+        };
+        this.Delete = function (id) {
+            function successCallBack(response) {
+                $('#tblListPets').DataTable().ajax.reload();
+                Swal.fire({
+                    icon: 'success',
+                    title: 'El mascotas se ha eliminado correctamente',
+                    footer: 'PetSuite Technologies',
+                    confirmButtonText: 'Entendido'
+                });
+            };
+
+            function failCallBack(response) {
+                $('#tblListPets').DataTable().ajax.reload();
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: response,
+                    footer: 'PetSuite Technologies',
+                    confirmButtonText: 'Entendido'
+                });
+            };
+
+            var controlActions = new ControlActions();
+            var serviceRoute = this.ApiService + "/delete";
+            controlActions.DeleteToAPI(serviceRoute, { id }, successCallBack, failCallBack);
+        };
+
+        this.RetrieveById = function (id) {
+            resetForm();
+
+            function successCallback(response) {
+                isEditModal = true;
+                writeFormData(response);
+                setTitleModal('Actualizar mascota', 'Actualizar');
+                showModal(true);
+            }
+
+            function failCallBack(response) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: response,
+                    footer: 'PetSuite Technologies',
+                    confirmButtonText: 'Entendido'
+                });
+            }
+
+            const controlActions = new ControlActions();
+            const serviceRoute = this.ApiService + "/RetrieveById?id=" + id;
+            controlActions.GetToApi(serviceRoute, successCallback, failCallBack);
+        }
+
+        this.LoadTable = function () {
+            var ctrlActions = new ControlActions();
+            var urlService = ctrlActions.GetUrlApiService(this.ApiService + "/RetrieveAll")
+
+            let columns = [];
+            columns[0] = { "data": "petName", title: "Nombre" };
+            columns[1] = { "data": "description", title: "Descripción" };
+            columns[2] = { "data": "petAge", title: "Edad" };
+            columns[3] = { "data": "petBreedType", title: "Raza" };
+            columns[4] = { "data": "petAggressiveness", title: "Agresividad" };
+            columns[5] = { "data": "userId", title: "Id de Usuario" };
+            columns[6] = { "data": "status", title: "Estado" };
+
+            columns[7] = {
+                "data": "createdDate",
+                "title": "Fecha de creación",
+                "render": function (value) {
+                    return formatDateTime(new Date(value));
+                }
+            };
+            columns[8] = {
+                "data": "modifiedDate",
+                "title": "Fecha de modificación",
+                "render": function (value) {
+                    return formatDateTime(new Date(value));
+                }
+            };
+            columns[9] = {
+                "orderable": false,
+                'searchable': false,
+                "title": "Acciones",
+                "data": "id",
+                "render": function (value) {
+                    return '<div style="display: flex;">' +
+                        '<button class="btnEdit btn btn-primary m-3 mt-0 mb-0" data-id="' + value + '" >Editar</button>' +
+                        '<button class="btnDelete btn btn-danger" data-id="' + value + '">Eliminar</button>' +
+                        '</div>';
+                }
+            };
+
+            $("#tblListPets").DataTable({
+                "ajax": {
+                    "url": urlService,
+                    "dataSrc": "",
+                    "beforeSend": function (request) {
+                        request.setRequestHeader("Authorization", 'Bearer ' + sessionStorage.getItem('token'));
+                    }
+                },
+                "columns": columns,
+                "language": {
+                    url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
+                },
+            });
+        }
+
+        this.loadUserOptions = function () {
+            var ctrlActions = new ControlActions();
+            var urlUserOptions = ctrlActions.GetUrlApiService("User/RetrieveAll");
+
+            $.ajax({
+                url: urlUserOptions,
+                type: 'GET',
+                beforeSend: function (request) {
+                    request.setRequestHeader("Authorization", 'Bearer ' + sessionStorage.getItem('token'));
+                },
+                success: function (data) {
+                    var userSelect = $('#txtUserId');
+                    userSelect.empty();
+
+                    data.forEach(function (user) {
+                        userSelect.append($('<option>', {
+                            value: user.id,
+                            text: user.identificationValue
+                        }));
+                    });
+                },
+                error: function (error) {
+                    console.error('Error loading user options:', error);
+                }
+            });
+        }
+
+
+    }
 
 //Instanciamiento de la clase
 $(document).ready(function () {

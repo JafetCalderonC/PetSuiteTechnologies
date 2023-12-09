@@ -70,15 +70,14 @@ namespace DataAccess.CRUD
 
         public override Package? RetrieveById(int id)
         {
-            //var sqlOperation = new SqlOperation("RETRIEVE_USER_BY_ID_PR");
-            //sqlOperation.AddParameter("@P_USER_ID", id);
+            var sqlOperation = new SqlOperation("RETRIEVE_PACKAGE_BY_ID_PR");
+            sqlOperation.AddParameter("@P_PACKAGE_ID", id);
 
-            //var result = _dao.ExecuteQueryProcedure(sqlOperation);
-            //if (result.Count == 0)
-            //    return null;
+            var result = _dao.ExecuteQueryProcedure(sqlOperation);
+            if (result.Count == 0)
+                return null;
 
-            //return _mapper.BuildObject(result[0]);
-            return null;
+            return _mapper.BuildObject(result[0]);
         }
 
         public override void Update(Package dto)

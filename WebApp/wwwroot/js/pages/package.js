@@ -1,211 +1,320 @@
+let id = 0;
+let isEditModal = false;
+
+function readFormData() {
+    let formData = {id};
+    formData.packageName = $("#txtName").val();
+    formData.description = $("#txtDescription").val();
+    formData.roomId = $("#txtRoomId").val();
+    formData.petBreedType = $("#txtPetBreedType").val();
+    formData.petSize = $("#txtPetSize").val();
+    formData.petAggressiveness = $("#txtPetAggressiveness").val();
+    formData.status = $("#txtStatus").val();
+    formData.services = [];
+    formData.CreatedDate = new Date();
+    formData.ModifiedDate = new Date();
+
+    $('.service').each(function () {
+        let serviceNumber = $(this).val().trim();
+        if (serviceNumber) {
+            formData.services.push(serviceNumber);
+        }
+    });
+
+    return formData;
+}
+
+function writeFormData(formData) {
+    id = formData.id;
+    $("#txtName").val(formData.packageName);
+    $("#txtDescription").val(formData.description);
+    $("#txtRoomId").val(formData.roomId);
+    $("#txtPetBreedType").val(formData.petBreedType);
+    $("#txtPetSize").val(formData.petSize);
+    $("#txtPetAggressiveness").val(formData.petAggressiveness);
+    $("#txtStatus").val(formData.status);
+    $("#txtCreatedDate").val(formData.CreatedDate);
+    $("#txtModifiedDate").val(formData.ModifiedDate);
+}
+
+function enableFormControls(enabled) {
+    $("#txtName").prop("disabled", !enabled);
+    $("#txtDescription").prop("disabled", !enabled);
+    $("#txtRoomId").prop("disabled", !enabled);
+    $("#txtPetBreedType").prop("disabled", !enabled);
+    $("#txtPetSize").prop("disabled", !enabled);
+    $("#txtPetAggressiveness").prop("disabled", !enabled);
+    $("#txtStatus").prop("disabled", !enabled);
+    $("#services").prop("disabled", !enabled);
+    $("#txtServiceCreatedDate").prop("disabled", !enabled);
+    $("#txtServiceModifiedDate").prop("disabled", !enabled);
+
+}
+
+function resetForm() {
+    id = 0;
+    $("#txtName").val("");
+    $("#txtDescription").val("");
+    $("#txtRoomId").val("");
+    $("#txtPetBreedType").val("");
+    $("#txtPetSize").val("");
+    $("#txtPetAggressiveness").val("");
+    $("#txtStatus").val("");
+    $("#services").val("");
+    $("#txtServiceCreatedDate").val("");
+    $("#txtServiceModifiedDate").val("");
+
+    hideValidationErrors();
+    enableFormControls(true);
+}
+function validateData(formData) {
+    hideValidationErrors();
+
+    if (formData.packageName == "") {
+        showValidationErrors("El nombre es requerido");
+        return false;
+    }
+
+    if (formData.packageDescription == "") {
+        showValidationErrors("La descripción es requerida");
+        return false;
+    }
+
+    if (formData.packageRoomId == "") {
+        showValidationErrors("El ID de la habitación es requerido");
+        return false;
+    }
+
+    if (formData.packagePetBreedType == "") {
+        showValidationErrors("El tipo de raza de la mascota es requerido");
+        return false;
+    }
+
+    if (formData.packagePetSize == "") {
+        showValidationErrors("El tamaño de la mascota es requerido");
+        return false;
+    }
+
+    if (formData.packagePetAggressiveness == "") {
+        showValidationErrors("La agresividad de la mascota es requerida");
+        return false;
+    }
+
+    if (formData.packageStatus == "") {
+        showValidationErrors("El estado es requerido");
+        return false;
+    }
+
+    return true;
+}
+
 function PackageController() {
 
     this.title = "Paquetes";
     this.ApiService = "Package";
 
     this.InitView = function () {
-        document.title = this.title;
-        
-        $(".bs-component form").hide();
-        $("#btnUpdate").hide();
-        $("#btnDelete").hide();
-        $("#btnCreate").hide();
-
-        $("#tblListPackages").show();
-
-        $("#btnToggleForm").click(function () {
-            $(".bs-component form").toggle();
-            $("#btnCreate").toggle();
-            $("#btnUpdate").toggle();
-            $("#btnDelete").toggle();
-            $("#tblListPackages").toggle();
+        document.Title = this.Title;
+        $(document).on('click', '.btnEdit', function () {
+            const vc = new PackageController();
+            vc.RetrieveById($(this).data('id'));
         });
 
-        $("#btnCreate").click(function () {
-            var vc = new PackageController();
-            vc.Create();
+        $('#btnCreate').click(function () {
+            resetForm();
+            isEditModal = false;
+            setTitleModal('Registrar paquete', 'Registrar');
+            showModal(true);
         });
-        $("#btnUpdate").click(function () {
-            var vc = new PackageController();
-            vc.Update();
+        $('#btnSubmit').click(function () {
+            if (isEditModal) {
+                const vc = new PackageController();
+                vc.Update();
+            } else {
+                const vc = new PackageController();
+                vc.Create();
+            }
         });
-        $("#btnDelete").click(function () {
-            var vc = new PackageController();
-            vc.Delete();
+
+        $('#btnCancel').click(function () {
+            resetForm();
+            showModal(false);
+        });
+
+        $(document).on('click', '.btnDelete', function () {
+            const vc = new PackageController();
+            vc.Delete($(this).data('id'));
         });
 
         this.LoadTable();
         this.loadRoomOptions();
     }
 
+    this.Create = async function () {
+        enableFormControls(false);
 
-    this.ValidateInputs = function () {
-        var packageName = $("#txtName").val();
-        var packageDescription = $("#txtDescription").val();
-        var packageRoomId = $("#txtRoomId").val();
-        var packagePetBreedType = $("#txtPetBreedType").val();
-        var packagePetSize = $("#txtPetSize").val();
-        var packagePetAggressiveness = $("#txtPetAggressiveness").val();
-        var packageStatus = $("#txtStatus").val();
-        var packageServices = [];
-        $('.service').each(function () {
-            let serviceNumber = $(this).val().trim();
-            if (serviceNumber) {
-                packageServices.push(serviceNumber);
-            }
-        });
-
-        if (!packageName) {
-            Swal.fire("Error", "El nombre del paquete no puede estar vacío.", "error");
-            return false;
-        }
-        if (!packageDescription) {
-            Swal.fire("Error", "La descripción del paquete no puede estar vacía.", "error");
-            return false;
-        }
-        if (!packageRoomId) {
-            Swal.fire("Error", "la habitacion del paquete no puede estar vacía.", "error");
-            return false;
-        }
-        if (!packagePetBreedType) {
-            Swal.fire("Error", "El tipo de raza del paquete no puede estar vacío.", "error");
-            return false;
-        }
-        if (!packagePetSize) {
-            Swal.fire("Error", "El tamaño del paquete no puede estar vacío.", "error");
-            return false;
-        }
-        if (!packagePetAggressiveness) {
-            Swal.fire("Error", "La agresividad del paquete no puede estar vacía.", "error");
-            return false;
-        }
-        if (!packageStatus) {
-            Swal.fire("Error", "El estado del paquete no puede estar vacío.", "error");
-            return false;
-        }
-        if (!packageServices) {
-            Swal.fire("Error", "El paquete requiere de almenos un servicio", "error");
-            return false;
-        }
-
-        return true;
-    }
-
-    this.Create = function () {
-        if (!this.ValidateInputs()) {
+        let formData = await readFormData();
+        if (!validateData(formData)) {
+            enableFormControls(true);
             return;
         }
-        var package = {};
-        package.PackageName = $("#txtName").val();
-        package.Description = $("#txtDescription").val();
-        package.RoomId = $("#txtRoomId").val();
-        package.PetBreedType = $("#txtPetBreedType").val();
-        package.PetSize = $("#txtPetSize").val();
-        package.PetAggressiveness = $("#txtPetAggressiveness").val();
-        package.Status = $("#txtStatus").val();
-        package.Services = [];
-        package.CreatedDate = new Date();
-        package.ModifiedDate = new Date();
 
-        $('.service').each(function () {
-            let serviceNumber = $(this).val().trim();
-            if (serviceNumber) {
-                package.Services.push(serviceNumber);
-            }
-        });
-
-        var ctrlActions = new ControlActions();
-        var serviceRoute = this.ApiService + "/Create";
 
         function successCallback(response) {
-            Swal.fire("success!", "Paquete creado correctamente!", "success");
+            $('#tblListPackages').DataTable().ajax.reload();
+            showModal(false);
+
+            Swal.fire({
+                icon: 'success',
+                title: 'El paquete se ha creado correctamente',
+                footer: 'PetSuite Technologies',
+                confirmButtonText: 'Entendido'
+            });
+
         }
 
-        function failCallback(response, status) {
-            Swal.fire("error!",response, "error");
-            console.log("fail callback");
+        function failCallBack(response) {
+            showValidationErrors(response);
+            enableFormControls(true);
         }
 
+        const controlActions = new ControlActions();
+        const serviceRoute = this.ApiService + "/Create";
+        controlActions.PostToAPI(serviceRoute, formData, successCallback, failCallBack);
 
-        ctrlActions.PostToAPI(serviceRoute, package, successCallback, failCallback);
     }
 
-    this.Update = function () {
-        if (!this.ValidateInputs()) {
+    this.Update = async function () {
+        enableFormControls(false);
+
+        let formData = await readFormData();
+        if (!validateData(formData)) {
+            enableFormControls(true);
             return;
         }
-        var package = {};
-        package.Id = $("#txtPackageId").val();
-        package.PackageName = $("#txtName").val();
-        package.Description = $("#txtDescription").val();
-        package.RoomId = $("#txtRoomId").val();
-        package.PetBreedType = $("#txtPetBreedType").val();
-        package.PetSize = $("#txtPetSize").val();
-        package.PetAggressiveness = $("#txtPetAggressiveness").val();
-        package.Status = $("#txtStatus").val();
-        package.Services = [];
-        package.CreatedDate = new Date();
-        package.ModifiedDate = new Date();
-
-        $('.service').each(function () {
-            let serviceNumber = $(this).val().trim();
-            if (serviceNumber) {
-                package.Services.push(serviceNumber);
-            }
-        });
-
-        var controlActions = new ControlActions();
-        var serviceRoute = this.ApiService + "/Update";
 
         function successCallback(response) {
-            Swal.fire("success!", "Paquete modificadp correctamente!", "success");
+            $('#tblListPackages').DataTable().ajax.reload();
+            showModal(false);
+
+            Swal.fire({
+                icon: 'success',
+                title: 'El paquete se ha actualizado correctamente',
+                footer: 'PetSuite Technologies',
+                confirmButtonText: 'Entendido'
+            });
         }
 
-        function failCallback(response, status) {
-            Swal.fire("error!", response, "error");
-            console.log("fail callback");
+        function failCallBack(response) {
+            showValidationErrors(response);
+            enableFormControls(true);
         }
 
-        controlActions.PutToAPI(serviceRoute, package, successCallback, failCallback);
+        const controlActions = new ControlActions();
+        const serviceRoute = this.ApiService + "/Update";
+        controlActions.PutToAPI(serviceRoute, formData, successCallback, failCallBack);
 
-    }
-    this.Delete = function () {
-        var package = {};
-        package.Id = +$("#txtPackageId").val();
+
+    };
+
+    this.Delete = function (id) {
+        function successCallBack(response) {
+            $('#tblListPackages').DataTable().ajax.reload();
+            Swal.fire({
+                icon: 'success',
+                title: 'El servicio se ha eliminado correctamente',
+                footer: 'PetSuite Technologies',
+                confirmButtonText: 'Entendido'
+            });
+        };
+
+        function failCallBack(response) {
+            $('#tblListPackages').DataTable().ajax.reload();
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: response,
+                footer: 'PetSuite Technologies',
+                confirmButtonText: 'Entendido'
+            });
+        };
+
         var controlActions = new ControlActions();
-        var serviceRoute = this.ApiService + "/Delete";
+        var serviceRoute = this.ApiService + "/delete";
+        controlActions.DeleteToAPI(serviceRoute, { id }, successCallBack, failCallBack);
+    };
 
-        function successCallback() {
-            Swal.fire("Success", "El servicio se ha eliminado correctamente.", "success");
-            // reload
-            location.reload();
+    this.RetrieveById = function (id) {
+        resetForm();
+
+        function successCallback(response) {
+            isEditModal = true;
+            writeFormData(response);
+            setTitleModal('Actualizar paquete', 'Actualizar');
+            showModal(true);
         }
 
-        function failCallback(response) {
-            Swal.fire("Error", response, "error");
+        function failCallBack(response) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: response,
+                footer: 'PetSuite Technologies',
+                confirmButtonText: 'Entendido'
+            });
         }
 
-        controlActions.DeleteToAPI(serviceRoute, package, successCallback, failCallback);
+        const controlActions = new ControlActions();
+        const serviceRoute = this.ApiService + "/RetrieveById?id=" + id;
+        controlActions.GetToApi(serviceRoute, successCallback, failCallBack);
     }
+
     this.LoadTable = function () {
-        var ctrlActions = new ControlActions();
-        var urlService = ctrlActions.GetUrlApiService(this.ApiService + "/RetrieveAll")
+        let controlActions = new ControlActions();
+        let serviceRoute = controlActions.GetUrlApiService(this.ApiService + "/RetrieveAll");
 
-        var columns = []
-        columns[0] = { 'data': 'id' }
-        columns[1] = { 'data': 'packageName' }
-        columns[2] = { 'data': 'description' }
-        columns[3] = { 'data': 'roomId' }
-        columns[4] = { 'data': 'petBreedType' }
-        columns[5] = { 'data': 'petSize' }
-        columns[6] = { 'data': 'petAggressiveness' }
-        columns[7] = { 'data': 'createdDate' }
-        columns[8] = { 'data': 'modifiedDate' }
-        columns[9] = { 'data': 'status' }
 
-        $("#tblListPackages").DataTable({
+        let columns = [];
+        columns[0] = { "data": "packageName", title: "Nombre" };
+        columns[1] = { "data": "description", title: "Descripción" };
+        columns[2] = { "data": "roomId", title: "Habitación" };
+        columns[3] = { "data": "petBreedType", title: "Raza" };
+        columns[4] = { "data": "petSize", title: "Tamaño" };
+        columns[5] = { "data": "petAggressiveness", title: "Agresividad" };
+        columns[6] = { "data": "status", title: "Estado" };
+
+        columns[7] = {
+            "data": "createdDate",
+            "title": "Fecha de creación",
+            "render": function (value) {
+                return formatDateTime(new Date(value));
+            }
+        };
+        columns[8] = {
+            "data": "modifiedDate",
+            "title": "Fecha de modificación",
+            "render": function (value) {
+                return formatDateTime(new Date(value));
+            }
+        };
+        columns[9] = {
+            "orderable": false,
+            'searchable': false,
+            "title": "Acciones",
+            "data": "id",
+            "render": function (value) {
+                return '<div style="display: flex;">' +
+                    '<button class="btnEdit btn btn-primary m-3 mt-0 mb-0" data-id="' + value + '" >Editar</button>' +
+                    '<button class="btnDelete btn btn-danger" data-id="' + value + '">Eliminar</button>' +
+                    '</div>';
+            }
+        };
+
+        $('#tblListPackages').DataTable({
+            "responsive": true,
+            "processing": true,
             "ajax": {
-                "url": urlService,
+                "url": serviceRoute,
                 "dataSrc": "",
                 "beforeSend": function (request) {
                     request.setRequestHeader("Authorization", 'Bearer ' + sessionStorage.getItem('token'));
@@ -216,7 +325,7 @@ function PackageController() {
                 url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json',
             },
         });
-    }
+    };
 
     $('#btnAddService').click(function () {
         // Almacena una referencia al objeto actual
@@ -243,7 +352,7 @@ function PackageController() {
         $(`#service-${inputID}`).focus();
 
         // Llama a LoadServicesDropdown con el contexto adecuado usando bind
-        
+
     }.bind(this));  // bind(this) asegura que el contexto sea el objeto actual
 
 
@@ -291,9 +400,9 @@ function PackageController() {
         });
     };
 
-    this.function loadRoomOptions = function () {
+    this.loadRoomOptions = function () {
         var ctrlActions = new ControlActions();
-        var urlRoomOptions = ctrlActions.GetUrlApiService("Room/RetrieveAll");
+        var urlRoomOptions = ctrlActions.GetUrlApiService("room/RetrieveAll");
 
         $.ajax({
             url: urlRoomOptions,
@@ -308,7 +417,7 @@ function PackageController() {
                 data.forEach(function (room) {
                     roomSelect.append($('<option>', {
                         value: room.id,
-                        text: room.roomName
+                        text: room.name
                     }));
                 });
             },
@@ -318,9 +427,7 @@ function PackageController() {
         });
     }
 
-
 }
-
 
 //Instanciamiento de la clase
 $(document).ready(function () {

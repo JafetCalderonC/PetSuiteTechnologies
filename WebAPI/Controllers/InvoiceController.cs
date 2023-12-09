@@ -11,21 +11,20 @@ using System.ComponentModel.DataAnnotations;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-
 namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ReservationController : ControllerBase
+    public class InvoiceController : ControllerBase
     {
         [HttpPost]
         [Route("Create")]
-        public async Task<IActionResult> Create(Reservation reservation)
+        public async Task<IActionResult> Create(Invoice invoice)
         {
             try
             {
-                var reservationManager = new CoreApp.ReservationManager();
-                reservationManager.Create(reservation);
+                var invoiceManager = new InvoiceManager();
+                invoiceManager.Create(invoice);
                 return Ok();
             }
             catch (Exception ex)
@@ -33,15 +32,16 @@ namespace WebAPI.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
+
         [HttpPut]
         [Route("Update")]
 
-        public async Task<IActionResult> Update(Reservation reservation)
+        public async Task<IActionResult> Update(Invoice invoice)
         {
             try
             {
-                var reservationManager = new CoreApp.ReservationManager();
-                reservationManager.Update(reservation);
+                var invoiceManager = new InvoiceManager();
+                invoiceManager.Update(invoice);
                 return Ok();
             }
             catch (Exception ex)
@@ -57,8 +57,8 @@ namespace WebAPI.Controllers
         {
             try
             {
-                var reservationManager = new CoreApp.ReservationManager();
-                reservationManager.Delete(dto.Id);
+                var invoiceManager = new InvoiceManager();
+                invoiceManager.Delete(dto.Id);
                 return Ok();
             }
             catch (Exception ex)
@@ -69,14 +69,13 @@ namespace WebAPI.Controllers
 
         [HttpGet]
         [Route("RetrieveById")]
-
         public async Task<IActionResult> RetrieveById(int id)
         {
             try
             {
-                var reservationManager = new CoreApp.ReservationManager();
-                var reservation = reservationManager.RetrieveById(id);
-                return Ok(reservation);
+                var invoiceManager = new InvoiceManager();
+                var invoice = invoiceManager.RetrieveById(id);
+                return Ok(invoice);
             }
             catch (Exception ex)
             {
@@ -86,14 +85,13 @@ namespace WebAPI.Controllers
 
         [HttpGet]
         [Route("RetrieveAll")]
-
         public async Task<IActionResult> RetrieveAll()
         {
             try
             {
-                var reservationManager = new CoreApp.ReservationManager();
-                var reservations = reservationManager.RetrieveAll();
-                return Ok(reservations);
+                var invoiceManager = new InvoiceManager();
+                var invoices = invoiceManager.RetrieveAll();
+                return Ok(invoices);
             }
             catch (Exception ex)
             {
@@ -101,6 +99,5 @@ namespace WebAPI.Controllers
             }
         }
 
-     
     }
 }

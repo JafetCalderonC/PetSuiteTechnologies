@@ -1,4 +1,5 @@
-﻿// Read form data
+﻿/// <reference path="pages/iot-pet.js" />
+// Read form data
 function site_readFormData() {
     let formData = {};
     formData.email = JSON.parse(sessionStorage.getItem('user')).email;
@@ -137,18 +138,31 @@ function siteController() {
             } else {
                 const roleUser = JSON.parse(sessionStorage.getItem('user')).role;    
 
-                if(roleUser == "admin") {
-                    $('a[href="/user"]').removeClass('d-none');
+                if (roleUser == "client") {
+                    //$('a[href="/User"]').removeClass('d-none');
+                    //$('a[href="/Room"]').removeClass('d-none');
+                    //$('a[href="/Service"]').removeClass('d-none');
+                    //$('a[href="/Package"]').removeClass('d-none');
+                    //$('a[href="/Reservations"]').removeClass('d-none');
+                    $('a[href="/IoTPet"]').removeClass('d-none');
+                }
+            
+                if (roleUser == "gestor") {
+                    $('a[href="/User"]').removeClass('d-none');
                     $('a[href="/Room"]').removeClass('d-none');
-                    $('a[href="/Service"]').removeClass('d-none');
+                    //$('a[href="/Service"]').removeClass('d-none');
                     $('a[href="/Package"]').removeClass('d-none');
+                    $('a[href="/Reservations"]').removeClass('d-none');
+                    $('a[href="/IoTPet"]').removeClass('d-none');
                 }
 
-                if (roleUser == "gestor") {
-                    $('a[href="/user"]').removeClass('d-none');
+                if (roleUser == "admin") {
+                    $('a[href="/User"]').removeClass('d-none');
                     $('a[href="/Room"]').removeClass('d-none');
                     $('a[href="/Service"]').removeClass('d-none');
                     $('a[href="/Package"]').removeClass('d-none');
+                    $('a[href="/Reservations"]').removeClass('d-none');
+                    $('a[href="/IoTPet"]').removeClass('d-none');
                 }
 
                 const viewCont = new siteController();

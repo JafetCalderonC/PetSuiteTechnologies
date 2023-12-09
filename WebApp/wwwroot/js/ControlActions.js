@@ -1,6 +1,6 @@
 function ControlActions() {
     //Ruta base del API
-    this.URL_API = "https://localhost:7299/api/";
+    this.URL_API = "https://localhost/api/";
 
     this.GetUrlApiService = function (service) {
         return this.URL_API + service;
@@ -139,7 +139,7 @@ function ControlActions() {
         });
     };
 
-    this.DeleteToAPI = function (service, data, successCallback, failCallBack) {
+    this.DeleteToAPI = function (service, data, successCallback, failCallBack) { 
         $.ajax({
             type: "DELETE",
             url: this.GetUrlApiService(service),

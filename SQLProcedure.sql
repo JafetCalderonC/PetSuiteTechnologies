@@ -1305,17 +1305,115 @@ CREATE PROCEDURE CREATE_IOT_PET_RECORD_PR
     @P_PET_ID INT,
     @P_PULSE_RATE INT,
     @P_CREATED_DATE DATETIME,
-
+    @P_LIGHT DECIMAL(10, 2),
+    @P_HUMIDITY DECIMAL(10, 2),
+    @P_TEMPERATURE DECIMAL(10, 2),
+    @P_GAS FLOAT,
+    @P_ALTITUDE FLOAT,
+    @P_PRESSURE FLOAT,
+    @P_CONTADOR_DE_PASOS INT,
     @P_ID INT OUTPUT
-AS BEGIN
+AS 
+BEGIN
     DECLARE @ID TABLE (ID INT)
 
-    INSERT INTO iot_pet_records(iot_id, pet_id, pulse_rate, created_date)
+    INSERT INTO iot_pet_records(iot_id, pet_id, pulse_rate, created_date, light, humidity, temperature, gas, altitude, pressure, ContadorDePasos)
     OUTPUT INSERTED.iot_pet_record_id INTO @ID
-    VALUES (@P_IOT_ID, @P_PET_ID, @P_PULSE_RATE, @P_CREATED_DATE)
+    VALUES (@P_IOT_ID, @P_PET_ID, @P_PULSE_RATE, @P_CREATED_DATE, @P_LIGHT, @P_HUMIDITY, @P_TEMPERATURE, @P_GAS, @P_ALTITUDE, @P_PRESSURE, @P_CONTADOR_DE_PASOS)
 
-    SELECT ID FROM @ID
-END
+    SELECT @P_ID = ID FROM @ID
+END;
+GO
+
+CREATE PROCEDURE UPDATE_IOT_PET_RECORD_PR
+    @P_IOT_RECORD_ID INT,
+    @P_PULSE_RATE INT,
+    @P_CREATED_DATE DATETIME,
+    @P_LIGHT DECIMAL(10, 2),
+    @P_HUMIDITY DECIMAL(10, 2),
+    @P_TEMPERATURE DECIMAL(10, 2),
+    @P_GAS FLOAT,
+    @P_ALTITUDE FLOAT,
+    @P_PRESSURE FLOAT,
+    @P_CONTADOR_DE_PASOS INT
+AS 
+BEGIN
+    UPDATE iot_pet_records
+    SET
+        pulse_rate = @P_PULSE_RATE,
+        created_date = @P_CREATED_DATE,
+        light = @P_LIGHT,
+        humidity = @P_HUMIDITY,
+        temperature = @P_TEMPERATURE,
+        gas = @P_GAS,
+        altitude = @P_ALTITUDE,
+        pressure = @P_PRESSURE,
+        ContadorDePasos = @P_CONTADOR_DE_PASOS
+    WHERE
+        iot_pet_record_id = @P_IOT_RECORD_ID
+END;
+GO
+
+
+CREATE PROCEDURE IOT_PET_RECORDS_RetrieveAll
+AS
+BEGIN
+    SELECT        
+        iot_id,
+        pet_id,
+        pulse_rate,
+        created_date,
+        light,
+        humidity,
+        temperature,
+        gas,
+        altitude,
+        pressure,
+        ContadorDePasos
+    FROM iot_pet_records;
+END;
+GO
+
+CREATE PROCEDURE IOT_PET_RECORDS_RetrieveById
+    @P_IOT_ID INT
+AS
+BEGIN
+    SELECT        
+        iot_id,
+        pet_id,
+        pulse_rate,
+        created_date,
+        light,
+        humidity,
+        temperature,
+        gas,
+        altitude,
+        pressure,
+        ContadorDePasos
+    FROM iot_pet_records
+    WHERE iot_id = @P_IOT_ID;
+END;
+GO
+
+CREATE PROCEDURE IOT_PET_RECORDS_RetrieveByPetId
+    @P_PET_ID INT
+AS
+BEGIN
+    SELECT        
+        iot_id,
+        pet_id,
+        pulse_rate,
+        created_date,
+        light,
+        humidity,
+        temperature,
+        gas,
+        altitude,
+        pressure,
+        ContadorDePasos
+    FROM iot_pet_records
+    WHERE pet_id = @P_PET_ID;
+END;
 GO
 
 -- Delete IoT pet record by iot id

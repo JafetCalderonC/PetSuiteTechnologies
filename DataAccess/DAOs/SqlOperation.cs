@@ -24,7 +24,7 @@ namespace DataAccess.DAOs
             ProcedureName = procedureName;
         }
 
-        /*Metodos utilitarios para agregar parametros*/
+
         public void AddVarcharParam(string paramName, string paramValue)
         {
             Parameters.Add(new SqlParameter(paramName, paramValue));
@@ -57,5 +57,7 @@ namespace DataAccess.DAOs
         {
             Parameters.Add(new SqlParameter(paramName, paramValue));
         }
+
+     
     }
 }

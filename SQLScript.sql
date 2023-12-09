@@ -188,6 +188,7 @@ CREATE TABLE unwanted_services (
     FOREIGN KEY (service_id) REFERENCES services(service_id)
 );
 
+
 CREATE TABLE iot_room_records (
     iot_room_record_id INT PRIMARY KEY IDENTITY(1,1),
     iot_id INT,
@@ -218,3 +219,13 @@ CREATE TABLE iot (
 	created_date DATETIME,
     modified_date DATETIME,
 );
+
+ALTER TABLE iot_pet_records ADD light DECIMAL(10, 2);
+ALTER TABLE iot_pet_records ADD humidity DECIMAL(10, 2);
+ALTER TABLE iot_pet_records ADD temperature DECIMAL(10, 2);
+ALTER TABLE iot_pet_records ADD gas FLOAT;
+ALTER TABLE iot_pet_records ADD altitude FLOAT;
+ALTER TABLE iot_pet_records ADD pressure FLOAT;
+ALTER TABLE iot_pet_records ADD ContadorDePasos INT;
+ALTER TABLE iot_pet_records ALTER COLUMN pet_id INT NULL;
+ALTER TABLE iot_pet_records ALTER COLUMN pulse_rate INT NULL;

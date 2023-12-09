@@ -40,7 +40,7 @@
                         
                                 <div class="mb-2">
                                     <label for="txtAge" class="form-label mt-3">Edad de mascota</label>
-                                    <input id="txtAge" type="text" class="form-control"  placeholder="Ingrese la edad de la mascota">
+                                    <input id="txtAge" type="number" min="0" max="35" class="form-control"  placeholder="Ingrese la edad de la mascota">
                                 </div>
 
                                 <div class="mb-2">
@@ -50,7 +50,7 @@
                                                 
                                 <div class="mb-2">
                                     <label for="txtPetAggressiveness" class="form-label mt-3">Agresividad de mascota</label>
-                                    <input id="txtPetAggressiveness" type="number" class="form-control"  placeholder="Ingrese el nivel de agresividad de la mascota">
+                                    <input id="txtPetAggressiveness" min="1" max="10" type="number"  class="form-control"  placeholder="Ingrese el nivel de agresividad de la mascota">
                                 </div>
                                                
                                 <div class="mb-2">
@@ -62,8 +62,12 @@
                                 </div>
 
                                 <div class="mb-2">
-                                    <label for="txtStatus" class="form-label mt-3">Estado</label>
-                                    <input id="txtStatus" type="number" class="form-control"  placeholder="Ingrese el estado del paquete">
+                                    <label for="txtStatus" class="form-label">Estado:</label>
+                                    <select id="txtStatus" class="form-select">
+                                        <option selected value="" hidden></option>
+                                        <option value="1">Activo</option>
+                                        <option value="2">Inactivo</option>
+                                    </select>
                                 </div>
 
                             </div>

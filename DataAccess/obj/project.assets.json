@@ -2020,24 +2020,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\pamab\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\mosco\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\proyecto2\\DataAccess\\DataAccess.csproj",
+      "projectUniqueName": "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final\\PetSuiteTechnologies\\DataAccess\\DataAccess.csproj",
       "projectName": "DataAccess",
-      "projectPath": "D:\\proyecto2\\DataAccess\\DataAccess.csproj",
-      "packagesPath": "C:\\Users\\pamab\\.nuget\\packages\\",
-      "outputPath": "D:\\proyecto2\\DataAccess\\obj\\",
+      "projectPath": "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final\\PetSuiteTechnologies\\DataAccess\\DataAccess.csproj",
+      "packagesPath": "C:\\Users\\mosco\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final\\PetSuiteTechnologies\\DataAccess\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\pamab\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\mosco\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -2052,8 +2047,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "D:\\proyecto2\\DTOs\\DTOs.csproj": {
-              "projectPath": "D:\\proyecto2\\DTOs\\DTOs.csproj"
+            "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final\\PetSuiteTechnologies\\DTOs\\DTOs.csproj": {
+              "projectPath": "C:\\Users\\mosco\\OneDrive\\Documentos\\UCenfotec\\Proyecto de Ingeniería del Software 2\\Proyecto Final\\PetSuiteTechnologies\\DTOs\\DTOs.csproj"
             }
           }
         }
@@ -2093,7 +2088,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
       }
     }
   }

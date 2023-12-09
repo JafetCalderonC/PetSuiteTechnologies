@@ -92,12 +92,7 @@ namespace DataAccess.CRUD
             sqlOperation.AddParameter("@P_USER_ID", id);
 
             var lstResult = _dao.ExecuteQueryProcedure(sqlOperation);
-            if (lstResult.Count > 0)
-            {
-                var lstPets = _mapper.BuildObjects(lstResult);
-                return lstPets;
-            }
-            return null;
+            return _mapper.BuildObjects(lstResult);
         }
 
     }

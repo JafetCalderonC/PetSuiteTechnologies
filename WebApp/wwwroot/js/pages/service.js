@@ -1,8 +1,8 @@
-let id = 0;
+锘縧et id = 0;
 let isEditModal = false;
 
 function readFormData() {
-    let formData = {id};
+    let formData = { id };
     formData.serviceName = $("#txtServiceName").val();
     formData.serviceDescription = $("#txtServiceDescription").val();
     formData.serviceStatus = $("#txtServiceStatus").val();
@@ -51,7 +51,7 @@ function validateData(formData) {
     }
 
     if (formData.serviceDescription == "") {
-        showValidationErrors("La descripci髇 es requerida");
+        showValidationErrors("La descripci贸n es requerida");
         return false;
     }
 
@@ -236,19 +236,19 @@ function ServiceController() {
 
         let columns = [];
         columns[0] = { "data": "serviceName", title: "Nombre" };
-        columns[1] = { "data": "serviceDescription", title: "Descripcion" };
+        columns[1] = { "data": "serviceDescription", title: "Descripci贸n" };
         columns[2] = { "data": "serviceStatus", title: "Estado" };
         columns[3] = { "data": "serviceCost", title: "Costo" };
         columns[4] = {
             "data": "serviceCreatedDate",
-            "title": "Fecha de creacion",
+            "title": "Fecha de creaci贸n",
             "render": function (value) {
                 return formatDateTime(new Date(value));
             }
         };
         columns[5] = {
             "data": "serviceModifiedDate",
-            "title": "Fecha de modificacion",
+            "title": "Fecha de modificaci贸n",
             "render": function (value) {
                 return formatDateTime(new Date(value));
             }
@@ -282,7 +282,7 @@ function ServiceController() {
             },
         });
     };
-        
+
 }
 
 $(document).ready(function () {

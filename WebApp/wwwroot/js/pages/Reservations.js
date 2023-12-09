@@ -1,6 +1,4 @@
-
-
-let id = 0
+锘縧et id = 0
 let isEditModal = false;
 let petOptions = [];
 let packageOptions = [];
@@ -20,19 +18,19 @@ function SearchPetId(petOptions, petName) {
             return petOptions[i].id;
         }
     }
-   
+
     return null;
 }
 
 function IdMasNuevo(reservations) {
     if (reservations.length === 0) {
-        return null; 
+        return null;
     }
     let maxId = 0;
 
     for (let i = 1; i < reservations.length; i++) {
         if (reservations[i].id > maxId) {
-            maxId = reservations[i].id; 
+            maxId = reservations[i].id;
         }
     }
 
@@ -60,7 +58,7 @@ function SearchPetName(petOptions, petId) {
             return petOptions[i].petName;
         }
     }
-    return null; 
+    return null;
 }
 
 function SearchPackageName(packageOptions, packageId) {
@@ -69,7 +67,7 @@ function SearchPackageName(packageOptions, packageId) {
             return packageOptions[i].packageName;
         }
     }
-    return null; 
+    return null;
 }
 
 
@@ -94,13 +92,13 @@ function SearchPackageId(packageOptions, packageName) {
             return packageOptions[i].id;
         }
     }
-    return null; 
+    return null;
 }
 
 // s
 
 function readFormData() {
-    let formData = {id};
+    let formData = { id };
     formData.startDate = $("#startDate").val();
     formData.endDate = $("#endDate").val();
     formData.userID = UserLogged();
@@ -108,8 +106,8 @@ function readFormData() {
     formData.packageId = SearchPackageId(packageOptions, $("#packageDropdown").val());
     formData.reservationCreatedDate = new Date();
     formData.reservationModifiedDate = new Date();
-    
-        return formData;
+
+    return formData;
 }
 
 function FillDropdowns() {
@@ -129,8 +127,8 @@ function writeFormData(formData) {
     id = formData.id;
     $("#startDate").val(formData.StartDate);
     $("#endDate").val(formData.EndDate);
-    $("#petDropdown").val(SearchPetName(petOptions,formData.PetId)); 
-    $("#packageDropdown").val(SearchPackageName(packageOptions,formData.PackageId));
+    $("#petDropdown").val(SearchPetName(petOptions, formData.PetId));
+    $("#packageDropdown").val(SearchPackageName(packageOptions, formData.PackageId));
     $("#txtReservationCreatedDate").val(formData.ReservationCreatedDate);
     $("#txtReservationModifiedDate").val(formData.ReservationModifiedDate);
 }
@@ -208,7 +206,7 @@ function ReservationController() {
         $('#btnCreate').click(function () {
             resetForm();
             isEditModal = false;
-            setTitleModal('Registrar reservaci髇', 'Registrar');
+            setTitleModal('Registrar reservaci贸n', 'Registrar');
             showModal(true);
         });
         $('#btnSubmit').click(function () {
@@ -230,6 +228,8 @@ function ReservationController() {
             const vc = new ReservationController();
             vc.Delete($(this).data('id'));
         });
+
+
         RetrievePetByUserID(UserLogged());
         RetrieveAllPackages();
         RetrieveAllServices()
@@ -237,8 +237,7 @@ function ReservationController() {
         this.LoadTable();
     }
 
-    function RetrievePetByUserID(userIdLogged)
-    {
+    function RetrievePetByUserID(userIdLogged) {
         function successCallback(response) {
             petOptionsData = response;
             petOptionsData.forEach(function (obj) {
@@ -246,7 +245,7 @@ function ReservationController() {
                 petOptions.push(newObj);
             });
 
-     
+
             FillDropdowns();
         }
         function failCallBack(response) {
@@ -265,15 +264,14 @@ function ReservationController() {
 
 
 
-    function RetrieveAllPackages()
-    {
+    function RetrieveAllPackages() {
         function successCallback(response) {
 
 
             packageOptionsResponse = response;
             // aqui esta el error, el retrieve de paquetes no trae los servicios (el programa esta hecho para que ese retrive all contenga una lista de los id de los servicios)
             packageOptionsResponse.forEach(function (obj) {
-                var newObj = { id: obj.id, packageName: obj.packageName, packageServices : obj.services };
+                var newObj = { id: obj.id, packageName: obj.packageName, packageServices: obj.services };
                 packageOptions.push(newObj);
             });
 
@@ -293,7 +291,7 @@ function ReservationController() {
         controlActions.GetToApi(serviceRoute, successCallback, failCallBack);
     }
 
-        // RetrieveAllReservations
+    // RetrieveAllReservations
     function RetrieveAllReservations() {
 
         function successCallback(response) {
@@ -301,7 +299,7 @@ function ReservationController() {
 
             reservationOptionsResponse = response;
             reservationOptionsResponse.forEach(function (obj) {
-                var newObj = { id: obj.id};
+                var newObj = { id: obj.id };
                 reservations.push(newObj);
             });
         }
@@ -355,14 +353,14 @@ function ReservationController() {
             showModal(false);
             Swal.fire({
                 icon: 'success',
-                title: 'La reservaci髇 se ha creado correctamente',
+                title: 'La reservaci贸n se ha creado correctamente',
                 footer: 'PetSuite Technologies',
                 confirmButtonText: 'Entendido'
             });
             const invoiceController = new InvoiceController();
             RetrieveAllReservations();
             var newReservationId = IdMasNuevo(reservations);
-            invoiceController.Create(UserLogged(), newReservationId, sumarCostoPorId(SearchServiceID(packageOptions,formData.packageId), services))
+            invoiceController.Create(UserLogged(), newReservationId, sumarCostoPorId(SearchServiceID(packageOptions, formData.packageId), services))
 
         }
 
@@ -394,7 +392,7 @@ function ReservationController() {
 
             Swal.fire({
                 icon: 'success',
-                title: 'La reservaci髇 se ha actualizado correctamente',
+                title: 'La reservaci贸n se ha actualizado correctamente',
                 footer: 'PetSuite Technologies',
                 confirmButtonText: 'Entendido'
             });
@@ -411,11 +409,11 @@ function ReservationController() {
     }
 
     this.Delete = function (id) {
-    function successCallBack(response) {
+        function successCallBack(response) {
             $('#tblListReservations').DataTable().ajax.reload();
             Swal.fire({
                 icon: 'success',
-                title: 'La reservaci髇 se ha eliminado correctamente',
+                title: 'La reservaci贸n se ha eliminado correctamente',
                 footer: 'PetSuite Technologies',
                 confirmButtonText: 'Entendido'
             });
@@ -443,7 +441,7 @@ function ReservationController() {
         function successCallback(response) {
             isEditModal = true;
             writeFormData(response);
-            setTitleModal('Actualizar reservaci髇', 'Actualizar');
+            setTitleModal('Actualizar reservaci贸n', 'Actualizar');
             showModal(true);
         }
 
@@ -464,19 +462,31 @@ function ReservationController() {
     }
 
     this.LoadTable = function () {
-    let controlActions = new ControlActions();
+        let controlActions = new ControlActions();
         let serviceRoute = controlActions.GetUrlApiService(this.ApiService + "/RetrieveAll");
 
         let columns = [];
-        columns[0] = { "data": "startDate", title: "Fecha de inicio" };
-        columns[1] = { "data": "endDate", title: "Fecha de fin" };
+        columns[0] = {
+            "data": "startDate",
+            "title": "Fecha de inicio",
+            "render": function (value) {
+                return formatDateTime(new Date(value));
+            }
+        };
+        columns[1] = {
+            "data": "endDate",
+            "title": "Fecha de fin",
+            "render": function (value) {
+                return formatDateTime(new Date(value));
+            }
+        };
         columns[2] = {
             "data": "petId",
             "title": "Mascota",
             "render": function (petId) {
                 //RetrievePetByUserID(UserLogged());
-                let petName = SearchPetName(petOptions, petId); 
-                return petName; 
+                let petName = SearchPetName(petOptions, petId);
+                return petName;
             }
         };
         columns[3] = {
@@ -542,4 +552,3 @@ $(document).ready(function () {
     viewCount.InitView();
 
 });
-

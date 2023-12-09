@@ -338,6 +338,9 @@ AS BEGIN
 		@P_MODIFIED_DATE)
 
     SELECT @P_ID = ID FROM @ID
+
+    INSERT INTO users_pets(user_id,pet_id) 
+    VALUES (@P_USER_ID, ID)
 END
 GO
 
@@ -413,35 +416,39 @@ GO
 CREATE PROCEDURE RETRIEVE_PET_BY_ID_PR
     @P_PET_ID INT
 AS BEGIN
-    SELECT TOP 1 
-		pet_id, 
-		pet_name, 
-		status, 
-		description, 
-		age, 
-		breed, 
-		aggressiveness, 
-		created_date, 
-		modified_date
-    FROM pets
-    WHERE pet_id = @P_PET_ID AND status != 0
+    SELECT 
+        p.pet_id, 
+        p.pet_name, 
+        p.status, 
+        p.description, 
+        p.age, 
+        p.breed,
+        p.aggressiveness, 
+        p.created_date, 
+        p.modified_date,
+        up.user_id
+    FROM pets p
+    INNER JOIN users_pets up ON p.pet_id = up.pet_id
+    WHERE p.status != 0 AND p.pet_id = @P_PET_ID
 END
 GO
 
 -- Retrieve all pets
 CREATE PROCEDURE RETRIEVE_ALL_PETS_PR AS BEGIN
-    SELECT 
-		pet_id, 
-		pet_name, 
-		status, 
-		description, 
-		age, 
-		breed, 
-		aggressiveness,		
-		created_date, 
-		modified_date
-    FROM pets 
-    WHERE status != 0
+     SELECT 
+        p.pet_id, 
+        p.pet_name, 
+        p.status, 
+        p.description, 
+        p.age, 
+        p.breed,
+        p.aggressiveness, 
+        p.created_date, 
+        p.modified_date,
+        up.user_id
+    FROM pets p
+    INNER JOIN users_pets up ON p.pet_id = up.pet_id
+    WHERE p.status != 0
 END
 GO
 

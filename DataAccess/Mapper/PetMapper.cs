@@ -14,6 +14,7 @@ namespace DataAccess.Mapper
             var pet = new Pet
             {
                 Id = Convert.ToInt32(row["pet_id"]),
+                UserId = Convert.ToInt32(row["user_id"]),
                 Status = (byte)row["status"],
                 PetName = (string)row["pet_name"],
                 Description = (string)row["description"],

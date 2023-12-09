@@ -1,8 +1,8 @@
-let id = 0;
+锘縧et id = 0;
 let isEditModal = false;
 
 function readFormData() {
-    let formData = {id};
+    let formData = { id };
     formData.packageName = $("#txtName").val();
     formData.description = $("#txtDescription").val();
     formData.roomId = $("#txtRoomId").val();
@@ -76,12 +76,12 @@ function validateData(formData) {
     }
 
     if (formData.packageDescription == "") {
-        showValidationErrors("La descripci髇 es requerida");
+        showValidationErrors("La descripci贸n es requerida");
         return false;
     }
 
     if (formData.packageRoomId == "") {
-        showValidationErrors("El ID de la habitaci髇 es requerido");
+        showValidationErrors("El ID de la habitaci贸n es requerido");
         return false;
     }
 
@@ -91,7 +91,7 @@ function validateData(formData) {
     }
 
     if (formData.packagePetSize == "") {
-        showValidationErrors("El tama駉 de la mascota es requerido");
+        showValidationErrors("El tama帽o de la mascota es requerido");
         return false;
     }
 
@@ -276,23 +276,23 @@ function PackageController() {
 
         let columns = [];
         columns[0] = { "data": "packageName", title: "Nombre" };
-        columns[1] = { "data": "description", title: "Descripci髇" };
-        columns[2] = { "data": "roomId", title: "Habitaci髇" };
+        columns[1] = { "data": "description", title: "Descripci贸n" };
+        columns[2] = { "data": "roomId", title: "Habitaci贸n" };
         columns[3] = { "data": "petBreedType", title: "Raza" };
-        columns[4] = { "data": "petSize", title: "Tama駉" };
+        columns[4] = { "data": "petSize", title: "Tama帽o" };
         columns[5] = { "data": "petAggressiveness", title: "Agresividad" };
         columns[6] = { "data": "status", title: "Estado" };
 
         columns[7] = {
             "data": "createdDate",
-            "title": "Fecha de creaci髇",
+            "title": "Fecha de creaci贸n",
             "render": function (value) {
                 return formatDateTime(new Date(value));
             }
         };
         columns[8] = {
             "data": "modifiedDate",
-            "title": "Fecha de modificaci髇",
+            "title": "Fecha de modificaci贸n",
             "render": function (value) {
                 return formatDateTime(new Date(value));
             }
@@ -379,7 +379,7 @@ function PackageController() {
                 request.setRequestHeader("Authorization", 'Bearer ' + sessionStorage.getItem('token'));
             },
             success: function (data) {
-                // Selecciona el 鷏timo select creado din醡icamente
+                // Selecciona el 煤ltimo select creado din谩micamente
                 var latestSelect = $('#service-group').children().last().find('select');
 
                 // Limpia las opciones actuales

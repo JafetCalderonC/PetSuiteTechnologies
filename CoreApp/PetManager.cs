@@ -126,7 +126,7 @@ namespace CoreApp
         public List<Pet>? RetrieveByUserId(int id)
         {
             var pets = new List<Pet>();
-
+            
             foreach (var pet in _crud.RetrieveByUserId(id))
             {
                 // Capitalize first letter

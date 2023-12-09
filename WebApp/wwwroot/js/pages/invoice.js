@@ -156,8 +156,20 @@ let invoiceData = { id };
         let serviceRoute = controlActions.GetUrlApiService(this.ApiInvoice + "/RetrieveAll");
 
         let columns = [];
-        columns[0] = { "data": "issueDate", title: "Fecha de emision" };
-        columns[1] = { "data": "dueDate", title: "Fecha de vencimiento" };
+        columns[0] = {
+            "data": "issueDate",
+            "title": "Fecha de inicio",
+            "render": function (value) {
+                return formatDateTime(new Date(value));
+            }
+        };
+        columns[1] = {
+            "data": "dueDate",
+            "title": "Fecha de vencimiento",
+            "render": function (value) {
+                return formatDateTime(new Date(value));
+            }
+        };
         columns[2] = { "data": "userId", title: "Usuario" };
         columns[3] = { "data": "reservationId", title: "Reservacion" };
         columns[4] = { "data": "totalAmount", title: "Monto total" };

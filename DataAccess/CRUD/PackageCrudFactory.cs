@@ -63,8 +63,25 @@ namespace DataAccess.CRUD
             if (lstResult.Count > 0)
             {
                 var lstPackages = _mapper.BuildObjects(lstResult);
+
+                // Get services of the package
+                foreach (var package in lstPackages)
+                {
+                    sqlOperation = new SqlOperation("RETRIEVE_PACKAGE_SERVICES_BY_PACKAGE_ID_PR");
+                    sqlOperation.AddParameter("@P_PACKAGE_ID", package.Id);
+                    var resultServices = _dao.ExecuteQueryProcedure(sqlOperation);
+
+                    package.Services = new List<string>();
+                    foreach (var service in resultServices)
+                    {
+                        package.Services.Add(service["service_id"].ToString());
+                    }                
+                }
+
+
                 return lstPackages;
             }
+
             return null;
         }
 
@@ -77,7 +94,19 @@ namespace DataAccess.CRUD
             if (result.Count == 0)
                 return null;
 
-            return _mapper.BuildObject(result[0]);
+            var package = _mapper.BuildObject(result[0]);
+
+            sqlOperation = new SqlOperation("RETRIEVE_PACKAGE_SERVICES_BY_PACKAGE_ID_PR");
+            sqlOperation.AddParameter("@P_PACKAGE_ID", package.Id);
+            var resultServices = _dao.ExecuteQueryProcedure(sqlOperation);
+
+            package.Services = new List<string>();
+            foreach (var service in resultServices)
+            {
+                package.Services.Add(service["service_id"].ToString());
+            }
+             
+            return package;
         }
 
         public override void Update(Package dto)

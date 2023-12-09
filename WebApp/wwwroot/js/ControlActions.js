@@ -8,7 +8,6 @@ function ControlActions() {
 
     this.GetTableColumsDataName = function (tableId) {
         var val = $('#' + tableId).attr("ColumnsDataName");
-
         return val;
     }
 
@@ -89,6 +88,10 @@ function ControlActions() {
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {
+                console.error("Error en la llamada AJAX:", errorThrown);
+                console.log("jqXHR:", jqXHR);
+                console.log("textStatus:", textStatus);
+
                 var response = jqXHR.responseJSON || jqXHR.responseText;
 
                 // if 200 ok
@@ -105,6 +108,7 @@ function ControlActions() {
             }
         });
     };
+
 
     this.PutToAPI = function (service, data, successCallback, failCallBack) {
         $.ajax({

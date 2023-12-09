@@ -69,23 +69,21 @@ namespace WebAPI.Controllers
         }
 
 
-        //[HttpGet]
-        //[Route("RetrieveById")]
-        //public async Task<IActionResult> RetrieveById(int id)
-        //{
-        //    try
-        //    {
-        //        var um = new PackageManager();
-        //        var city = new Package { Id = id };
-
-        //        return Ok(um.RetrieveById(city));
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return StatusCode(500, ex.Message);
-        //    }
-
-        //}
+        [HttpGet]
+        [Route("RetrieveById")]
+        public async Task<IActionResult> RetrieveById(int id)
+        {
+            try
+            {
+                var packageManager = new CoreApp.PackageManager();
+                var package = packageManager.RetrieveById(id);
+                return Ok(package);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
 
         [HttpGet]
         [Route("RetrieveAll")]

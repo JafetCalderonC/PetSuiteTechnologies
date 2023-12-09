@@ -91,5 +91,21 @@ namespace CoreApp
         {
             _crud.Delete(id);
         }
+
+        public Package RetrieveById(int id)
+        {
+            // get service by id
+            var currentService = _crud.RetrieveById(id);
+            if (currentService == null)
+            {
+                throw new Exception("El paquete no existe");
+            }
+
+            // Capitalize first letter
+            currentService.PackageName = char.ToUpper(currentService.PackageName[0]) + currentService.PackageName.Substring(1);
+            currentService.Description = char.ToUpper(currentService.Description[0]) + currentService.Description.Substring(1);
+
+            return currentService;
+        }
     }
 }
